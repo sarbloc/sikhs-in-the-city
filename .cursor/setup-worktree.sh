@@ -18,3 +18,11 @@ fi
 # (C) Optional: make commits authored by the bot in THIS worktree only
 git config --worktree user.name "sarblocbot"
 git config --worktree user.email "sarblocbot@users.noreply.github.com"
+
+# (D) Switch gh CLI to use sarblocbot account
+if command -v gh &>/dev/null; then
+  current_user="$(gh api user --jq '.login' 2>/dev/null || true)"
+  if [[ "$current_user" != "sarblocbot" ]]; then
+    gh auth switch --user sarblocbot 2>/dev/null || true
+  fi
+fi
