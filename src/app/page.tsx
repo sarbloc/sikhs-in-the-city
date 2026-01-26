@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ImageCard } from "@/components/ImageCard";
 
 export default function Home() {
   return (
@@ -59,6 +60,13 @@ export default function Home() {
             Documentation
           </a>
         </div>
+        <ImageCard
+          imagePath="/placeholder.jpg"
+          title="Placeholder Title"
+          description="This is a placeholder description for the image card component."
+          buttonText="Learn More"
+          buttonHref="/placeholder"
+        />
       </main>
     </div>
   );
