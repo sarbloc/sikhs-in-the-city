@@ -22,7 +22,7 @@ export function StepCard({
     <div className={cn("flex flex-col gap-4", className)}>
       <Badge
         variant="secondary"
-        className="h-10 w-10 items-center justify-center rounded-full text-lg font-bold"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full p-0 text-lg font-bold"
       >
         {stepNumber}
       </Badge>
