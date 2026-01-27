@@ -123,3 +123,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Container utility for Tailwind v4 */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+  max-width: 80rem;
+}
