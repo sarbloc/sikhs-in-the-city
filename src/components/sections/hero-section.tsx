@@ -35,7 +35,8 @@ export function HeroSection({
   return (
     <section
       className={cn(
-        "relative flex min-h-[80vh] items-center justify-center overflow-hidden",
+        "relative flex min-h-[80vh] items-center overflow-hidden",
+        !backgroundImage && "bg-muted",
         className
       )}
     >

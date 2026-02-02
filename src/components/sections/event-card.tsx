@@ -44,16 +44,16 @@ export function EventCard({
 }: EventCardProps) {
   return (
     <Card className={cn("overflow-hidden", className)}>
-      {imagePath && (
-        <div className="relative aspect-video w-full bg-muted">
+      <div className="relative aspect-video w-full bg-muted">
+        {imagePath && (
           <Image
             src={imagePath}
             alt={imageAlt}
             fill
             className="object-cover"
           />
-        </div>
-      )}
+        )}
+      </div>
       <CardHeader className="space-y-2">
         <div className="flex items-center justify-between gap-2">
           {category && <Badge variant="secondary">{category}</Badge>}

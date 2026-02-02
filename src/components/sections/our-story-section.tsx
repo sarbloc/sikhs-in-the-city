@@ -58,16 +58,16 @@ export function OurStorySection({
           </div>
 
           {/* Image */}
-          {imagePath && (
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+            {imagePath && (
               <Image
                 src={imagePath}
                 alt={imageAlt}
                 fill
                 className="object-cover"
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </section>
