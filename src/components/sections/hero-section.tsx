@@ -3,6 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Autoplay from "embla-carousel-autoplay";
 import { Button } from "@/components/ui/button";
 import {
   Carousel,
@@ -76,6 +77,10 @@ export function HeroSection({
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
 
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false })
+  );
+
   React.useEffect(() => {
     if (!api) return;
 
@@ -101,6 +106,7 @@ export function HeroSection({
         opts={{
           loop: true,
         }}
+        plugins={[autoplayPlugin.current]}
         className="w-full"
       >
         <CarouselContent className="ml-0">
