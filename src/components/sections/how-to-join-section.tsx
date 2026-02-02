@@ -53,7 +53,7 @@ export function HowToJoinSection({
   return (
     <section className={cn("bg-muted/30 py-16 md:py-24", className)}>
       <div className="container mx-auto px-4">
-        <SectionHeading title={title} description={description} />
+        <SectionHeading title={title} description={description} align="center" />
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {steps.map((step, index) => (
@@ -62,11 +62,12 @@ export function HowToJoinSection({
               stepNumber={index + 1}
               title={step.title}
               description={step.description}
+              className="items-center text-center"
             />
           ))}
         </div>
 
-        <div className="mt-12">
+        <div className="mt-12 text-center">
           <Button asChild size="lg">
             <Link href={ctaHref}>{ctaText}</Link>
           </Button>

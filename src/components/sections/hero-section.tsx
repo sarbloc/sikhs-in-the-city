@@ -54,14 +54,14 @@ export function HeroSection({
       <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
 
       {/* Content */}
-      <div className="container relative z-10 mx-auto px-4 py-20 text-center">
-        <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+      <div className="container relative z-10 mx-auto px-4 py-20">
+        <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
           {heading}
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
           {subheading}
         </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <Button asChild size="lg" className="min-w-[180px]">
             <Link href={primaryHref}>{primaryCta}</Link>
           </Button>
