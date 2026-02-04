@@ -55,7 +55,7 @@ export function ClubhouseAppealSection({
               asChild
               size="lg"
               variant="outline"
-              className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
+              className="border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"
             >
               <Link href={secondaryCtaHref}>{secondaryCtaText}</Link>
             </Button>
