@@ -49,16 +49,17 @@ The Tailwind theme tokens and brand colour scales (gold, blue, purple/neutral) a
 
 ---
 
-## PR 2: Hero Section
-**Files:** `hero-section.tsx`, `hero-section.test.tsx`
+## PR 2: Hero Section ✅
+**Files:** `hero-section.tsx`
 
 ### Design: full-bleed photo, dark overlay, white text, bottom-left aligned
-- [ ] Overlay: dark semi-transparent (not `bg-background` based — use `bg-black/50` or similar)
-- [ ] Heading: `text-white` (italic in design)
-- [ ] Subheading: `text-white/80`
-- [ ] "Join The Run" button: blue (`bg-primary text-white`) — rounded-full pill shape
-- [ ] "Learn About Us" button: white outline, rounded-full pill shape
-- [ ] Content positioned bottom-left of hero (not vertically centred)
+- [x] Overlay: `bg-black/40` (was `bg-background` gradient)
+- [x] Heading: `text-white italic` (was `text-foreground`)
+- [x] Subheading: `text-white/80` (was `text-muted-foreground`)
+- [x] "Join The Run" button: blue `bg-primary` with `rounded-full` pill shape
+- [x] "Learn About Us" button: white outline `rounded-full`, white text
+- [x] Content positioned bottom-left (`items-end`, `pb-16 pt-32`)
+- [x] Nav arrows and indicators: white for dark background visibility
 
 ---
 
