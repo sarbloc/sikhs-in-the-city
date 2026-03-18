@@ -127,8 +127,13 @@ export function HeroSection({
                   />
                 )}
 
-                {/* Gradient overlay: left-to-right black fade */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+                {/* Gradient overlay: left-to-right black fade, fades in after slide transition */}
+                <div
+                  className={cn(
+                    "absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent transition-opacity duration-700 delay-300",
+                    current === index ? "opacity-100" : "opacity-0"
+                  )}
+                />
 
                 {/* Content */}
                 <div className="container relative z-10 mx-auto px-4 py-20">
