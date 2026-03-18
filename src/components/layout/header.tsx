@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Menu } from "lucide-react";
@@ -47,9 +48,13 @@ export function Header({ className }: HeaderProps) {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold tracking-tight">
-            Sikhs In The City
-          </span>
+          <Image
+            src="/images/sitc-logo.svg"
+            alt="Sikhs In The City"
+            width={130}
+            height={55}
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}
