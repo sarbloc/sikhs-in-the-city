@@ -1,13 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 interface EventCardProps {
@@ -17,8 +9,6 @@ interface EventCardProps {
   description: string;
   /** Event date string */
   date: string;
-  /** Category badge text */
-  category?: string;
   /** Image path */
   imagePath?: string;
   /** Image alt text */
@@ -35,16 +25,16 @@ export function EventCard({
   title,
   description,
   date,
-  category,
   imagePath,
   imageAlt = "",
   href = "#",
-  linkText = "Find out more",
+  linkText = "Sign Up Now",
   className,
 }: EventCardProps) {
   return (
-    <Card className={cn("overflow-hidden", className)}>
-      <div className="relative aspect-video w-full bg-muted">
+    <div className={cn("overflow-hidden rounded-lg", className)}>
+      {/* Image with overlay text */}
+      <div className="relative aspect-[4/3] w-full bg-muted">
         {imagePath && (
           <Image
             src={imagePath}
@@ -53,25 +43,26 @@ export function EventCard({
             className="object-cover"
           />
         )}
-      </div>
-      <CardHeader className="space-y-2">
-        <div className="flex items-center justify-between gap-2">
-          {category && <Badge variant="secondary">{category}</Badge>}
-          <time className="text-sm text-muted-foreground">{date}</time>
+        {/* Bottom gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        {/* Title and date on image */}
+        <div className="absolute bottom-0 left-0 p-6">
+          <h3 className="text-xl font-bold text-white">{title}</h3>
+          <time className="text-sm text-white/90">{date}</time>
         </div>
-        <CardTitle className="text-lg">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <CardDescription className="line-clamp-2">
+      </div>
+      {/* Description and link below */}
+      <div className="space-y-3 py-4">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           {description}
-        </CardDescription>
+        </p>
         <Link
           href={href}
-          className="inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
+          className="inline-flex items-center gap-1 text-sm font-bold text-foreground"
         >
-          {linkText} →
+          {linkText} <span aria-hidden="true">→</span>
         </Link>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

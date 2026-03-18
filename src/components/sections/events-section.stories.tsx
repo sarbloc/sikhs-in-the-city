@@ -25,7 +25,6 @@ export const SingleEvent: Story = {
         description:
           "Our flagship annual event supporting local charities. All levels welcome.",
         date: "September 2024",
-        category: "Charity",
         href: "/events/charity-run",
       },
     ],
@@ -39,7 +38,6 @@ export const WithImages: Story = {
         title: "Morning Park Run",
         description: "Join us for a scenic run through the local park.",
         date: "Every Saturday",
-        category: "Weekly",
         imagePath: "/placeholder-event.jpg",
         imageAlt: "Runners in the park",
         href: "/events/park-run",
@@ -48,17 +46,10 @@ export const WithImages: Story = {
         title: "Evening Track Session",
         description: "Speed work and interval training at the local track.",
         date: "Every Wednesday",
-        category: "Training",
         imagePath: "/placeholder-event.jpg",
         imageAlt: "Track training",
         href: "/events/track",
       },
     ],
-  },
-};
-
-export const NoAllEventsLink: Story = {
-  args: {
-    showAllLink: false,
   },
 };

@@ -78,19 +78,18 @@ The Tailwind theme tokens and brand colour scales (gold, blue, purple/neutral) a
 
 ---
 
-## PR 4: Events Section — image overlay cards
-**Files:** `events-section.tsx`, `event-card.tsx`, `events-section.test.tsx`
+## PR 4: Events Section — image overlay cards ✅
+**Files:** `events-section.tsx`, `event-card.tsx`, `events-section.test.tsx`, `events-section.stories.tsx`
 
 ### Design: centred heading, 2 image cards with overlay text
-- [ ] Centre "Events" heading (currently left-aligned)
-- [ ] Remove description subtitle
-- [ ] 2-column grid (not 3)
-- [ ] Card redesign: full-bleed image, dark gradient overlay at bottom
-- [ ] Title + date overlaid on image in white bold text
-- [ ] Description text below the image area (dark text on white)
-- [ ] "Sign Up Now →" link: bold dark text with arrow (not blue)
-- [ ] Update default event data: "Summer Somosa Ultra" (28 June 2026), "Dawn 2 Dusk Ultra" (6 December 2026)
-- [ ] Remove category badges
+- [x] Centre "Events" heading
+- [x] Remove description subtitle, showAllLink, allEventsHref props
+- [x] 2-column grid
+- [x] Card redesign: full-bleed image with bottom gradient overlay
+- [x] Title + date overlaid on image in white bold text
+- [x] Description below image, "Sign Up Now →" bold dark text
+- [x] Default data: "Summer Somosa Ultra" (28 June 2026), "Dawn 2 Dusk Ultra" (6 December 2026)
+- [x] Removed category badges and related props
 
 ---
 
