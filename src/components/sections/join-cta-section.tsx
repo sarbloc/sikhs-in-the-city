@@ -25,7 +25,7 @@ export function JoinCtaSection({
   return (
     <section
       className={cn(
-        "bg-primary py-16 text-primary-foreground md:py-24",
+        "bg-primary py-10 text-primary-foreground md:py-14",
         className
       )}
     >

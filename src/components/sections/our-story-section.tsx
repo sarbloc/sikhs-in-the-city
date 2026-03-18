@@ -36,7 +36,7 @@ export function OurStorySection({
   className,
 }: OurStorySectionProps) {
   return (
-    <section className={cn("py-16 md:py-24", className)}>
+    <section className={cn("py-10 md:py-14", className)}>
       <div className="container mx-auto px-4">
         <div className="grid gap-12 md:grid-cols-2 md:items-center">
           {/* Content */}

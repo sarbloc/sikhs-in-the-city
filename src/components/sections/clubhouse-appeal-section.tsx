@@ -40,7 +40,7 @@ export function ClubhouseAppealSection({
 }: ClubhouseAppealSectionProps) {
   return (
     <section
-      className={cn("py-16 md:py-24", className)}
+      className={cn("py-10 md:py-14", className)}
     >
       <div className="container mx-auto px-4">
         <div className="rounded-2xl bg-blue-200 px-8 py-12 md:px-16">

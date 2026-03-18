@@ -51,7 +51,7 @@ export function HowToJoinSection({
   className,
 }: HowToJoinSectionProps) {
   return (
-    <section className={cn("relative overflow-hidden py-16 md:py-24", className)}>
+    <section className={cn("relative overflow-hidden py-10 md:py-14", className)}>
       {/* Background photo */}
       <Image
         src="/images/hero/slide-2.jpg"
