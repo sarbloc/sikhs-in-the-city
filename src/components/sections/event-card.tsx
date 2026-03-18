@@ -32,8 +32,8 @@ export function EventCard({
   className,
 }: EventCardProps) {
   return (
-    <div className={cn("overflow-hidden rounded-lg", className)}>
-      {/* Image with overlay text */}
+    <div className={cn("relative overflow-hidden rounded-lg", className)}>
+      {/* Background image */}
       <div className="relative aspect-[4/3] w-full bg-muted">
         {imagePath && (
           <Image
@@ -43,25 +43,22 @@ export function EventCard({
             className="object-cover"
           />
         )}
-        {/* Bottom gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-        {/* Title and date on image */}
-        <div className="absolute bottom-0 left-0 p-6">
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        {/* All content overlaid on image */}
+        <div className="absolute inset-0 flex flex-col justify-end p-6">
           <h3 className="text-xl font-bold text-white">{title}</h3>
           <time className="text-sm text-white/90">{date}</time>
+          <p className="mt-3 text-sm leading-relaxed text-white/80">
+            {description}
+          </p>
+          <Link
+            href={href}
+            className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-white"
+          >
+            {linkText} <span aria-hidden="true">→</span>
+          </Link>
         </div>
-      </div>
-      {/* Description and link below */}
-      <div className="space-y-3 py-4">
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          {description}
-        </p>
-        <Link
-          href={href}
-          className="inline-flex items-center gap-1 text-sm font-bold text-foreground"
-        >
-          {linkText} <span aria-hidden="true">→</span>
-        </Link>
       </div>
     </div>
   );
