@@ -6,7 +6,6 @@ import { HowToJoinSection } from "@/components/sections/how-to-join-section";
 import { EventsSection } from "@/components/sections/events-section";
 import { ClubhouseAppealSection } from "@/components/sections/clubhouse-appeal-section";
 import { CourseRecordsSection } from "@/components/sections/course-records-section";
-import { CoursesTrainingSection } from "@/components/sections/courses-training-section";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
 
 export default function Home() {
@@ -19,7 +18,6 @@ export default function Home() {
         <HowToJoinSection />
         <EventsSection />
         <ClubhouseAppealSection />
-        <CoursesTrainingSection />
         <CourseRecordsSection />
         <JoinCtaSection />
       </main>

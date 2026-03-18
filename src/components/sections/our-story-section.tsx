@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { cn } from "@/lib/utils";
 
@@ -22,8 +21,8 @@ interface OurStorySectionProps {
 }
 
 const defaultParagraphs = [
-  "Sikhs In the City is a community-led running charity founded over a decade ago, inspired by the legacy of Fauja Singh and a small group of runners who proved that age, background, and experience should never be barriers to getting active.",
-  "Based in East London, we bring people and cultures together through running, supporting beginners, training members towards events like 10K and marathons, and raising funds for charitable causes along the way. At our heart, we're about showing up, running together, and building stronger communities.",
+  "Sikhs In The City (SITC) running club is considered the most diverse running club in the world with members from 9 different faiths and none. It is a grass roots group with Fauja Singh the oldest marathoner in the world as a founder member.",
+  "SITC reaches out to anyone interested in any sport but focuses on running and acts as a feeder club to other athletics clubs, retaining a base of enthusiasts who nurture beginners.",
 ];
 
 export function OurStorySection({
@@ -52,9 +51,12 @@ export function OurStorySection({
                 </p>
               ))}
             </div>
-            <Button asChild variant="ghost" className="mt-6 -ml-4">
-              <Link href={linkHref}>{linkText} →</Link>
-            </Button>
+            <Link
+              href={linkHref}
+              className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary"
+            >
+              {linkText} <span aria-hidden="true">→</span>
+            </Link>
           </div>
 
           {/* Image */}

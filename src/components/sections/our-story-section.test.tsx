@@ -19,8 +19,8 @@ describe("OurStorySection", () => {
 
   it("renders default paragraphs", () => {
     render(<OurStorySection />);
-    expect(screen.getByText(/Sikhs In the City is a community-led/)).toBeInTheDocument();
-    expect(screen.getByText(/Based in East London/)).toBeInTheDocument();
+    expect(screen.getByText(/SITC.*running club is considered/)).toBeInTheDocument();
+    expect(screen.getByText(/SITC reaches out to anyone/)).toBeInTheDocument();
   });
 
   it("renders custom paragraphs", () => {

@@ -136,15 +136,16 @@ The Tailwind theme tokens and brand colour scales (gold, blue, purple/neutral) a
 
 ---
 
-## PR 8: Our Story — minor adjustments
-**Files:** `our-story-section.tsx`
+## PR 8: Our Story + remove Courses/Training ✅
+**Files:** `our-story-section.tsx`, `our-story-section.test.tsx`, `page.tsx`
 
-### Design: very close to current, small tweaks
-- [ ] "Read The Fully Story →" link: change from ghost button to blue text link (`text-primary font-bold`) with arrow
-- [ ] Verify body text colour matches design
+### Our Story
+- [x] "Read The Fully Story →" link: blue bold text link (`text-primary font-bold`) with arrow
+- [x] Updated default paragraph text to match design
+- [x] Removed unused Button import
 
 ### Courses/Training section
-- [ ] Remove from page — not in the Figma design (confirmed by user)
+- [x] Removed from page.tsx — not in the Figma design
 
 ---
 
