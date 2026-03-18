@@ -5,47 +5,54 @@ import { RecordCategory } from "./record-category";
 import { RecordHolder } from "./record-holder";
 
 describe("RecordHolder", () => {
-  it("renders the name and time", () => {
-    render(<RecordHolder name="John Doe" time="25:30" />);
-    expect(screen.getByText("John Doe")).toBeInTheDocument();
-    expect(screen.getByText("25:30")).toBeInTheDocument();
+  it("renders runner name and details", () => {
+    render(
+      <RecordHolder name="Jose Rodriguez" laps={50} distance="100.7 km" time="7h 28:01" year={2023} />
+    );
+    expect(screen.getByText("Jose Rodriguez")).toBeInTheDocument();
+    expect(screen.getByText("The record held at 50 lap")).toBeInTheDocument();
+    expect(screen.getByText("100.7 km")).toBeInTheDocument();
+    expect(screen.getByText("7h 28:01")).toBeInTheDocument();
+    expect(screen.getByText("2023")).toBeInTheDocument();
+  });
+
+  it("renders without distance", () => {
+    render(
+      <RecordHolder name="Lee Rodgers" laps={50} time="2h 42:16" year={2025} />
+    );
+    expect(screen.getByText("Lee Rodgers")).toBeInTheDocument();
+    expect(screen.queryByText("Total distance:")).not.toBeInTheDocument();
   });
 });
 
 describe("RecordCategory", () => {
-  it("renders the category name", () => {
-    render(<RecordCategory category="5K" />);
-    expect(screen.getByText("5K")).toBeInTheDocument();
-  });
-
-  it("renders male record holder", () => {
-    render(
-      <RecordCategory category="5K" male={{ name: "Test Runner", time: "20:00" }} />
-    );
-    expect(screen.getByText("Male")).toBeInTheDocument();
-    expect(screen.getByText("Test Runner")).toBeInTheDocument();
-    expect(screen.getByText("20:00")).toBeInTheDocument();
-  });
-
-  it("renders female record holder", () => {
-    render(
-      <RecordCategory category="5K" female={{ name: "Jane Doe", time: "22:00" }} />
-    );
-    expect(screen.getByText("Female")).toBeInTheDocument();
-    expect(screen.getByText("Jane Doe")).toBeInTheDocument();
-    expect(screen.getByText("22:00")).toBeInTheDocument();
-  });
-
-  it("renders both male and female records", () => {
+  it("renders category name and requirement", () => {
     render(
       <RecordCategory
-        category="10K"
-        male={{ name: "Male Runner", time: "40:00" }}
-        female={{ name: "Female Runner", time: "45:00" }}
+        category="Ultra"
+        requirement="Complete 25 or more laps"
+        holders={[
+          { name: "Test Runner", laps: 50, time: "7h 28:01", year: 2023 },
+        ]}
       />
     );
-    expect(screen.getByText("Male")).toBeInTheDocument();
-    expect(screen.getByText("Female")).toBeInTheDocument();
+    expect(screen.getByText("Ultra")).toBeInTheDocument();
+    expect(screen.getByText("Complete 25 or more laps")).toBeInTheDocument();
+  });
+
+  it("renders multiple holders", () => {
+    render(
+      <RecordCategory
+        category="Marathon"
+        requirement="Complete 21 laps"
+        holders={[
+          { name: "Runner A", laps: 50, time: "2h 42:16", year: 2025 },
+          { name: "Runner B", laps: 41, time: "3h 36:31", year: 2023 },
+        ]}
+      />
+    );
+    expect(screen.getByText("Runner A")).toBeInTheDocument();
+    expect(screen.getByText("Runner B")).toBeInTheDocument();
   });
 });
 
@@ -53,42 +60,36 @@ describe("CourseRecordsSection", () => {
   it("renders the default title", () => {
     render(<CourseRecordsSection />);
     expect(
-      screen.getByRole("heading", { name: "Course Records" })
-    ).toBeInTheDocument();
-  });
-
-  it("renders custom title", () => {
-    render(<CourseRecordsSection title="Club Records" />);
-    expect(
-      screen.getByRole("heading", { name: "Club Records" })
+      screen.getByRole("heading", { name: "Dawn To Dusk Course Records" })
     ).toBeInTheDocument();
   });
 
   it("renders description", () => {
     render(<CourseRecordsSection />);
     expect(
-      screen.getByText(/Celebrating our fastest runners/)
+      screen.getByText(/Record completion times/)
     ).toBeInTheDocument();
   });
 
-  it("renders default record categories", () => {
+  it("renders all four categories", () => {
     render(<CourseRecordsSection />);
-    expect(screen.getByText("5K")).toBeInTheDocument();
-    expect(screen.getByText("10K")).toBeInTheDocument();
-    expect(screen.getByText("Half Marathon")).toBeInTheDocument();
+    expect(screen.getByText("Ultra")).toBeInTheDocument();
     expect(screen.getByText("Marathon")).toBeInTheDocument();
+    expect(screen.getByText("Half Marathon")).toBeInTheDocument();
+    expect(screen.getByText("10K")).toBeInTheDocument();
   });
 
   it("renders custom records", () => {
-    const customRecords = [
+    const records = [
       {
-        category: "Ultra",
-        male: { name: "Ultra Runner", time: "8:00:00" },
+        category: "5K",
+        requirement: "Complete 2.5 laps",
+        holders: [{ name: "Fast Runner", laps: 3, time: "18:00", year: 2024 }],
       },
     ];
-    render(<CourseRecordsSection records={customRecords} />);
-    expect(screen.getByText("Ultra")).toBeInTheDocument();
-    expect(screen.getByText("Ultra Runner")).toBeInTheDocument();
+    render(<CourseRecordsSection records={records} />);
+    expect(screen.getByText("5K")).toBeInTheDocument();
+    expect(screen.getByText("Fast Runner")).toBeInTheDocument();
   });
 
   it("applies custom className", () => {
