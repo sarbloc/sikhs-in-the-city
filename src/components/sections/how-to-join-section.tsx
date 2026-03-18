@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { StepCard } from "./step-card";
@@ -50,9 +51,16 @@ export function HowToJoinSection({
   className,
 }: HowToJoinSectionProps) {
   return (
-    <section className={cn("relative overflow-hidden bg-blue-600 py-16 md:py-24", className)}>
-      {/* Background photo overlay */}
-      <div className="absolute inset-0 bg-blue-600/80" />
+    <section className={cn("relative overflow-hidden py-16 md:py-24", className)}>
+      {/* Background photo */}
+      <Image
+        src="/images/hero/slide-2.jpg"
+        alt=""
+        fill
+        className="object-cover"
+      />
+      {/* Blue overlay */}
+      <div className="absolute inset-0 bg-blue-600/85" />
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="flex flex-col items-center gap-3 text-center">
