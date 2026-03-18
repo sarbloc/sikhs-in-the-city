@@ -74,20 +74,22 @@ export function Footer({ className }: FooterProps) {
               Supported By
             </h3>
             <div className="flex flex-wrap items-center gap-4">
-              <Image
-                src="/images/sponsors/new-balance.png"
-                alt="New Balance"
-                width={86}
-                height={47}
-                className="rounded bg-white p-2"
-              />
-              <Image
-                src="/images/sponsors/sporting-equals.png"
-                alt="Sporting Equals"
-                width={160}
-                height={35}
-                className="rounded bg-white p-2"
-              />
+              <div className="flex h-12 items-center rounded bg-white px-3">
+                <Image
+                  src="/images/sponsors/new-balance.png"
+                  alt="New Balance"
+                  width={60}
+                  height={33}
+                />
+              </div>
+              <div className="flex h-12 items-center rounded bg-white px-3">
+                <Image
+                  src="/images/sponsors/sporting-equals.png"
+                  alt="Sporting Equals"
+                  width={140}
+                  height={31}
+                />
+              </div>
             </div>
 
             <h3 className="mb-4 mt-8 text-sm font-bold">
