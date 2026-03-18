@@ -6,7 +6,7 @@ describe("ClubhouseAppealSection", () => {
   it("renders the default title", () => {
     render(<ClubhouseAppealSection />);
     expect(
-      screen.getByRole("heading", { name: "Support Our Clubhouse Appeal" })
+      screen.getByRole("heading", { name: /Fauja Singh/i })
     ).toBeInTheDocument();
   });
 
@@ -17,16 +17,18 @@ describe("ClubhouseAppealSection", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders description", () => {
+  it("renders subtitle", () => {
     render(<ClubhouseAppealSection />);
     expect(
-      screen.getByText(/We're raising funds to build a dedicated clubhouse/)
+      screen.getByText("A Project to honour Fauja Singh BEM")
     ).toBeInTheDocument();
   });
 
-  it("renders custom description", () => {
-    render(<ClubhouseAppealSection description="Custom description text" />);
-    expect(screen.getByText("Custom description text")).toBeInTheDocument();
+  it("renders description", () => {
+    render(<ClubhouseAppealSection />);
+    expect(
+      screen.getByText(/eco-friendly community clubhouse/)
+    ).toBeInTheDocument();
   });
 
   it("renders primary CTA with correct link", () => {
@@ -37,7 +39,7 @@ describe("ClubhouseAppealSection", () => {
 
   it("renders secondary CTA with correct link", () => {
     render(<ClubhouseAppealSection />);
-    const link = screen.getByRole("link", { name: "Learn More" });
+    const link = screen.getByRole("link", { name: /Find Out More/ });
     expect(link).toHaveAttribute("href", "/clubhouse-appeal");
   });
 
@@ -51,7 +53,7 @@ describe("ClubhouseAppealSection", () => {
       />
     );
     const primaryLink = screen.getByRole("link", { name: "Give Now" });
-    const secondaryLink = screen.getByRole("link", { name: "Read More" });
+    const secondaryLink = screen.getByRole("link", { name: /Read More/ });
     expect(primaryLink).toHaveAttribute("href", "/give");
     expect(secondaryLink).toHaveAttribute("href", "/about");
   });

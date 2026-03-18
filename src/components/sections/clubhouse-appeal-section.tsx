@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -5,6 +6,8 @@ import { cn } from "@/lib/utils";
 interface ClubhouseAppealSectionProps {
   /** Section title */
   title?: string;
+  /** Subtitle text */
+  subtitle?: string;
   /** Description text */
   description?: string;
   /** Primary CTA text */
@@ -15,50 +18,74 @@ interface ClubhouseAppealSectionProps {
   secondaryCtaText?: string;
   /** Secondary CTA href */
   secondaryCtaHref?: string;
+  /** Circular image path */
+  imagePath?: string;
+  /** Image alt text */
+  imageAlt?: string;
   /** Additional className */
   className?: string;
 }
 
 export function ClubhouseAppealSection({
-  title = "Support Our Clubhouse Appeal",
-  description = "We're raising funds to build a dedicated clubhouse for our community. A permanent home will allow us to offer more training sessions, store equipment, and provide a welcoming space for runners of all abilities. Your support makes a real difference.",
+  title = "Fauja Singh\nClubhouse Appeal",
+  subtitle = "A Project to honour Fauja Singh BEM",
+  description = "We're working to build an eco-friendly community clubhouse that supports health, wellbeing, and connection. With your support, we can turn this vision into a lasting space for the local community.",
   primaryCtaText = "Donate Now",
   primaryCtaHref = "/donate",
-  secondaryCtaText = "Learn More",
+  secondaryCtaText = "Find Out More",
   secondaryCtaHref = "/clubhouse-appeal",
+  imagePath,
+  imageAlt = "Fauja Singh running",
   className,
 }: ClubhouseAppealSectionProps) {
   return (
     <section
-      className={cn(
-        "bg-primary py-16 text-primary-foreground md:py-24",
-        className
-      )}
+      className={cn("py-16 md:py-24", className)}
     >
       <div className="container mx-auto px-4">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {title}
-          </h2>
-          <p className="mt-6 text-lg leading-relaxed text-primary-foreground/80">
-            {description}
-          </p>
-          <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-            <Button
-              asChild
-              size="lg"
-              variant="secondary"
-            >
-              <Link href={primaryCtaHref}>{primaryCtaText}</Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20 hover:text-primary-foreground"
-            >
-              <Link href={secondaryCtaHref}>{secondaryCtaText}</Link>
-            </Button>
+        <div className="rounded-2xl bg-blue-200 px-8 py-12 md:px-16">
+          <div className="grid items-center gap-8 md:grid-cols-2">
+            {/* Text content */}
+            <div>
+              <h2 className="whitespace-pre-line text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                {title}
+              </h2>
+              <p className="mt-3 text-sm font-bold text-foreground">
+                {subtitle}
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-foreground/80">
+                {description}
+              </p>
+              <div className="mt-6 flex items-center gap-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-foreground text-background hover:bg-foreground/90"
+                >
+                  <Link href={primaryCtaHref}>{primaryCtaText}</Link>
+                </Button>
+                <Link
+                  href={secondaryCtaHref}
+                  className="inline-flex items-center gap-2 text-sm font-bold text-foreground"
+                >
+                  {secondaryCtaText} <span aria-hidden="true">→</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Circular image */}
+            <div className="flex justify-center md:justify-end">
+              <div className="relative h-64 w-64 overflow-hidden rounded-full bg-blue-300 md:h-72 md:w-72">
+                {imagePath && (
+                  <Image
+                    src={imagePath}
+                    alt={imageAlt}
+                    fill
+                    className="object-cover"
+                  />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>

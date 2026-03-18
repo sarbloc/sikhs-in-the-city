@@ -93,19 +93,18 @@ The Tailwind theme tokens and brand colour scales (gold, blue, purple/neutral) a
 
 ---
 
-## PR 5: Clubhouse Appeal — light blue-grey card
-**Files:** `clubhouse-appeal-section.tsx`, `clubhouse-appeal-section.test.tsx`
+## PR 5: Clubhouse Appeal — light blue-grey card ✅
+**Files:** `clubhouse-appeal-section.tsx`, `clubhouse-appeal-section.test.tsx`, `clubhouse-appeal-section.stories.tsx`
 
 ### Design: light blue-grey rounded card, two-column layout with circular image
-- [ ] Background: light blue-grey (`bg-accent` / `#CCDCF0`), large rounded corners
-- [ ] NOT dark purple — remove `bg-primary text-primary-foreground`
-- [ ] Left-aligned text, two-column layout (text left, circular image right)
-- [ ] Title: "Fauja Singh Clubhouse Appeal" large bold text
-- [ ] Subtitle: "A Project to honour Fauja Singh BEM" smaller bold
-- [ ] Description paragraph in regular weight
-- [ ] "Donate Now" button: dark/black bg, white text, rounded-full
-- [ ] "Find Out More →" plain bold text link with arrow (not a styled button)
-- [ ] Add circular image prop for right column
+- [x] Background: `bg-blue-200` (`#CCDCF0`) with rounded-2xl card
+- [x] Removed `bg-primary text-primary-foreground`
+- [x] Left-aligned text, two-column grid (text left, circular image right)
+- [x] Title: "Fauja Singh\nClubhouse Appeal" with whitespace-pre-line
+- [x] Subtitle: "A Project to honour Fauja Singh BEM" smaller bold
+- [x] "Donate Now" button: dark bg (`bg-foreground text-background`)
+- [x] "Find Out More →" plain bold text link with arrow
+- [x] Circular image placeholder on right
 
 ---
 
