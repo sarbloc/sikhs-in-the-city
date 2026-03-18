@@ -9,8 +9,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
@@ -114,7 +112,7 @@ export function HeroSection({
             <CarouselItem key={index} className="pl-0">
               <div
                 className={cn(
-                  "relative flex min-h-[80vh] items-end overflow-hidden",
+                  "relative flex min-h-[80vh] items-center overflow-hidden",
                   !slide.backgroundImage && "bg-muted"
                 )}
               >
@@ -129,12 +127,12 @@ export function HeroSection({
                   />
                 )}
 
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40" />
+                {/* Gradient overlay: left-to-right black fade */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
                 {/* Content */}
-                <div className="container relative z-10 mx-auto px-4 pb-16 pt-32">
-                  <h1 className="max-w-4xl text-4xl font-bold italic tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+                <div className="container relative z-10 mx-auto px-4 py-20">
+                  <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                     {slide.heading}
                   </h1>
                   <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
@@ -142,7 +140,7 @@ export function HeroSection({
                   </p>
                   <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                     {slide.primaryCta && (
-                      <Button asChild size="lg" className="min-w-[180px] rounded-full">
+                      <Button asChild size="lg" className="min-w-[180px]">
                         <Link href={slide.primaryHref || "#"}>
                           {slide.primaryCta}
                         </Link>
@@ -153,7 +151,7 @@ export function HeroSection({
                         asChild
                         variant="outline"
                         size="lg"
-                        className="min-w-[180px] rounded-full border-white text-white hover:bg-white/10 hover:text-white"
+                        className="min-w-[180px] border-white bg-transparent text-white hover:bg-white/10 hover:text-white"
                       >
                         <Link href={slide.secondaryHref || "#"}>
                           {slide.secondaryCta}
@@ -166,10 +164,6 @@ export function HeroSection({
             </CarouselItem>
           ))}
         </CarouselContent>
-
-        {/* Navigation Arrows */}
-        <CarouselPrevious className="left-4 top-1/2 z-20 h-10 w-10 -translate-y-1/2 border-none bg-white/20 text-white hover:bg-white/40 hover:text-white" />
-        <CarouselNext className="right-4 top-1/2 z-20 h-10 w-10 -translate-y-1/2 border-none bg-white/20 text-white hover:bg-white/40 hover:text-white" />
 
         {/* Slide Indicators */}
         <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 gap-2">

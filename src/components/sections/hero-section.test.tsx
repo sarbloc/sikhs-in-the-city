@@ -71,14 +71,10 @@ describe("HeroSection", () => {
     expect(screen.getByText("Slide 3")).toBeInTheDocument();
   });
 
-  it("renders navigation buttons", () => {
+  it("renders slide indicators", () => {
     render(<HeroSection />);
-    expect(
-      screen.getByRole("button", { name: "Previous slide" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Next slide" })
-    ).toBeInTheDocument();
+    const indicators = screen.getAllByRole("button", { name: /Go to slide/ });
+    expect(indicators.length).toBeGreaterThan(0);
   });
 
   it("applies custom className", () => {
