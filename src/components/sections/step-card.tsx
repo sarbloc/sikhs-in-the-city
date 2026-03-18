@@ -20,7 +20,7 @@ export function StepCard({
   return (
     <div className={cn("flex flex-col gap-4 rounded-xl bg-white p-8 shadow-sm", className)}>
       <div
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-blue-900 text-xl font-bold text-white"
+        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-blue-800 text-xl font-bold text-white"
       >
         {stepNumber}
       </div>
