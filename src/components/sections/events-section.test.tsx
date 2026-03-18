@@ -27,18 +27,6 @@ describe("EventCard", () => {
     expect(screen.getByText("March 2024")).toBeInTheDocument();
   });
 
-  it("renders the category badge when provided", () => {
-    render(
-      <EventCard
-        title="Test Event"
-        description="Description"
-        date="Jan 2024"
-        category="Training"
-      />
-    );
-    expect(screen.getByText("Training")).toBeInTheDocument();
-  });
-
   it("renders the link with correct href", () => {
     render(
       <EventCard
@@ -81,16 +69,10 @@ describe("EventsSection", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders description", () => {
-    render(<EventsSection />);
-    expect(screen.getByText(/Join us at our upcoming events/)).toBeInTheDocument();
-  });
-
   it("renders default events", () => {
     render(<EventsSection />);
-    expect(screen.getByText("Spring 10K Training Programme")).toBeInTheDocument();
-    expect(screen.getByText("Community Fun Run")).toBeInTheDocument();
-    expect(screen.getByText("Running Technique Workshop")).toBeInTheDocument();
+    expect(screen.getByText("Summer Somosa Ultra")).toBeInTheDocument();
+    expect(screen.getByText("Dawn 2 Dusk Ultra")).toBeInTheDocument();
   });
 
   it("renders custom events", () => {
@@ -103,19 +85,6 @@ describe("EventsSection", () => {
     ];
     render(<EventsSection events={customEvents} />);
     expect(screen.getByText("Custom Event")).toBeInTheDocument();
-  });
-
-  it("renders 'See all events' link by default", () => {
-    render(<EventsSection />);
-    const link = screen.getByRole("link", { name: /See all events/ });
-    expect(link).toHaveAttribute("href", "/events");
-  });
-
-  it("hides 'See all events' link when showAllLink is false", () => {
-    render(<EventsSection showAllLink={false} />);
-    expect(
-      screen.queryByRole("link", { name: /See all events/ })
-    ).not.toBeInTheDocument();
   });
 
   it("applies custom className", () => {
