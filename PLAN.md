@@ -108,19 +108,18 @@ The Tailwind theme tokens and brand colour scales (gold, blue, purple/neutral) a
 
 ---
 
-## PR 6: Course Records — expanded data model
-**Files:** `course-records-section.tsx`, `record-category.tsx`, `record-holder.tsx`, `course-records-section.test.tsx`
+## PR 6: Course Records — expanded data model ✅
+**Files:** `course-records-section.tsx`, `record-category.tsx`, `record-holder.tsx`, `course-records-section.test.tsx`, `course-records-section.stories.tsx`
 
 ### Design: centred heading, 4 columns, detailed record holder data
-- [ ] Title: "Dawn To Dusk Course Records" (centred)
-- [ ] Subtitle: "Record completion times for the Ultra, Marathon, Half Marathon, and 10k"
-- [ ] 4 columns: Ultra, Marathon, Half Marathon, 10K
-- [ ] Each column header: category name (bold), medal requirement description text
-- [ ] Column headers have light grey background, rest is white
-- [ ] Record holders: name (bold), "The record held at X lap", total distance, time, year achieved
-- [ ] Two record holders per category (not male/female — just two entries)
-- [ ] Remove `bg-muted/30` section background
-- [ ] Update default data to match design values
+- [x] Title: "Dawn To Dusk Course Records" (centred)
+- [x] Subtitle: "Record completion times for the Ultra, Marathon, Half Marathon, and 10k"
+- [x] 4 columns: Ultra, Marathon, Half Marathon, 10K
+- [x] Column headers: grey bg with category name + medal requirement text
+- [x] Record holders: name, laps, distance, time, year (expanded data model)
+- [x] Two record holders per category
+- [x] Removed `bg-muted/30`, white background
+- [x] Default data matches design
 
 ---
 

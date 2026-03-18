@@ -1,57 +1,53 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { RecordHolder } from "./record-holder";
 import { cn } from "@/lib/utils";
 
-interface Record {
+interface RecordHolderData {
   name: string;
+  laps: number;
+  distance?: string;
   time: string;
+  year: number;
 }
 
 interface RecordCategoryProps {
-  /** Category name (e.g., "5K", "10K") */
+  /** Category name (e.g., "Ultra", "Marathon") */
   category: string;
-  /** Male record holder */
-  male?: Record;
-  /** Female record holder */
-  female?: Record;
+  /** Medal requirement description */
+  requirement: string;
+  /** Record holders */
+  holders: RecordHolderData[];
   /** Additional className */
   className?: string;
 }
 
 export function RecordCategory({
   category,
-  male,
-  female,
+  requirement,
+  holders,
   className,
 }: RecordCategoryProps) {
   return (
-    <Card className={cn("", className)}>
-      <CardHeader className="pb-3">
-        <CardTitle className="text-lg">{category}</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {male && (
-          <div>
-            <p className="mb-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Male
-            </p>
-            <RecordHolder name={male.name} time={male.time} />
-          </div>
-        )}
-        {female && (
-          <div>
-            <p className="mb-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Female
-            </p>
-            <RecordHolder name={female.name} time={female.time} />
-          </div>
-        )}
-      </CardContent>
-    </Card>
+    <div className={cn("overflow-hidden rounded-lg border", className)}>
+      {/* Header */}
+      <div className="bg-muted px-4 py-5 text-center">
+        <h3 className="text-lg font-bold text-foreground">{category}</h3>
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+          {requirement}
+        </p>
+      </div>
+      {/* Record holders */}
+      <div className="divide-y px-4 py-4">
+        {holders.map((holder, index) => (
+          <RecordHolder
+            key={index}
+            name={holder.name}
+            laps={holder.laps}
+            distance={holder.distance}
+            time={holder.time}
+            year={holder.year}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

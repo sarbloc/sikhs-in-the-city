@@ -23,29 +23,11 @@ export const CustomRecords: Story = {
     description: "Personal bests achieved by our club members.",
     records: [
       {
-        category: "1 Mile",
-        male: { name: "Fast Runner", time: "4:45" },
-        female: { name: "Quick Runner", time: "5:30" },
-      },
-      {
         category: "5K",
-        male: { name: "Speed Demon", time: "16:00" },
-        female: { name: "Swift Runner", time: "18:30" },
-      },
-    ],
-  },
-};
-
-export const MaleOnly: Story = {
-  args: {
-    records: [
-      {
-        category: "5K",
-        male: { name: "John Smith", time: "17:30" },
-      },
-      {
-        category: "10K",
-        male: { name: "Mike Jones", time: "36:45" },
+        requirement: "Complete 2.5 laps",
+        holders: [
+          { name: "Fast Runner", laps: 3, time: "18:00", year: 2024 },
+        ],
       },
     ],
   },
