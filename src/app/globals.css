@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-asap);
   --font-mono: var(--font-geist-mono);
 
   /* Brand color scales */

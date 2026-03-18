@@ -6,7 +6,7 @@ import { Header } from "./header";
 describe("Header", () => {
   it("renders the logo/brand name", () => {
     render(<Header />);
-    expect(screen.getByText("Sikhs In The City")).toBeInTheDocument();
+    expect(screen.getByAltText("Sikhs In The City")).toBeInTheDocument();
   });
 
   it("renders desktop navigation links", () => {
