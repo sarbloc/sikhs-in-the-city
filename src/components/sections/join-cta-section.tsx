@@ -38,7 +38,7 @@ export function JoinCtaSection({
           <div className="grid items-center gap-8 md:grid-cols-2">
             {/* Text content */}
             <div>
-              <h2 className="text-3xl font-bold italic tracking-tight text-secondary-foreground md:text-4xl">
+              <h2 className="text-3xl font-bold tracking-tight text-secondary-foreground md:text-4xl">
                 {heading}
               </h2>
               <p className="mt-4 text-base leading-relaxed text-secondary-foreground/80">
