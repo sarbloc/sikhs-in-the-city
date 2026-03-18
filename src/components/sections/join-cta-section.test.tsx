@@ -6,7 +6,7 @@ describe("JoinCtaSection", () => {
   it("renders the default heading", () => {
     render(<JoinCtaSection />);
     expect(
-      screen.getByRole("heading", { name: "Ready to Start Running?" })
+      screen.getByRole("heading", { name: "Join Sikhs In the City" })
     ).toBeInTheDocument();
   });
 
@@ -20,7 +20,7 @@ describe("JoinCtaSection", () => {
   it("renders description", () => {
     render(<JoinCtaSection />);
     expect(
-      screen.getByText(/Join our welcoming community/)
+      screen.getByText(/Ready to start running/)
     ).toBeInTheDocument();
   });
 
@@ -31,7 +31,7 @@ describe("JoinCtaSection", () => {
 
   it("renders CTA button with correct link", () => {
     render(<JoinCtaSection />);
-    const link = screen.getByRole("link", { name: "Join Us Today" });
+    const link = screen.getByRole("link", { name: "Register Interest" });
     expect(link).toHaveAttribute("href", "/contact");
   });
 
