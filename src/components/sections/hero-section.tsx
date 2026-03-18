@@ -42,6 +42,7 @@ const defaultSlides: HeroSlide[] = [
     heading: "Sikhs In The City",
     subheading:
       "A community-led running charity bringing people and cultures together through running. From first steps to 10K and beyond.",
+    backgroundImage: "/images/hero/slide-1.jpg",
     primaryCta: "Join The Run",
     primaryHref: "/how-to-join",
     secondaryCta: "Learn About Us",
@@ -51,6 +52,7 @@ const defaultSlides: HeroSlide[] = [
     heading: "Run With Purpose",
     subheading:
       "Join our welcoming community every Sunday morning. No experience needed – just bring yourself and we'll do the rest.",
+    backgroundImage: "/images/hero/slide-2.jpg",
     primaryCta: "Get Started",
     primaryHref: "/how-to-join",
     secondaryCta: "View Events",
@@ -60,6 +62,7 @@ const defaultSlides: HeroSlide[] = [
     heading: "From Couch to 10K",
     subheading:
       "Whether you're taking your first steps or training for a marathon, our experienced coaches will support you every step of the way.",
+    backgroundImage: "/images/hero/slide-3.jpg",
     primaryCta: "See Training",
     primaryHref: "/training",
     secondaryCta: "Contact Us",
