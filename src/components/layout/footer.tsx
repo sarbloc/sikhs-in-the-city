@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 const quickLinks = [
   { href: "/our-story", label: "Our Story" },
   { href: "/how-to-join", label: "How to Join" },
-  { href: "/courses", label: "Training & Support" },
+  { href: "/training", label: "Training & Support" },
   { href: "/events", label: "Events" },
   { href: "/clubhouse-appeal", label: "Clubhouse Appeal" },
   { href: "/contact", label: "Register Interest" },
@@ -15,8 +15,6 @@ const quickLinks = [
 const socialLinks = [
   { href: "https://facebook.com", label: "Facebook", icon: Facebook },
   { href: "https://instagram.com", label: "Instagram", icon: Instagram },
-  { href: "https://twitter.com", label: "Twitter", icon: Twitter },
-  { href: "https://youtube.com", label: "YouTube", icon: Youtube },
 ];
 
 interface FooterProps {
@@ -27,13 +25,13 @@ interface FooterProps {
 export function Footer({ className }: FooterProps) {
   return (
     <footer
-      className={cn("bg-muted/50 border-t border-border", className)}
+      className={cn("bg-blue-950 text-white", className)}
     >
       <div className="container mx-auto px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-3">
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="mb-4 text-sm font-bold">
               Quick Links
             </h3>
             <ul className="space-y-3">
@@ -41,7 +39,7 @@ export function Footer({ className }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-sm text-blue-300 transition-colors hover:text-white"
                   >
                     {link.label}
                   </Link>
@@ -52,37 +50,38 @@ export function Footer({ className }: FooterProps) {
 
           {/* Address */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="mb-4 text-sm font-bold">
               Address
             </h3>
-            <address className="not-italic text-sm text-muted-foreground">
-              <p>Beal High School</p>
-              <p>Woodford Bridge Road</p>
-              <p>Ilford</p>
-              <p>IG4 5LP</p>
-              <p className="mt-3">Sundays at 7am</p>
-            </address>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={`address-${link.href}`}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-blue-300 transition-colors hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Supported By */}
+          {/* Supported By + Connect With Us */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="mb-4 text-sm font-bold">
               Supported By
             </h3>
             <div className="flex flex-wrap gap-4">
-              {/* Placeholder for sponsor logos */}
-              <div className="h-12 w-24 rounded bg-muted flex items-center justify-center text-xs text-muted-foreground">
-                Sponsor
+              <div className="flex h-12 w-24 items-center justify-center rounded bg-white text-xs text-foreground">
+                New Balance
               </div>
-              <div className="h-12 w-24 rounded bg-muted flex items-center justify-center text-xs text-muted-foreground">
-                Sponsor
+              <div className="flex h-12 w-24 items-center justify-center rounded bg-white text-xs text-foreground">
+                Sporting Equals
               </div>
             </div>
-          </div>
 
-          {/* Connect With Us */}
-          <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
+            <h3 className="mb-4 mt-8 text-sm font-bold">
               Connect With Us
             </h3>
             <div className="flex gap-4">
@@ -92,22 +91,22 @@ export function Footer({ className }: FooterProps) {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-muted-foreground transition-colors hover:text-foreground"
+                  className="text-white transition-colors hover:text-blue-300"
                   aria-label={social.label}
                 >
-                  <social.icon className="h-5 w-5" />
+                  <social.icon className="h-6 w-6" />
                 </a>
               ))}
             </div>
           </div>
         </div>
 
-        <Separator className="my-8" />
+        <Separator className="my-8 bg-blue-800" />
 
         {/* Copyright */}
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-white">
           <p>
-            © {new Date().getFullYear()} Sikhs In The City (Registered Charity
+            © Copyright Sikhs In The City (Registered Charity
             Number 1179621) All Rights Reserved
           </p>
         </div>

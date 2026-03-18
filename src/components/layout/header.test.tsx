@@ -11,14 +11,14 @@ describe("Header", () => {
 
   it("renders desktop navigation links", () => {
     render(<Header />);
+    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Our Story" })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "How To Join" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Courses" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Events" })).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "Clubhouse Appeal" })
+      screen.getByRole("link", { name: "ClubHouse Appeal" })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "Contact Us" })
