@@ -21,11 +21,11 @@ import {
 import { cn } from "@/lib/utils";
 
 const navItems = [
+  { href: "/", label: "Home" },
   { href: "/our-story", label: "Our Story" },
   { href: "/how-to-join", label: "How To Join" },
-  { href: "/courses", label: "Courses" },
   { href: "/events", label: "Events" },
-  { href: "/clubhouse-appeal", label: "Clubhouse Appeal" },
+  { href: "/clubhouse-appeal", label: "ClubHouse Appeal" },
   { href: "/contact", label: "Contact Us" },
 ];
 
@@ -40,7 +40,7 @@ export function Header({ className }: HeaderProps) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+        "sticky top-0 z-50 w-full bg-secondary",
         className
       )}
     >
