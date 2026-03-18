@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { StepCard } from "./step-card";
 import { cn } from "@/lib/utils";
 
@@ -51,9 +50,21 @@ export function HowToJoinSection({
   className,
 }: HowToJoinSectionProps) {
   return (
-    <section className={cn("bg-muted/30 py-16 md:py-24", className)}>
-      <div className="container mx-auto px-4">
-        <SectionHeading title={title} description={description} align="center" />
+    <section className={cn("relative overflow-hidden bg-blue-600 py-16 md:py-24", className)}>
+      {/* Background photo overlay */}
+      <div className="absolute inset-0 bg-blue-600/80" />
+
+      <div className="container relative z-10 mx-auto px-4">
+        <div className="flex flex-col items-center gap-3 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+            {title}
+          </h2>
+          {description && (
+            <p className="max-w-2xl text-lg leading-relaxed text-white/80">
+              {description}
+            </p>
+          )}
+        </div>
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {steps.map((step, index) => (
@@ -68,7 +79,7 @@ export function HowToJoinSection({
         </div>
 
         <div className="mt-12 text-center">
-          <Button asChild size="lg">
+          <Button asChild size="lg" variant="secondary">
             <Link href={ctaHref}>{ctaText}</Link>
           </Button>
         </div>

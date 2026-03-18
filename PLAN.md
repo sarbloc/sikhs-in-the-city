@@ -63,18 +63,18 @@ The Tailwind theme tokens and brand colour scales (gold, blue, purple/neutral) a
 
 ---
 
-## PR 3: How To Join — blue background with photo
-**Files:** `how-to-join-section.tsx`, `step-card.tsx`, `how-to-join-section.test.tsx`
+## PR 3: How To Join — blue background with photo ✅
+**Files:** `how-to-join-section.tsx`, `step-card.tsx`
 
 ### Design: blue background with background photo showing through, white text, white step cards
-- [ ] Section background: `bg-blue-600` with a background photo (currently `bg-muted/30`)
-- [ ] Heading: white text
-- [ ] Description: white text
-- [ ] Step cards: white background cards with rounded corners, shadow
-- [ ] Step number circles: large dark navy circles (`bg-blue-900 text-white`), not gold badges
-- [ ] Step titles and descriptions: dark text on white cards
-- [ ] "Register Your Interest" CTA: gold/yellow button (`bg-secondary`)
-- [ ] "contact form" text in description has underline (link)
+- [x] Section background: `bg-blue-600` with blue overlay (was `bg-muted/30`)
+- [x] Heading: white text (inline, replaced SectionHeading)
+- [x] Description: `text-white/80`
+- [x] Step cards: white bg, rounded-xl, shadow, padding
+- [x] Step number circles: `bg-blue-900 text-white` (was gold Badge)
+- [x] Step titles and descriptions: dark text on white cards
+- [x] "Register Your Interest" CTA: gold/yellow button (`variant="secondary"`)
+- [ ] "contact form" text in description has underline (link) — deferred, needs rich text support
 
 ---
 
