@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Facebook, Instagram } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -72,13 +73,21 @@ export function Footer({ className }: FooterProps) {
             <h3 className="mb-4 text-sm font-bold">
               Supported By
             </h3>
-            <div className="flex flex-wrap gap-4">
-              <div className="flex h-12 w-24 items-center justify-center rounded bg-white text-xs text-foreground">
-                New Balance
-              </div>
-              <div className="flex h-12 w-24 items-center justify-center rounded bg-white text-xs text-foreground">
-                Sporting Equals
-              </div>
+            <div className="flex flex-wrap items-center gap-4">
+              <Image
+                src="/images/sponsors/new-balance.png"
+                alt="New Balance"
+                width={86}
+                height={47}
+                className="rounded bg-white p-2"
+              />
+              <Image
+                src="/images/sponsors/sporting-equals.png"
+                alt="Sporting Equals"
+                width={160}
+                height={35}
+                className="rounded bg-white p-2"
+              />
             </div>
 
             <h3 className="mb-4 mt-8 text-sm font-bold">
