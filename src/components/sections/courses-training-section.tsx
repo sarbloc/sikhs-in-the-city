@@ -78,7 +78,7 @@ export function CoursesTrainingSection({
   className,
 }: CoursesTrainingSectionProps) {
   return (
-    <section className={cn("py-16 md:py-24", className)}>
+    <section className={cn("py-10 md:py-14", className)}>
       <div className="container mx-auto px-4">
         <SectionHeading title={title} description={description} />
 

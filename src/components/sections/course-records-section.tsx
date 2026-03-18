@@ -54,7 +54,7 @@ export function CourseRecordsSection({
   className,
 }: CourseRecordsSectionProps) {
   return (
-    <section className={cn("bg-muted/30 py-16 md:py-24", className)}>
+    <section className={cn("bg-muted/30 py-10 md:py-14", className)}>
       <div className="container mx-auto px-4">
         <SectionHeading title={title} description={description} />
 
