@@ -123,17 +123,16 @@ The Tailwind theme tokens and brand colour scales (gold, blue, purple/neutral) a
 
 ---
 
-## PR 7: Join CTA — gold background with image
+## PR 7: Join CTA — gold background with image ✅
 **Files:** `join-cta-section.tsx`, `join-cta-section.test.tsx`
 
 ### Design: gold/yellow rounded card, two-column layout
-- [ ] Background: `bg-gold-600` with rounded corners (not `bg-primary` dark)
-- [ ] Left-aligned text (not centred)
-- [ ] Two columns: text left, image/illustration placeholder right
-- [ ] Title: "Join Sikhs In the City" bold, dark text (italic)
-- [ ] Description: dark text
-- [ ] "Register Interest" button: blue (`bg-primary text-white`), rounded-full
-- [ ] The whole section appears as a rounded card within the page
+- [x] Background: `bg-secondary` (`#FFF279`) rounded-2xl card
+- [x] Left-aligned text, two-column grid
+- [x] Title: "Join Sikhs In the City" bold italic
+- [x] Description: dark text
+- [x] "Register Interest" button: blue (`bg-primary`)
+- [x] Image placeholder on right
 
 ---
 
