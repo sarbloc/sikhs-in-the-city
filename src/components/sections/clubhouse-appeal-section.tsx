@@ -34,7 +34,7 @@ export function ClubhouseAppealSection({
   primaryCtaHref = "/donate",
   secondaryCtaText = "Find Out More",
   secondaryCtaHref = "/clubhouse-appeal",
-  imagePath,
+  imagePath = "/images/hero/slide-2.jpg",
   imageAlt = "Fauja Singh running",
   className,
 }: ClubhouseAppealSectionProps) {
@@ -75,7 +75,7 @@ export function ClubhouseAppealSection({
 
             {/* Circular image */}
             <div className="flex justify-center md:justify-end">
-              <div className="relative h-64 w-64 overflow-hidden rounded-full bg-blue-300 md:h-72 md:w-72">
+              <div className="relative h-64 w-80 overflow-hidden bg-blue-300 md:h-72 md:w-96" style={{ borderRadius: "60% 40% 45% 55% / 50% 55% 45% 50%" }}>
                 {imagePath && (
                   <Image
                     src={imagePath}
