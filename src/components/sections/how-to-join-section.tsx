@@ -64,7 +64,7 @@ export function HowToJoinSection({
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="flex flex-col items-center gap-3 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">
+          <h2 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
             {title}
           </h2>
           {description && (

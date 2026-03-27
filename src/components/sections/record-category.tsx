@@ -30,7 +30,7 @@ export function RecordCategory({
     <div className={cn("overflow-hidden rounded-lg border", className)}>
       {/* Header */}
       <div className="bg-blue-200 px-4 py-5 text-center">
-        <h3 className="text-lg font-bold text-foreground">{category}</h3>
+        <h3 className="text-2xl font-bold text-foreground">{category}</h3>
         <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
           {requirement}
         </p>

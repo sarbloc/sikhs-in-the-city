@@ -48,7 +48,7 @@ export function EventsSection({
   return (
     <section className={cn("py-10 md:py-14", className)}>
       <div className="container mx-auto px-4">
-        <h2 className="text-center text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+        <h2 className="text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
           {title}
         </h2>
 

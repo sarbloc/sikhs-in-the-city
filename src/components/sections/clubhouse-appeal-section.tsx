@@ -47,7 +47,7 @@ export function ClubhouseAppealSection({
           <div className="grid items-center gap-8 md:grid-cols-2">
             {/* Text content */}
             <div>
-              <h2 className="whitespace-pre-line text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+              <h2 className="whitespace-pre-line text-4xl font-bold tracking-tight text-foreground md:text-5xl">
                 {title}
               </h2>
               <p className="mt-3 text-sm font-bold text-foreground">

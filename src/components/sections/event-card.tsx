@@ -47,7 +47,7 @@ export function EventCard({
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         {/* All content overlaid on image */}
         <div className="absolute inset-0 flex flex-col justify-end p-6">
-          <h3 className="text-xl font-bold text-white">{title}</h3>
+          <h3 className="text-2xl font-bold text-white">{title}</h3>
           <time className="text-sm text-white/90">{date}</time>
           <p className="mt-3 text-sm leading-relaxed text-white/80">
             {description}

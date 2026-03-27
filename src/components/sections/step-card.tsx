@@ -24,7 +24,7 @@ export function StepCard({
       >
         {stepNumber}
       </div>
-      <h3 className="text-xl font-semibold tracking-tight text-foreground">
+      <h3 className="text-2xl font-semibold tracking-tight text-foreground">
         {title}
       </h3>
       <p className="text-base leading-relaxed text-foreground">
