@@ -25,7 +25,7 @@ export function JoinCtaSection({
   description = "Ready to start running with a supportive community? Register your interest and we'll share the details for Sunday morning training.",
   ctaText = "Register Interest",
   ctaHref = "/contact",
-  imagePath,
+  imagePath = "/images/join-thumbnail.jpg",
   imageAlt = "Sikhs In The City runners",
   className,
 }: JoinCtaSectionProps) {
@@ -55,7 +55,7 @@ export function JoinCtaSection({
 
             {/* Image placeholder */}
             <div className="flex justify-center md:justify-end">
-              <div className="relative h-48 w-48 overflow-hidden rounded-lg bg-secondary-foreground/10 md:h-56 md:w-56">
+              <div className="relative h-48 w-full overflow-hidden rounded-lg bg-secondary-foreground/10 md:h-56 md:w-full">
                 {imagePath && (
                   <Image
                     src={imagePath}

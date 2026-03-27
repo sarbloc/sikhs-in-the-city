@@ -69,13 +69,13 @@ export function ClubhouseAppealSection({
                   className="inline-flex items-center gap-2 text-sm font-bold text-foreground"
                 >
                   {secondaryCtaText} <span aria-hidden="true">→</span>
-                </Link>
+                </Link> 
               </div>
             </div>
 
             {/* Circular image */}
-            <div className="flex justify-center md:justify-end">
-              <div className="relative h-64 w-80 overflow-hidden bg-blue-300 md:h-72 md:w-96" style={{ borderRadius: "60% 40% 45% 55% / 50% 55% 45% 50%" }}>
+            <div className="flex justify-center md:justify-end flex-wrap">
+              <div className="relative h-64 w-80 overflow-hidden bg-blue-300 md:h-100 md:w-120" style={{ borderRadius: "60% 40% 45% 55% / 50% 55% 45% 50%" }}>
                 {imagePath && (
                   <Image
                     src={imagePath}

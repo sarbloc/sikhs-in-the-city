@@ -30,7 +30,7 @@ export function OurStorySection({
   paragraphs = defaultParagraphs,
   linkText = "Read the full story",
   linkHref = "/our-story",
-  imagePath,
+  imagePath = "/images/our-story.png",
   imageAlt = "Sikhs In The City runners",
   className,
 }: OurStorySectionProps) {
