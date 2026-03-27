@@ -5,12 +5,13 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 
 const quickLinks = [
-  { href: "/our-story", label: "Our Story" },
-  { href: "/how-to-join", label: "How to Join" },
-  { href: "/training", label: "Training & Support" },
-  { href: "/events", label: "Events" },
-  { href: "/clubhouse-appeal", label: "Clubhouse Appeal" },
-  { href: "/contact", label: "Register Interest" },
+  { href: "https://sikhs-in-the-city.sumupstore.com", label: "Store", external: true },
+  { href: "/our-story", label: "Our Story", external: false },
+  { href: "/how-to-join", label: "How to Join", external: false },
+  { href: "/training", label: "Training & Support", external: false },
+  { href: "/events", label: "Events", external: false },
+  { href: "/clubhouse-appeal", label: "Clubhouse Appeal", external: false },
+  { href: "/contact", label: "Register Interest", external: false },
 ];
 
 const socialLinks = [
@@ -38,12 +39,23 @@ export function Footer({ className }: FooterProps) {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-blue-300 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-300 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-blue-300 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -57,12 +69,23 @@ export function Footer({ className }: FooterProps) {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={`address-${link.href}`}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-blue-300 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-300 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="text-sm text-blue-300 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

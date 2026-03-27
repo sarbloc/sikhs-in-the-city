@@ -22,12 +22,12 @@ import {
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { href: "/", label: "Home" },
-  { href: "/our-story", label: "Our Story" },
-  { href: "/how-to-join", label: "How To Join" },
-  { href: "/events", label: "Events" },
-  { href: "/clubhouse-appeal", label: "ClubHouse Appeal" },
-  { href: "/contact", label: "Contact Us" },
+  { href: "https://sikhs-in-the-city.sumupstore.com", label: "Store", external: true },
+  { href: "/our-story", label: "Our Story", external: false },
+  { href: "/how-to-join", label: "How To Join", external: false },
+  { href: "/events", label: "Events", external: false },
+  { href: "/clubhouse-appeal", label: "ClubHouse Appeal", external: false },
+  { href: "/contact", label: "Contact Us", external: false },
 ];
 
 interface HeaderProps {
@@ -63,7 +63,11 @@ export function Header({ className }: HeaderProps) {
             {navItems.map((item) => (
               <NavigationMenuItem key={item.href}>
                 <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent")}>
-                  <Link href={item.href}>{item.label}</Link>
+                  {item.external ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer">{item.label}</a>
+                  ) : (
+                    <Link href={item.href}>{item.label}</Link>
+                  )}
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
@@ -83,16 +87,29 @@ export function Header({ className }: HeaderProps) {
               Main navigation menu
             </SheetDescription>
             <nav className="mt-6 flex flex-col gap-4">
-              {navItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-lg font-medium transition-colors hover:text-primary"
-                >
-                  {item.label}
-                </Link>
-              ))}
+              {navItems.map((item) =>
+                item.external ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-lg font-medium transition-colors hover:text-primary"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-lg font-medium transition-colors hover:text-primary"
+                  >
+                    {item.label}
+                  </Link>
+                )
+              )}
             </nav>
           </SheetContent>
         </Sheet>

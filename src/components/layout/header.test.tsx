@@ -11,7 +11,7 @@ describe("Header", () => {
 
   it("renders desktop navigation links", () => {
     render(<Header />);
-    expect(screen.getByRole("link", { name: "Home" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Store" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Our Story" })).toBeInTheDocument();
     expect(
       screen.getByRole("link", { name: "How To Join" })
