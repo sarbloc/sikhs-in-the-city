@@ -42,31 +42,21 @@ const defaultSlides: HeroSlide[] = [
     heading: "Sikhs In The City",
     subheading:
       "A community-led running charity bringing people and cultures together through running. From first steps to 10K and beyond.",
-    backgroundImage: "/images/hero/slide-1.jpg",
+    backgroundImage: "/images/hero/slide-1.png",
     primaryCta: "Join The Run",
     primaryHref: "/how-to-join",
     secondaryCta: "Learn About Us",
     secondaryHref: "/our-story",
   },
   {
-    heading: "Run With Purpose",
+    heading: "Fauja Singh Clubhouse Appeal",
     subheading:
-      "Join our welcoming community every Sunday morning. No experience needed – just bring yourself and we'll do the rest.",
+      "We're working to build an eco-friendly community clubhouse that supports health, wellbeing, and connection. With your support, we can turn this vision into a lasting space for the local community.",
     backgroundImage: "/images/hero/slide-2.jpg",
-    primaryCta: "Get Started",
-    primaryHref: "/how-to-join",
-    secondaryCta: "View Events",
-    secondaryHref: "/events",
-  },
-  {
-    heading: "From Couch to 10K",
-    subheading:
-      "Whether you're taking your first steps or training for a marathon, our experienced coaches will support you every step of the way.",
-    backgroundImage: "/images/hero/slide-3.jpg",
-    primaryCta: "See Training",
-    primaryHref: "/training",
-    secondaryCta: "Contact Us",
-    secondaryHref: "/contact",
+    primaryCta: "Donate Now",
+    primaryHref: "/donate",
+    secondaryCta: "Find Out More",
+    secondaryHref: "/clubhouse-appeal",
   },
 ];
 
@@ -133,7 +123,7 @@ export function HeroSection({
                 {/* Gradient overlay: left-to-right black fade, fades in after slide transition */}
                 <div
                   className={cn(
-                    "absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent transition-opacity duration-700 delay-300",
+                    "absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-transparent transition-opacity duration-700 delay-300",
                     current === index ? "opacity-100" : "opacity-0"
                   )}
                 />
@@ -148,7 +138,7 @@ export function HeroSection({
                   </p>
                   <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                     {slide.primaryCta && (
-                      <Button asChild size="lg" className="min-w-[180px]">
+                      <Button asChild size="lg" className="min-w-45">
                         <Link href={slide.primaryHref || "#"}>
                           {slide.primaryCta}
                         </Link>
@@ -159,7 +149,7 @@ export function HeroSection({
                         asChild
                         variant="outline"
                         size="lg"
-                        className="min-w-[180px] border-white bg-transparent text-white hover:bg-white/10 hover:text-white"
+                        className="min-w-45 border-white bg-transparent text-white hover:bg-white/10 hover:text-white"
                       >
                         <Link href={slide.secondaryHref || "#"}>
                           {slide.secondaryCta}

@@ -25,7 +25,7 @@ const defaultEvents: Event[] = [
     description:
       "Sign up for our Summer The Event is a multiple lap comprising three distances (Half Marathon, Full Marathon and Ultra Marathon 50km plus).",
     date: "28th June 2026",
-    imagePath: "/images/events/summer-somosa.jpg",
+    imagePath: "/images/events/summer-somosa.png",
     imageAlt: "Runners at the Summer Somosa Ultra event",
     href: "/events/summer-somosa-ultra",
   },
@@ -34,7 +34,7 @@ const defaultEvents: Event[] = [
     description:
       "Sign up for our Summer The Event is a multiple lap comprising three distances (Half Marathon, Full Marathon and Ultra Marathon 50km plus).",
     date: "6th December 2026",
-    imagePath: "/images/events/dawn-2-dusk.jpg",
+    imagePath: "/images/events/dawn-2-dusk.png",
     imageAlt: "Runners at the Dawn 2 Dusk Ultra event",
     href: "/events/dawn-2-dusk-ultra",
   },

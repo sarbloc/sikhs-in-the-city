@@ -14,7 +14,7 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
-        <OurStorySection />
+        <OurStorySection imagePath="/images/our-story.png" />
         <HowToJoinSection />
         <EventsSection />
         <ClubhouseAppealSection />

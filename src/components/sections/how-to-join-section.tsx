@@ -54,7 +54,7 @@ export function HowToJoinSection({
     <section className={cn("relative overflow-hidden py-10 md:py-14", className)}>
       {/* Background photo */}
       <Image
-        src="/images/hero/slide-2.jpg"
+        src="/images/how-to-join.png"
         alt=""
         fill
         className="object-cover"

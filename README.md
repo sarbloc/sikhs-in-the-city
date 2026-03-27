@@ -42,3 +42,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ---
 
 *This commit was made by an automated agent to verify bot identity configuration.*
+
+### Assets
+
+https://drive.google.com/drive/folders/1iNb9jAeYnPR-BS3Ch-BKziC42fH16Fuo
