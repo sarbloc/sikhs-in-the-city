@@ -13,9 +13,11 @@ export default function EventsPage() {
         />
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <p className="text-lg text-muted-foreground">
-              Content coming soon.
-            </p>
+            <iframe
+              src="https://justiming.co.uk/liveresults/roadrunning/g-live.html?f=d2d25.clax"
+              title="Live results"
+              className="h-[80vh] w-full rounded-lg border"
+            />
           </div>
         </section>
       </main>
