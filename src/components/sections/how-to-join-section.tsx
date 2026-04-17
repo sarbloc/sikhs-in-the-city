@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 interface Step {
   title: string;
-  description: string;
+  description: ReactNode;
 }
 
 interface HowToJoinSectionProps {
