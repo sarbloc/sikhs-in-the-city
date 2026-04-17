@@ -4,18 +4,30 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
 import { PolaroidImage } from "@/components/polaroid-image";
+import { AmenityCard } from "@/components/amenity-card";
 import { VideoEmbed } from "@/components/sections/video-embed";
 import { MapEmbed } from "@/components/sections/map-embed";
+import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 
 // TODO(asset): swap Fauja Singh portrait, polaroid photo, YouTube IDs, donate
-// link, and confirm the clubhouse address before launch. Flagged in PR 9a.
+// link, architectural renders, funding/values photos, and confirm the
+// clubhouse address before launch. Flagged in PR 9a and PR 9b.
 const DONATE_HREF = "#donate";
 const FAUJA_PORTRAIT_SRC = "/images/hero/slide-2.jpg";
 const HONOURING_IMAGE_SRC = "/images/hero/slide-3.jpg";
+const RENDER_IMAGE_SRCS = [
+  "/images/hero/slide-1.png",
+  "/images/hero/slide-2.jpg",
+  "/images/hero/slide-3.jpg",
+] as const;
+const FUNDING_IMAGE_SRC = "/images/hero/slide-1.png";
+const VALUES_IMAGE_SRC = "/images/hero/slide-2.jpg";
 const CLUBHOUSE_ADDRESS = "Beal High School, Woodford Bridge Road, Ilford IG4 5LP";
 const CLUBHOUSE_MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
   CLUBHOUSE_ADDRESS
 )}&output=embed`;
+
+const RENDER_ROTATIONS = [-3, 2, -2] as const;
 
 const VIDEOS: { videoId: string; title: string; caption: string }[] = [
   {
@@ -156,6 +168,130 @@ export default function ClubhouseAppealPage() {
                 </p>
                 <p className="mt-4 text-base leading-relaxed text-foreground/80 md:text-lg">
                   {CLUBHOUSE_ADDRESS}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 5 — Bringing the Vision to Life */}
+        <section className="bg-secondary px-4 py-16 md:py-24">
+          <div className="container mx-auto">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                Bringing the Vision to Life
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-foreground/80 md:text-lg">
+                Our architects have translated the community&apos;s dream into
+                a set of thoughtful, sustainable spaces. These early renders
+                show how the clubhouse could look, feel, and serve everyone
+                who walks through its doors.
+              </p>
+            </div>
+            <div className="mt-12 flex flex-col items-center justify-center gap-10 md:flex-row md:flex-wrap md:items-start md:gap-8">
+              {RENDER_IMAGE_SRCS.map((src, index) => (
+                <PolaroidImage
+                  key={src}
+                  src={src}
+                  alt={`Architectural render of the proposed clubhouse (${
+                    index + 1
+                  } of ${RENDER_IMAGE_SRCS.length})`}
+                  width={360}
+                  height={420}
+                  rotate={RENDER_ROTATIONS[index]}
+                  className="max-w-xs"
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 6 — Designed for Wellbeing, Accessibility, and Community Use */}
+        <section className="bg-background px-4 py-16 md:py-24">
+          <div className="container mx-auto">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                Designed for Wellbeing, Accessibility, and Community Use
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-foreground/80 md:text-lg">
+                Every space in the clubhouse is planned around real community
+                needs — from daily training to recovery, learning, and rest.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {clubhouseAmenities.map((amenity) => (
+                <AmenityCard
+                  key={amenity.label}
+                  icon={amenity.icon}
+                  label={amenity.label}
+                  description={amenity.description}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Section 7 — Funding the Build */}
+        <section className="bg-secondary px-4 py-16 md:py-24">
+          <div className="container mx-auto">
+            <div className="grid items-center gap-10 md:grid-cols-2">
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                  Funding the Build
+                </h2>
+                <p className="mt-6 text-base leading-relaxed text-foreground/80 md:text-lg">
+                  We&apos;re raising funds to cover design, construction, and
+                  fit-out of the clubhouse. Every contribution — large or
+                  small — moves us closer to breaking ground and handing the
+                  keys back to the community.
+                </p>
+                <p className="mt-4 text-base leading-relaxed text-foreground/80 md:text-lg">
+                  Donate today to help us build a permanent home for Sikhs In
+                  The City.
+                </p>
+                <DonateButton className="mt-8" />
+              </div>
+              <div className="flex justify-center md:justify-end">
+                <PolaroidImage
+                  src={FUNDING_IMAGE_SRC}
+                  alt="Runners training together with the Sikhs In The City community"
+                  width={480}
+                  height={560}
+                  rotate={3}
+                  className="max-w-sm"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section 8 — Carrying Fauja Singh's Values Forward */}
+        <section className="bg-background px-4 py-16 md:py-24">
+          <div className="container mx-auto">
+            <div className="grid items-center gap-10 md:grid-cols-2">
+              <div className="flex justify-center md:justify-start">
+                <PolaroidImage
+                  src={VALUES_IMAGE_SRC}
+                  alt="Fauja Singh BEM with members of Sikhs In The City"
+                  width={480}
+                  height={560}
+                  rotate={-3}
+                  className="max-w-sm"
+                />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                  Carrying Fauja Singh&apos;s Values Forward
+                </h2>
+                <p className="mt-6 text-base leading-relaxed text-foreground/80 md:text-lg">
+                  Fauja Singh lived by service, humility, and the belief that
+                  age is no barrier to purpose. The clubhouse will embody those
+                  values — a welcoming space for every generation to run,
+                  gather, and give back.
+                </p>
+                <p className="mt-4 text-base leading-relaxed text-foreground/80 md:text-lg">
+                  It&apos;s more than a building. It&apos;s a promise to
+                  continue the legacy Fauja helped build.
                 </p>
               </div>
             </div>
