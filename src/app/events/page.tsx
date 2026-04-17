@@ -6,12 +6,12 @@ import { JoinCtaSection } from "@/components/sections/join-cta-section";
 
 const eventsPageEvents = [
   {
-    title: "Summer Somosa Ultra",
+    title: "Summer Samosa Ultra",
     description:
       "Sign up for our Summer Samosa Ultra — a multi-lap race with three distances to choose from: Half Marathon, Full Marathon and Ultra Marathon (50km+).",
     date: "28th June 2026",
     imagePath: "/images/events/summer-somosa.png",
-    imageAlt: "Runners at the Summer Somosa Ultra event",
+    imageAlt: "Runners at the Summer Samosa Ultra event",
     href: "/contact",
   },
   {
