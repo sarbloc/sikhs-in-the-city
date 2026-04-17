@@ -28,7 +28,7 @@ describe("EventsPage", () => {
 
   it("renders both event cards", () => {
     render(<EventsPage />);
-    expect(screen.getByText("Summer Somosa Ultra")).toBeInTheDocument();
+    expect(screen.getByText("Summer Samosa Ultra")).toBeInTheDocument();
     expect(screen.getByText("28th June 2026")).toBeInTheDocument();
     expect(screen.getByText("Dawn 2 Dusk Ultra")).toBeInTheDocument();
     expect(screen.getByText("6th December 2026")).toBeInTheDocument();
