@@ -18,16 +18,22 @@ export function StepCard({
   className,
 }: StepCardProps) {
   return (
-    <div className={cn("flex flex-col gap-4 rounded-xl bg-white p-8 shadow-sm", className)}>
+    <div
+      className={cn(
+        "relative mt-8 flex flex-col items-center gap-3 rounded-xl bg-white px-6 pt-12 pb-8 text-center shadow-sm",
+        className,
+      )}
+    >
       <div
-        className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-blue-800 text-xl font-bold text-white"
+        aria-hidden="true"
+        className="absolute -top-8 left-1/2 flex h-16 w-16 -translate-x-1/2 items-center justify-center rounded-full bg-secondary text-2xl font-bold text-secondary-foreground shadow-md"
       >
         {stepNumber}
       </div>
-      <h3 className="text-2xl font-semibold tracking-tight text-foreground">
+      <h3 className="text-xl font-semibold tracking-tight text-foreground">
         {title}
       </h3>
-      <p className="text-base leading-relaxed text-foreground">
+      <p className="text-sm leading-relaxed text-muted-foreground">
         {description}
       </p>
     </div>

@@ -31,8 +31,18 @@ describe("JoinCtaSection", () => {
 
   it("renders CTA button with correct link", () => {
     render(<JoinCtaSection />);
-    const link = screen.getByRole("link", { name: "Register Interest" });
+    const link = screen.getByRole("link", { name: "Register Your Interest" });
     expect(link).toHaveAttribute("href", "/contact");
+  });
+
+  it("renders the yellow card container", () => {
+    const { container } = render(<JoinCtaSection />);
+    expect(container.querySelector(".bg-secondary")).not.toBeNull();
+  });
+
+  it("renders the image when imagePath is provided", () => {
+    render(<JoinCtaSection imageAlt="Runners celebrating" />);
+    expect(screen.getByAltText("Runners celebrating")).toBeInTheDocument();
   });
 
   it("renders custom CTA", () => {

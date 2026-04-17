@@ -22,6 +22,16 @@ describe("StepCard", () => {
     expect(screen.getByText("Test Title")).toBeInTheDocument();
     expect(screen.getByText("Test description")).toBeInTheDocument();
   });
+
+  it("renders the number inside a yellow circle badge", () => {
+    const { container } = render(
+      <StepCard stepNumber={3} title="Step" description="Desc" />
+    );
+    const badge = container.querySelector("div.rounded-full");
+    expect(badge).not.toBeNull();
+    expect(badge).toHaveClass("bg-secondary");
+    expect(badge?.textContent).toBe("3");
+  });
 });
 
 describe("HowToJoinSection", () => {
