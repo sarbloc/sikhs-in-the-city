@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface StepCardProps {
@@ -6,7 +7,7 @@ interface StepCardProps {
   /** Step title */
   title: string;
   /** Step description */
-  description: string;
+  description: ReactNode;
   /** Additional className */
   className?: string;
 }
