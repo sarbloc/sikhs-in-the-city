@@ -29,8 +29,7 @@ interface CourseRecordsSectionProps {
 const defaultRecords: CategoryRecord[] = [
   {
     category: "Ultra",
-    requirement:
-      "To receive the Ultra Marathon medal the participants will have to complete 25 or more laps (minimum 50k)",
+    requirement: "25+ laps (minimum 50k)",
     holders: [
       { name: "Jose Rodriguez", laps: 50, distance: "100.7 km", time: "7h 28:01", year: 2023 },
       { name: "Toni McIntosh", laps: 41, distance: "82.57 km", time: "7h48:19", year: 2019 },
@@ -38,8 +37,7 @@ const defaultRecords: CategoryRecord[] = [
   },
   {
     category: "Marathon",
-    requirement:
-      "To receive the Marathon medal the participants will have to complete 21 laps (Total distance of 42k)",
+    requirement: "21 laps (42k)",
     holders: [
       { name: "Lee Rodgers", laps: 50, time: "2h 42:16", year: 2025 },
       { name: "Charley Jennings", laps: 41, time: "3h 36:31", year: 2023 },
@@ -47,8 +45,7 @@ const defaultRecords: CategoryRecord[] = [
   },
   {
     category: "Half Marathon",
-    requirement:
-      "To receive the Half Marathon medal the participants will have to complete 11 laps (Total distance of 22k)",
+    requirement: "11 laps (22k)",
     holders: [
       { name: "Paul Quinton", laps: 50, distance: "100.7 km", time: "7h 28:01", year: 2023 },
       { name: "Hilary Wood", laps: 41, distance: "82.57 km", time: "7h48:19", year: 2019 },
@@ -56,8 +53,7 @@ const defaultRecords: CategoryRecord[] = [
   },
   {
     category: "10K",
-    requirement:
-      "To receive the 10k medal the participants will have to complete 5 laps",
+    requirement: "5 laps",
     holders: [
       { name: "Gary Towers", laps: 50, distance: "100.7 km", time: "7h 28:01", year: 2023 },
       { name: "Sharon Wright", laps: 41, distance: "82.57 km", time: "7h48:19", year: 2019 },
