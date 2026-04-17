@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { Menu } from "lucide-react";
+import { ChevronDown, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -14,22 +14,42 @@ import {
 } from "@/components/ui/sheet";
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 
-const navItems = [
-  { href: "/our-story", label: "Our Story", external: false },
-  { href: "/how-to-join", label: "How To Join", external: false },
-  { href: "/events", label: "Events", external: false },
-  { href: "/clubhouse-appeal", label: "ClubHouse Appeal", external: false },
-  { href: "/contact", label: "Contact Us", external: false },
+type NavItem = {
+  href: string;
+  label: string;
+};
+
+const navItems: NavItem[] = [
+  { href: "/our-story", label: "Our Story" },
+  { href: "/how-to-join", label: "How To Join" },
+  { href: "/events", label: "Events" },
+  { href: "/clubhouse-appeal", label: "ClubHouse Appeal" },
 ];
 
-const storeLink = { href: "https://sikhs-in-the-city.sumupstore.com", label: "Store" };
+const resultsItems: NavItem[] = [
+  { href: "/results/dawn-to-dusk", label: "Dawn To Dusk" },
+  { href: "/results/summer-samosa", label: "Summer Samosa" },
+  {
+    href: "/results/fauja-singh-birthday-challenge",
+    label: "Fauja Singh Birthday Challenge",
+  },
+];
+
+const contactItem: NavItem = { href: "/contact", label: "Contact Us" };
+
+const storeLink = {
+  href: "https://sikhs-in-the-city.sumupstore.com",
+  label: "Store",
+};
 
 interface HeaderProps {
   /** Additional className for the header */
@@ -38,6 +58,12 @@ interface HeaderProps {
 
 export function Header({ className }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileResultsOpen, setMobileResultsOpen] = useState(false);
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+    setMobileResultsOpen(false);
+  };
 
   return (
     <header
@@ -59,18 +85,62 @@ export function Header({ className }: HeaderProps) {
         </Link>
 
         {/* Desktop Navigation */}
-        <NavigationMenu className="hidden md:flex">
+        <NavigationMenu className="hidden md:flex" viewport={false}>
           <NavigationMenuList>
             {navItems.map((item) => (
               <NavigationMenuItem key={item.href}>
-                <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), "bg-transparent hover:bg-transparent focus:bg-transparent")}>
+                <NavigationMenuLink
+                  asChild
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "bg-transparent hover:bg-transparent focus:bg-transparent"
+                  )}
+                >
                   <Link href={item.href}>{item.label}</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger
+                className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent"
+              >
+                Results
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="bg-secondary text-secondary-foreground">
+                <ul className="flex w-64 flex-col gap-1 p-2">
+                  {resultsItems.map((item) => (
+                    <li key={item.href}>
+                      <NavigationMenuLink
+                        asChild
+                        className="text-secondary-foreground hover:bg-secondary-foreground/10 focus:bg-secondary-foreground/10 rounded-sm px-3 py-2 text-sm font-medium"
+                      >
+                        <Link href={item.href}>{item.label}</Link>
+                      </NavigationMenuLink>
+                    </li>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  "bg-transparent hover:bg-transparent focus:bg-transparent"
+                )}
+              >
+                <Link href={contactItem.href}>{contactItem.label}</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
             <NavigationMenuItem className="ml-4">
               <Button size="sm" asChild>
-                <a href={storeLink.href} target="_blank" rel="noopener noreferrer">{storeLink.label}</a>
+                <a
+                  href={storeLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {storeLink.label}
+                </a>
               </Button>
             </NavigationMenuItem>
           </NavigationMenuList>
@@ -93,18 +163,61 @@ export function Header({ className }: HeaderProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeMobileMenu}
                   className="text-lg font-medium transition-colors hover:text-primary"
                 >
                   {item.label}
                 </Link>
               ))}
+              <div className="flex flex-col gap-2">
+                <button
+                  type="button"
+                  aria-expanded={mobileResultsOpen}
+                  aria-controls="mobile-results-submenu"
+                  onClick={() => setMobileResultsOpen((open) => !open)}
+                  className="flex items-center justify-between text-left text-lg font-medium transition-colors hover:text-primary"
+                >
+                  <span>Results</span>
+                  <ChevronDown
+                    className={cn(
+                      "h-5 w-5 transition-transform",
+                      mobileResultsOpen && "rotate-180"
+                    )}
+                    aria-hidden="true"
+                  />
+                </button>
+                {mobileResultsOpen && (
+                  <ul
+                    id="mobile-results-submenu"
+                    className="flex flex-col gap-3 pl-4"
+                  >
+                    {resultsItems.map((item) => (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          onClick={closeMobileMenu}
+                          className="block text-base font-medium transition-colors hover:text-primary"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <Link
+                href={contactItem.href}
+                onClick={closeMobileMenu}
+                className="text-lg font-medium transition-colors hover:text-primary"
+              >
+                {contactItem.label}
+              </Link>
               <Button asChild>
                 <a
                   href={storeLink.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={closeMobileMenu}
                 >
                   {storeLink.label}
                 </a>
