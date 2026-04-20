@@ -27,16 +27,16 @@ export function RecordCategory({
   className,
 }: RecordCategoryProps) {
   return (
-    <div className={cn("overflow-hidden rounded-lg border", className)}>
-      {/* Header */}
-      <div className="bg-blue-200 px-4 py-5 text-center">
-        <h3 className="text-2xl font-bold text-foreground">{category}</h3>
-        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-          {requirement}
-        </p>
+    <div className={cn("flex flex-col gap-4", className)}>
+      {/* Blue header card */}
+      <div className="rounded-lg bg-primary px-4 py-8 text-center shadow-sm">
+        <h3 className="text-3xl font-bold text-primary-foreground">
+          {category}
+        </h3>
+        <p className="mt-2 text-sm text-primary-foreground/90">{requirement}</p>
       </div>
-      {/* Record holders */}
-      <div className="divide-y px-4 py-4">
+      {/* White content card */}
+      <div className="divide-y divide-border rounded-lg bg-card px-5 shadow-sm">
         {holders.map((holder, index) => (
           <RecordHolder
             key={index}
