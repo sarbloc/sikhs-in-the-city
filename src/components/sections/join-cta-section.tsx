@@ -30,13 +30,13 @@ export function JoinCtaSection({
   className,
 }: JoinCtaSectionProps) {
   return (
-    <section className={cn("pt-20 pb-10 md:pt-28 md:pb-14", className)}>
+    <section className={cn("pt-24 pb-10 md:pt-32 md:pb-14", className)}>
       <div className="container mx-auto px-4">
-        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:items-stretch">
-          {/* Image column — anchored to card bottom, extends above the top edge using the PNG's transparent upper region */}
-          <div className="relative order-first h-64 md:order-last md:h-auto md:min-h-[240px]">
+        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:min-h-[280px]">
+          {/* Image column — anchored to card bottom, extends 120px above the top edge on desktop */}
+          <div className="relative order-first aspect-[5/3] w-full md:order-last md:aspect-auto md:h-full">
             {imagePath && (
-              <div className="absolute inset-x-0 bottom-0 top-[-40%] md:top-[-45%]">
+              <div className="absolute inset-x-0 bottom-0 top-0 md:top-[-120px]">
                 <Image
                   src={imagePath}
                   alt={imageAlt}
@@ -48,14 +48,14 @@ export function JoinCtaSection({
           </div>
 
           {/* Text content */}
-          <div className="px-6 py-8 md:px-10 md:py-10">
+          <div className="flex flex-col justify-center px-6 py-8 md:px-10 md:py-10">
             <h2 className="text-2xl font-bold tracking-tight text-secondary-foreground md:text-3xl">
               {heading}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-secondary-foreground/80 md:text-base">
               {description}
             </p>
-            <Button asChild className="mt-5">
+            <Button asChild className="mt-5 self-start">
               <Link href={ctaHref}>{ctaText}</Link>
             </Button>
           </div>
