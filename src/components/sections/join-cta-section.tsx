@@ -35,9 +35,9 @@ export function JoinCtaSection({
   return (
     <section className={cn("pt-16 pb-10 md:pt-20 md:pb-14", className)}>
       <div className="container mx-auto px-4">
-        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:items-stretch md:min-h-[280px]">
-          {/* Image column — body image fits inside (rounded clipped); hands sit above the card top edge on desktop */}
-          <div className="relative order-first md:order-last">
+        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr]">
+          {/* Image column — body and hands both render at the column width with natural aspect (h-auto), so their horizontal scale matches at every viewport and the hands stay aligned with the arms */}
+          <div className="relative order-first md:order-last md:self-end">
             {handsImagePath && (
               <Image
                 src={handsImagePath}
@@ -45,18 +45,17 @@ export function JoinCtaSection({
                 aria-hidden="true"
                 width={1223}
                 height={100}
-                className="absolute inset-x-0 bottom-full hidden w-full md:block"
+                className="pointer-events-none absolute inset-x-0 bottom-full hidden h-auto w-full md:block"
               />
             )}
             {imagePath && (
-              <div className="relative h-64 w-full overflow-hidden rounded-t-2xl md:h-full md:min-h-[280px] md:rounded-t-none md:rounded-r-2xl">
-                <Image
-                  src={imagePath}
-                  alt={imageAlt}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              <Image
+                src={imagePath}
+                alt={imageAlt}
+                width={1224}
+                height={630}
+                className="block h-auto w-full rounded-t-2xl md:rounded-t-none md:rounded-r-2xl md:rounded-bl-none"
+              />
             )}
           </div>
 
