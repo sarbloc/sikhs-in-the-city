@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { PolaroidImage } from "@/components/polaroid-image";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { cn } from "@/lib/utils";
 
@@ -60,13 +60,15 @@ export function OurStorySection({
           </div>
 
           {/* Image */}
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-muted">
+          <div className="flex justify-center md:justify-end">
             {imagePath && (
-              <Image
+              <PolaroidImage
                 src={imagePath}
                 alt={imageAlt}
-                fill
-                className="object-cover"
+                width={633}
+                height={474}
+                rotate={3}
+                className="max-w-full"
               />
             )}
           </div>
