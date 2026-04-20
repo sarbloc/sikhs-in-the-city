@@ -35,9 +35,13 @@ export function JoinCtaSection({
   return (
     <section className={cn("pt-16 pb-10 md:pt-20 md:pb-14", className)}>
       <div className="container mx-auto px-4">
-        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr]">
-          {/* Image column — body and hands both render at the column width with natural aspect (h-auto), so their horizontal scale matches at every viewport and the hands stay aligned with the arms */}
-          <div className="relative order-first md:order-last md:self-end">
+        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:h-[320px]">
+          {/*
+            Image column — two responsive modes:
+              - Below md: stacked; body and hands both `w-full h-auto`, natural aspect, share horizontal scale.
+              - md+: card has a fixed 320px height. Body and hands are absolutely positioned, rendered at the card's fixed height and their natural-aspect width (so the width is ~621px when body=320px), horizontally centred. The column uses `overflow-x-clip` so the images can bleed sideways without touching the text column. Because both images share the same horizontal scale at every viewport width, the hands always line up with the arms.
+          */}
+          <div className="relative order-first md:order-last md:h-full md:overflow-x-clip md:rounded-r-2xl">
             {handsImagePath && (
               <Image
                 src={handsImagePath}
@@ -45,7 +49,10 @@ export function JoinCtaSection({
                 aria-hidden="true"
                 width={1223}
                 height={100}
-                className="pointer-events-none absolute inset-x-0 bottom-full hidden h-auto w-full md:block"
+                className={cn(
+                  "pointer-events-none block h-auto w-full",
+                  "md:absolute md:bottom-full md:left-1/2 md:h-[52px] md:w-auto md:max-w-none md:-translate-x-1/2"
+                )}
               />
             )}
             {imagePath && (
@@ -54,7 +61,10 @@ export function JoinCtaSection({
                 alt={imageAlt}
                 width={1224}
                 height={630}
-                className="block h-auto w-full rounded-t-2xl md:rounded-t-none md:rounded-r-2xl md:rounded-bl-none"
+                className={cn(
+                  "block h-auto w-full rounded-t-2xl",
+                  "md:absolute md:bottom-0 md:left-1/2 md:h-full md:w-auto md:max-w-none md:-translate-x-1/2 md:rounded-none"
+                )}
               />
             )}
           </div>
