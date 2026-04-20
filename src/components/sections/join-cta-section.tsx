@@ -25,23 +25,25 @@ export function JoinCtaSection({
   description = "Ready to start running with a supportive community? Register your interest and we'll share the details for Sunday morning training.",
   ctaText = "Register Your Interest",
   ctaHref = "/contact",
-  imagePath = "/images/join-thumbnail.jpg",
-  imageAlt = "Sikhs In The City runners",
+  imagePath = "/images/join-runner.png",
+  imageAlt = "Sikhs In The City runner celebrating at a marathon finish line",
   className,
 }: JoinCtaSectionProps) {
   return (
-    <section className={cn("py-10 md:py-14", className)}>
+    <section className={cn("pt-20 pb-10 md:pt-28 md:pb-14", className)}>
       <div className="container mx-auto px-4">
-        <div className="overflow-hidden rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:items-stretch">
-          {/* Image — stacks on top on mobile, sits flush-right on desktop */}
-          <div className="relative order-first aspect-[5/3] w-full md:order-last md:aspect-auto md:h-full md:min-h-[220px]">
+        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:items-stretch">
+          {/* Image column — anchored to card bottom, extends above the top edge using the PNG's transparent upper region */}
+          <div className="relative order-first h-64 md:order-last md:h-auto md:min-h-[240px]">
             {imagePath && (
-              <Image
-                src={imagePath}
-                alt={imageAlt}
-                fill
-                className="object-cover"
-              />
+              <div className="absolute inset-x-0 bottom-0 top-[-40%] md:top-[-45%]">
+                <Image
+                  src={imagePath}
+                  alt={imageAlt}
+                  fill
+                  className="object-contain object-bottom"
+                />
+              </div>
             )}
           </div>
 
