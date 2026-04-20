@@ -12,10 +12,12 @@ interface JoinCtaSectionProps {
   ctaText?: string;
   /** CTA button href */
   ctaHref?: string;
-  /** Optional image path */
+  /** Main runner image (fits inside the card) */
   imagePath?: string;
   /** Image alt text */
   imageAlt?: string;
+  /** Hands-only overlay that sits above the card on desktop, aligned with the main image */
+  handsImagePath?: string | null;
   /** Additional className */
   className?: string;
 }
@@ -27,22 +29,34 @@ export function JoinCtaSection({
   ctaHref = "/contact",
   imagePath = "/images/join-runner.png",
   imageAlt = "Sikhs In The City runner celebrating at a marathon finish line",
+  handsImagePath = "/images/join-runner-hands.png",
   className,
 }: JoinCtaSectionProps) {
   return (
-    <section className={cn("pt-24 pb-10 md:pt-32 md:pb-14", className)}>
+    <section className={cn("pt-16 pb-10 md:pt-20 md:pb-14", className)}>
       <div className="container mx-auto px-4">
-        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:min-h-[280px]">
-          {/* Image column — fixed-height image anchored to card bottom; hands protrude above the card while x-axis overflow is clipped */}
-          <div className="relative order-first h-[320px] w-full overflow-x-clip md:order-last md:h-full md:min-h-[280px]">
-            {imagePath && (
+        <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:items-stretch md:min-h-[280px]">
+          {/* Image column — body image fits inside (rounded clipped); hands sit above the card top edge on desktop */}
+          <div className="relative order-first md:order-last">
+            {handsImagePath && (
               <Image
-                src={imagePath}
-                alt={imageAlt}
-                width={1234}
-                height={730}
-                className="absolute bottom-0 left-1/2 h-[380px] w-auto max-w-none -translate-x-1/2 md:h-[400px]"
+                src={handsImagePath}
+                alt=""
+                aria-hidden="true"
+                width={1223}
+                height={100}
+                className="absolute inset-x-0 bottom-full hidden w-full md:block"
               />
+            )}
+            {imagePath && (
+              <div className="relative h-64 w-full overflow-hidden rounded-t-2xl md:h-full md:min-h-[280px] md:rounded-t-none md:rounded-r-2xl">
+                <Image
+                  src={imagePath}
+                  alt={imageAlt}
+                  fill
+                  className="object-cover"
+                />
+              </div>
             )}
           </div>
 
