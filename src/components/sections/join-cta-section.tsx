@@ -33,17 +33,16 @@ export function JoinCtaSection({
     <section className={cn("pt-24 pb-10 md:pt-32 md:pb-14", className)}>
       <div className="container mx-auto px-4">
         <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:min-h-[280px]">
-          {/* Image column — anchored to card bottom, extends 120px above the top edge on desktop */}
-          <div className="relative order-first aspect-[5/3] w-full md:order-last md:aspect-auto md:h-full">
+          {/* Image column — fixed-height image anchored to card bottom; hands protrude above the card while x-axis overflow is clipped */}
+          <div className="relative order-first h-[320px] w-full overflow-x-clip md:order-last md:h-full md:min-h-[280px]">
             {imagePath && (
-              <div className="absolute inset-x-0 bottom-0 top-0 md:top-[-120px]">
-                <Image
-                  src={imagePath}
-                  alt={imageAlt}
-                  fill
-                  className="object-contain object-bottom"
-                />
-              </div>
+              <Image
+                src={imagePath}
+                alt={imageAlt}
+                width={1234}
+                height={730}
+                className="absolute bottom-0 left-1/2 h-[380px] w-auto max-w-none -translate-x-1/2 md:h-[400px]"
+              />
             )}
           </div>
 
