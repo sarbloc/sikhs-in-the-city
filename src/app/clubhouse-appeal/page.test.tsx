@@ -13,7 +13,7 @@ describe("ClubhouseAppealPage", () => {
       })
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Registered Charity No 1179621/)
+      screen.getByText(/Registered Charity No 1179621.*Community project/)
     ).toBeInTheDocument();
   });
 
@@ -97,5 +97,31 @@ describe("ClubhouseAppealPage", () => {
         name: /Carrying Fauja Singh.s Values Forward/,
       })
     ).toBeInTheDocument();
+  });
+
+  it("renders the Supporting the Clubhouse Appeal section with bank details", () => {
+    render(<ClubhouseAppealPage />);
+    expect(
+      screen.getByRole("heading", { name: /Supporting the Clubhouse Appeal/ })
+    ).toBeInTheDocument();
+    expect(screen.getByText("Account Name")).toBeInTheDocument();
+    expect(screen.getByText("Account Number")).toBeInTheDocument();
+    expect(screen.getByText("Sort Code")).toBeInTheDocument();
+    expect(screen.getByText("Sikhs In The City")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /info@sikhsinthecity\.com/ })
+    ).toBeInTheDocument();
+  });
+
+  it("renders the Help Build a Lasting Community Legacy CTA band with Donate Now", () => {
+    render(<ClubhouseAppealPage />);
+    expect(
+      screen.getByRole("heading", {
+        name: /Help Build a Lasting Community Legacy/,
+      })
+    ).toBeInTheDocument();
+    const donateLinks = screen.getAllByRole("link", { name: "Donate Now" });
+    // PRs 9a/9b added 3 Donate Now buttons (hero, honouring, funding); 9c adds one more in the CTA band.
+    expect(donateLinks.length).toBeGreaterThanOrEqual(4);
   });
 });

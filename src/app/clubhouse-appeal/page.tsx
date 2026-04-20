@@ -12,7 +12,16 @@ import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 // TODO(asset): swap Fauja Singh portrait, polaroid photo, YouTube IDs, donate
 // link, architectural renders, funding/values photos, and confirm the
 // clubhouse address before launch. Flagged in PR 9a and PR 9b.
+// TODO(data): replace placeholder bank account number and sort code with real
+// values; verify "important donation notes" copy with the charity. Flagged in
+// PR 9c.
 const DONATE_HREF = "#donate";
+
+const BANK_DETAILS: { label: string; value: string }[] = [
+  { label: "Account Name", value: "Sikhs In The City" },
+  { label: "Account Number", value: "XXXXXXXX" },
+  { label: "Sort Code", value: "XX-XX-XX" },
+];
 const FAUJA_PORTRAIT_SRC = "/images/hero/slide-2.jpg";
 const HONOURING_IMAGE_SRC = "/images/hero/slide-3.jpg";
 const RENDER_IMAGE_SRCS = [
@@ -47,9 +56,15 @@ const VIDEOS: { videoId: string; title: string; caption: string }[] = [
   },
 ];
 
-function DonateButton({ className }: { className?: string }) {
+function DonateButton({
+  className,
+  variant = "default",
+}: {
+  className?: string;
+  variant?: "default" | "secondary";
+}) {
   return (
-    <Button asChild size="lg" className={className}>
+    <Button asChild size="lg" variant={variant} className={className}>
       <Link href={DONATE_HREF}>Donate Now</Link>
     </Button>
   );
@@ -295,6 +310,72 @@ export default function ClubhouseAppealPage() {
                 </p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Section 9 — Supporting the Clubhouse Appeal */}
+        <section className="bg-secondary px-4 py-16 md:py-24">
+          <div className="container mx-auto">
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                Supporting the Clubhouse Appeal
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-foreground/80 md:text-lg">
+                If you&apos;d like to support the clubhouse appeal directly,
+                you can donate by bank transfer using the details below. Every
+                contribution — large or small — helps us bring this community
+                home to life.
+              </p>
+            </div>
+            <dl className="mx-auto mt-10 max-w-xl rounded-2xl border border-border bg-background p-6 shadow-sm md:p-8">
+              {BANK_DETAILS.map((detail, index) => (
+                <div
+                  key={detail.label}
+                  className={
+                    "flex flex-col gap-1 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 " +
+                    (index < BANK_DETAILS.length - 1
+                      ? "border-b border-border"
+                      : "")
+                  }
+                >
+                  <dt className="text-sm font-semibold uppercase tracking-wide text-foreground/70">
+                    {detail.label}
+                  </dt>
+                  <dd className="font-mono text-base text-foreground sm:text-right md:text-lg">
+                    {detail.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-foreground/80 md:text-base">
+              Please use the reference{" "}
+              <span className="font-semibold">CLUBHOUSE</span> when transferring
+              so we can allocate your donation correctly. Sikhs In The City
+              (Registered Charity No 1179621) issues Gift Aid receipts on
+              request — email{" "}
+              <a
+                href="mailto:info@sikhsinthecity.com"
+                className="font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                info@sikhsinthecity.com
+              </a>{" "}
+              for more information.
+            </p>
+          </div>
+        </section>
+
+        {/* Section 10 — Help Build a Lasting Community Legacy */}
+        <section className="bg-primary px-4 py-16 text-primary-foreground md:py-24">
+          <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold tracking-tight md:text-5xl">
+              Help Build a Lasting Community Legacy
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-primary-foreground/90 md:text-lg">
+              Join us in honouring Fauja Singh BEM and creating a permanent
+              home for our running community. Your donation today helps shape a
+              clubhouse that will serve generations to come.
+            </p>
+            <DonateButton variant="secondary" className="mt-8" />
           </div>
         </section>
       </main>
