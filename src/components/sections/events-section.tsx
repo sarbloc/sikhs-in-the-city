@@ -21,22 +21,22 @@ interface EventsSectionProps {
 
 const defaultEvents: Event[] = [
   {
-    title: "Summer Somosa Ultra",
+    title: "Summer Samosa Ultra",
     description:
-      "Sign up for our Summer The Event is a multiple lap comprising three distances (Half Marathon, Full Marathon and Ultra Marathon 50km plus).",
+      "Sign up for our Summer Samosa Ultra — a multi-lap race with three distances to choose from: Half Marathon, Full Marathon and Ultra Marathon (50km+).",
     date: "28th June 2026",
     imagePath: "/images/events/summer-somosa.png",
-    imageAlt: "Runners at the Summer Somosa Ultra event",
-    href: "/events/summer-somosa-ultra",
+    imageAlt: "Runners at the Summer Samosa Ultra event",
+    href: "/contact",
   },
   {
     title: "Dawn 2 Dusk Ultra",
     description:
-      "Sign up for our Summer The Event is a multiple lap comprising three distances (Half Marathon, Full Marathon and Ultra Marathon 50km plus).",
+      "Sign up for our flagship Dawn 2 Dusk Ultra — a multi-lap endurance event offering Half Marathon, Full Marathon and Ultra Marathon (50km+) distances.",
     date: "6th December 2026",
     imagePath: "/images/events/dawn-2-dusk.png",
     imageAlt: "Runners at the Dawn 2 Dusk Ultra event",
-    href: "/events/dawn-2-dusk-ultra",
+    href: "/contact",
   },
 ];
 
