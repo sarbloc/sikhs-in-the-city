@@ -19,10 +19,9 @@ interface PolaroidImageProps {
 /**
  * PolaroidImage — white-framed tilted photo with a soft drop shadow.
  *
- * The frame has slightly thicker padding at the bottom to mimic a real
- * polaroid. Consumers control layout (single, cluster, overlap) by
- * composing multiple `PolaroidImage`s in a parent; this component stays
- * simple and self-contained.
+ * Consumers control layout (single, cluster, overlap) by composing
+ * multiple `PolaroidImage`s in a parent; this component stays simple
+ * and self-contained.
  */
 export function PolaroidImage({
   src,
@@ -35,7 +34,7 @@ export function PolaroidImage({
   return (
     <div
       className={cn(
-        "inline-block bg-white p-3 pb-8 shadow-[0_10px_25px_-12px_rgba(0,0,0,0.4)]",
+        "inline-block bg-white p-2 shadow-[0_0_12px_0_rgba(0,0,0,0.15)]",
         className
       )}
       style={{ transform: `rotate(${rotate}deg)` }}

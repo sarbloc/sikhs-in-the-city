@@ -38,14 +38,13 @@ describe("PolaroidImage", () => {
     expect(frame.style.transform).toBe("rotate(5deg)");
   });
 
-  it("applies white frame and bottom-weighted padding", () => {
+  it("applies white frame and even padding", () => {
     const { container } = render(
       <PolaroidImage src="/a.jpg" alt="a" width={100} height={100} />
     );
     const frame = container.firstChild as HTMLElement;
     expect(frame.className).toMatch(/bg-white/);
-    expect(frame.className).toMatch(/p-3/);
-    expect(frame.className).toMatch(/pb-8/);
+    expect(frame.className).toMatch(/p-2/);
   });
 
   it("forwards className to the frame", () => {
