@@ -37,11 +37,11 @@ export function JoinCtaSection({
       <div className="container mx-auto px-4">
         <div className="relative rounded-2xl bg-secondary md:grid md:grid-cols-[55fr_45fr] md:h-[320px]">
           {/*
-            Image column — two responsive modes:
-              - Below md: stacked; body and hands both `w-full h-auto`, natural aspect, share horizontal scale.
-              - md+: card has a fixed 320px height. Body and hands are absolutely positioned, rendered at the card's fixed height and their natural-aspect width (so the width is ~621px when body=320px), horizontally centred. The column uses `overflow-x-clip` so the images can bleed sideways without touching the text column. Because both images share the same horizontal scale at every viewport width, the hands always line up with the arms.
+            Image column — hands always protrude above the column on both breakpoints.
+            md+: card is a fixed 320px tall. Body image is rendered at h-full with natural-aspect width and centred, so it can overflow the column horizontally; an inner wrapper with `overflow-hidden rounded-r-2xl` both clips the horizontal overflow and gives the visible thumbnail rounded right corners matching the card.
+            Below md: body renders as a block with natural aspect (full column width). Hands are absolutely positioned above the column via `bottom-full` so they overflow the card's top edge. Both images share the same column width, keeping horizontal scales (and therefore the hands' alignment with the arms) identical.
           */}
-          <div className="relative order-first md:order-last md:h-full md:overflow-x-clip md:rounded-r-2xl">
+          <div className="relative order-first md:order-last md:h-full">
             {handsImagePath && (
               <Image
                 src={handsImagePath}
@@ -50,23 +50,25 @@ export function JoinCtaSection({
                 width={1223}
                 height={100}
                 className={cn(
-                  "pointer-events-none block h-auto w-full",
-                  "md:absolute md:bottom-full md:left-1/2 md:h-[52px] md:w-auto md:max-w-none md:-translate-x-1/2"
+                  "pointer-events-none absolute inset-x-0 bottom-full h-auto w-full",
+                  "md:inset-x-auto md:left-1/2 md:h-[52px] md:w-auto md:max-w-none md:-translate-x-1/2"
                 )}
               />
             )}
-            {imagePath && (
-              <Image
-                src={imagePath}
-                alt={imageAlt}
-                width={1224}
-                height={630}
-                className={cn(
-                  "block h-auto w-full rounded-t-2xl",
-                  "md:absolute md:bottom-0 md:left-1/2 md:h-full md:w-auto md:max-w-none md:-translate-x-1/2 md:rounded-none"
-                )}
-              />
-            )}
+            <div className="md:absolute md:inset-0 md:overflow-hidden md:rounded-r-2xl">
+              {imagePath && (
+                <Image
+                  src={imagePath}
+                  alt={imageAlt}
+                  width={1224}
+                  height={630}
+                  className={cn(
+                    "block h-auto w-full rounded-t-2xl",
+                    "md:absolute md:bottom-0 md:left-1/2 md:h-full md:w-auto md:max-w-none md:-translate-x-1/2 md:rounded-none"
+                  )}
+                />
+              )}
+            </div>
           </div>
 
           {/* Text content */}
