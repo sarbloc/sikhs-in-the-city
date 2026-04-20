@@ -24,26 +24,28 @@ export function RecordHolder({
   className,
 }: RecordHolderProps) {
   return (
-    <div className={cn("py-4", className)}>
-      <p className="text-sm font-bold text-foreground">{name}</p>
-      <p className="text-xs text-muted-foreground">
-        The record held at {laps} lap
+    <div className={cn("py-5", className)}>
+      <p className="text-lg font-bold uppercase tracking-wide text-primary">
+        {name}
       </p>
-      <div className="mt-2 space-y-1">
+      <p className="mt-1 text-sm text-muted-foreground">
+        {laps} laps | {year}
+      </p>
+      <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
         {distance && (
-          <div className="flex justify-between text-xs">
+          <>
             <span className="text-muted-foreground">Total distance:</span>
-            <span className="text-foreground">{distance}</span>
-          </div>
+            <span className="text-muted-foreground">Time</span>
+            <span className="font-bold text-foreground">{distance}</span>
+            <span className="font-bold text-foreground">{time}</span>
+          </>
         )}
-        <div className="flex justify-between text-xs">
-          <span className="text-muted-foreground">Time:</span>
-          <span className="text-foreground">{time}</span>
-        </div>
-        <div className="flex justify-between text-xs">
-          <span className="text-muted-foreground">Achieved in:</span>
-          <span className="text-foreground">{year}</span>
-        </div>
+        {!distance && (
+          <>
+            <span className="text-muted-foreground">Time</span>
+            <span className="font-bold text-foreground">{time}</span>
+          </>
+        )}
       </div>
     </div>
   );

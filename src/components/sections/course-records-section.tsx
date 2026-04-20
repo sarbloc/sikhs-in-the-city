@@ -32,31 +32,31 @@ const defaultRecords: CategoryRecord[] = [
     requirement: "25+ laps (minimum 50k)",
     holders: [
       { name: "Jose Rodriguez", laps: 50, distance: "100.7 km", time: "7h 28:01", year: 2023 },
-      { name: "Toni McIntosh", laps: 41, distance: "82.57 km", time: "7h48:19", year: 2019 },
+      { name: "Toni McIntosh", laps: 41, distance: "82.57 km", time: "7h 48:19", year: 2019 },
     ],
   },
   {
     category: "Marathon",
     requirement: "21 laps (42k)",
     holders: [
-      { name: "Lee Rodgers", laps: 50, time: "2h 42:16", year: 2025 },
-      { name: "Charley Jennings", laps: 41, time: "3h 36:31", year: 2023 },
+      { name: "Lee Rodgers", laps: 50, distance: "42 km", time: "2h 42:16", year: 2025 },
+      { name: "Charley Jennings", laps: 41, distance: "42 km", time: "3h 36:31", year: 2023 },
     ],
   },
   {
     category: "Half Marathon",
     requirement: "11 laps (22k)",
     holders: [
-      { name: "Paul Quinton", laps: 50, distance: "100.7 km", time: "7h 28:01", year: 2023 },
-      { name: "Hilary Wood", laps: 41, distance: "82.57 km", time: "7h48:19", year: 2019 },
+      { name: "Paul Quinton", laps: 11, distance: "100.7 km", time: "7h 28:01", year: 2015 },
+      { name: "Hilary Wood", laps: 11, distance: "82.57 km", time: "7h 48:19", year: 2021 },
     ],
   },
   {
     category: "10K",
     requirement: "5 laps",
     holders: [
-      { name: "Gary Towers", laps: 50, distance: "100.7 km", time: "7h 28:01", year: 2023 },
-      { name: "Sharon Wright", laps: 41, distance: "82.57 km", time: "7h48:19", year: 2019 },
+      { name: "Gary Towers", laps: 5, distance: "10 km", time: "34m:46.0", year: 2021 },
+      { name: "Sharon Wright", laps: 5, distance: "10 km", time: "43m:55.0", year: 2016 },
     ],
   },
 ];
