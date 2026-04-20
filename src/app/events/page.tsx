@@ -4,27 +4,6 @@ import { PageHero } from "@/components/sections/page-hero";
 import { EventsSection } from "@/components/sections/events-section";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
 
-const eventsPageEvents = [
-  {
-    title: "Summer Samosa Ultra",
-    description:
-      "Sign up for our Summer Samosa Ultra — a multi-lap race with three distances to choose from: Half Marathon, Full Marathon and Ultra Marathon (50km+).",
-    date: "28th June 2026",
-    imagePath: "/images/events/summer-somosa.png",
-    imageAlt: "Runners at the Summer Samosa Ultra event",
-    href: "/contact",
-  },
-  {
-    title: "Dawn 2 Dusk Ultra",
-    description:
-      "Sign up for our flagship Dawn 2 Dusk Ultra — a multi-lap endurance event offering Half Marathon, Full Marathon and Ultra Marathon (50km+) distances.",
-    date: "6th December 2026",
-    imagePath: "/images/events/dawn-2-dusk.png",
-    imageAlt: "Runners at the Dawn 2 Dusk Ultra event",
-    href: "/contact",
-  },
-];
-
 export default function EventsPage() {
   return (
     <div className="flex min-h-screen flex-col">
@@ -38,7 +17,7 @@ export default function EventsPage() {
           backgroundImage="/images/hero/slide-1.png"
           backgroundImageAlt="Sikhs In The City runners gathered at an event"
         />
-        <EventsSection events={eventsPageEvents} />
+        <EventsSection />
         <JoinCtaSection />
       </main>
       <Footer />

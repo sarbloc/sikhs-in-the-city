@@ -71,8 +71,15 @@ describe("EventsSection", () => {
 
   it("renders default events", () => {
     render(<EventsSection />);
-    expect(screen.getByText("Summer Somosa Ultra")).toBeInTheDocument();
+    expect(screen.getByText("Summer Samosa Ultra")).toBeInTheDocument();
     expect(screen.getByText("Dawn 2 Dusk Ultra")).toBeInTheDocument();
+  });
+
+  it("default event cards link to /contact", () => {
+    render(<EventsSection />);
+    const links = screen.getAllByRole("link", { name: /Sign Up Now/ });
+    expect(links.length).toBeGreaterThanOrEqual(2);
+    links.forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
   });
 
   it("renders custom events", () => {
