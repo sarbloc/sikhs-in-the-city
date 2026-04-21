@@ -5,8 +5,54 @@ Full-site design refresh based on new mockups (saved in `~/Downloads/sitc design
 ## Status
 
 - **Planning**: Complete
-- **Implementation**: Not started
-- **Kickoff PR**: PR 1 (primitives) — unblocks most downstream work
+- **Implementation**: **Complete** — all 13 planned PRs merged (PRs #44–#55), plus post-rollout fixes (#56–#62). See "Completion log" below.
+- **Pre-launch blockers**: see "Go-live checklist" below — all placeholders must be swapped before public launch.
+
+## Completion log
+
+Merged sequence (all on `main`):
+
+| PR | Title |
+|---|---|
+| #44 | Header Results dropdown |
+| #45 | Design refresh UI primitives (ResultsTable, PolaroidImage, AmenityCard, InfoRow) |
+| #46 | Polish shared sections (Join CTA, course records, step card) |
+| #47 | Events page rebuild |
+| #48 | How To Join page rebuild |
+| #49 | Contact page rebuild |
+| #50 | Clubhouse Appeal hero → map (9a) |
+| #51 | Event results pages (Fauja Singh, Dawn To Dusk, Summer Samosa) |
+| #52 | Our Story sections 1–4 (8a) |
+| #53 | Clubhouse Appeal vision → values (9b) |
+| #54 | Our Story sections 5–8 (8b) |
+| #55 | Clubhouse Appeal support + CTA (9c) |
+| #56 | Home event cards link to /contact |
+| #57 | Course records redesign |
+| #58 | Polaroid 8px border / centred shadow |
+| #59 | Homepage Our Story uses PolaroidImage |
+| #60 | Join CTA runner breaks above top edge |
+| #61 | Join CTA: fixed-height thumbnail + hands overlay with rounded corners |
+| #62 | Standardise button sizing (16px / 12–56 padding) |
+
+## Go-live checklist
+
+Nothing below is blocking local development, but each must be resolved before public launch. Tracked as PR-body "open items" on the PRs listed.
+
+- **Contact form target email** (#49): `info@sikhsinthecity.com` is a placeholder. Confirm and swap.
+- **Donate Now href** (#50, #53, #55): currently `#donate`. Replace with real donation URL/flow.
+- **Bank details** (#55): `XXXXXXXX` / `XX-XX-XX` intentionally unrealistic placeholders. Swap in real account + sort code.
+- **YouTube video IDs** (#50): three "Words from Fauja Singh" videos use `dQw4w9WgXcQ` (Rickroll) placeholder. Replace with real IDs.
+- **Fauja Singh portrait + polaroids** (#50, #53): hero portrait and architectural/community polaroids reuse `/images/hero/slide-*.{png,jpg}`. Swap with real assets.
+- **Trustee photos** (#54): all `/images/trustees/*.jpg` are placeholders. Nine-cell grid including one unnamed middle-row trustee that needs confirmation.
+- **Our Story photos** (#52): `/images/our-story/{beginning,founders,dedication-1..4}.jpg` placeholders.
+- **Events / How To Join / Clubhouse Appeal hero images**: many reuse existing slide assets. Swap with bespoke assets once available.
+- **Fauja Singh results data** (#51): only 2025 has rows. 2022/2021/2019 show empty state until a CSV import is built.
+- **Possible mock typo** (#52): Our Story section 3 body has `"Amrik Singh from Glasgow and Karnail Singh also from Ilford, Amrik Singh"` — transcribed verbatim from the mock; content owner should confirm.
+
+## Follow-up chores (non-blocking)
+
+- Rename `public/images/events/summer-somosa.png` → `summer-samosa.png` (flagged in #47). Link + alt already use correct spelling.
+- Add `.claude/worktrees` (or the transient `.next` build directories under it) to `eslint.config.mjs` `ignores` — sibling agent worktrees pollute lint output with their build artefacts.
 
 ---
 
