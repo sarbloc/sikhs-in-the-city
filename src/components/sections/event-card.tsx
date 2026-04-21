@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { CtaLink } from "@/components/ui/cta-link";
 import { cn } from "@/lib/utils";
 
 interface EventCardProps {
@@ -52,12 +52,9 @@ export function EventCard({
           <p className="mt-3 text-sm leading-relaxed text-white/80">
             {description}
           </p>
-          <Link
-            href={href}
-            className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-white"
-          >
-            {linkText} <span aria-hidden="true">→</span>
-          </Link>
+          <CtaLink href={href} variant="inverse" className="mt-3">
+            {linkText}
+          </CtaLink>
         </div>
       </div>
     </div>
