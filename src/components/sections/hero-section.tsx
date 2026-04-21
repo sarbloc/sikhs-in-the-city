@@ -147,9 +147,9 @@ export function HeroSection({
                     {slide.secondaryCta && (
                       <Button
                         asChild
-                        variant="outline"
+                        variant="outline-light"
                         size="lg"
-                        className="min-w-45 border-white bg-transparent text-white hover:bg-white/10 hover:text-white"
+                        className="min-w-45"
                       >
                         <Link href={slide.secondaryHref || "#"}>
                           {slide.secondaryCta}

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { CtaLink } from "@/components/ui/cta-link";
 import { cn } from "@/lib/utils";
 
 interface ClubhouseAppealSectionProps {
@@ -57,19 +58,12 @@ export function ClubhouseAppealSection({
                 {description}
               </p>
               <div className="mt-6 flex items-center gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-foreground text-background hover:bg-foreground/90"
-                >
+                <Button asChild size="lg" variant="dark">
                   <Link href={primaryCtaHref}>{primaryCtaText}</Link>
                 </Button>
-                <Link
-                  href={secondaryCtaHref}
-                  className="inline-flex items-center gap-2 text-sm font-bold text-foreground"
-                >
-                  {secondaryCtaText} <span aria-hidden="true">→</span>
-                </Link> 
+                <CtaLink href={secondaryCtaHref} variant="foreground">
+                  {secondaryCtaText}
+                </CtaLink>
               </div>
             </div>
 

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { PolaroidImage } from "@/components/polaroid-image";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { CtaLink } from "@/components/ui/cta-link";
 import { cn } from "@/lib/utils";
 
 interface OurStorySectionProps {
@@ -51,12 +51,9 @@ export function OurStorySection({
                 </p>
               ))}
             </div>
-            <Link
-              href={linkHref}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary"
-            >
-              {linkText} <span aria-hidden="true">→</span>
-            </Link>
+            <CtaLink href={linkHref} className="mt-6">
+              {linkText}
+            </CtaLink>
           </div>
 
           {/* Image */}
