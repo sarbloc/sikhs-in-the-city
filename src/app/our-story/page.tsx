@@ -126,6 +126,7 @@ function FoundersSection() {
               width={520}
               height={340}
               fit="cover"
+              objectPosition="top"
               rotate={3}
             />
           </div>

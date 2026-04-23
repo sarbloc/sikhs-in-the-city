@@ -18,9 +18,21 @@ interface PolaroidImageProps {
    * - `cover`: frame is a fixed `width×height` box and the image is cropped via `object-cover`.
    */
   fit?: "natural" | "cover";
+  /**
+   * Crop anchor when `fit="cover"`. Default `center`. Use `top` when the
+   * subjects' heads sit near the top of the source and the cover crop would
+   * otherwise slice them off. Ignored for `fit="natural"`.
+   */
+  objectPosition?: "center" | "top" | "bottom";
   /** Additional className applied to the outer polaroid frame */
   className?: string;
 }
+
+const objectPositionClass = {
+  center: "object-center",
+  top: "object-top",
+  bottom: "object-bottom",
+} as const;
 
 export function PolaroidImage({
   src,
@@ -29,6 +41,7 @@ export function PolaroidImage({
   height,
   rotate = -2,
   fit = "natural",
+  objectPosition = "center",
   className,
 }: PolaroidImageProps) {
   return (
@@ -46,7 +59,7 @@ export function PolaroidImage({
             alt={alt}
             fill
             sizes={`${width}px`}
-            className="object-cover"
+            className={cn("object-cover", objectPositionClass[objectPosition])}
           />
         </div>
       ) : (
