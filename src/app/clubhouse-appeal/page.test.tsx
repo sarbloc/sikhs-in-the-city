@@ -109,7 +109,7 @@ describe("ClubhouseAppealPage", () => {
     expect(screen.getByText("Sort Code")).toBeInTheDocument();
     expect(screen.getByText("Sikhs In The City")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /info@sikhsinthecity\.com/ })
+      screen.getByRole("link", { name: /info@sikhsinthecity\.org/ })
     ).toBeInTheDocument();
   });
 

@@ -5,8 +5,7 @@ import { InfoRow } from "@/components/info-row";
 import { ContactForm } from "@/components/sections/contact-form";
 import { MapEmbed } from "@/components/sections/map-embed";
 
-// Placeholder — confirm real address before merge (flagged in PR body).
-const CONTACT_EMAIL = "info@sikhsinthecity.com";
+const CONTACT_EMAIL = "info@sikhsinthecity.org";
 
 const MEETING_ADDRESS =
   "Junction of Roding Lane South & Woodford Bridge Road opposite the PDSA centre, nearest postcode for SatNav IG4 5PS";

@@ -3,7 +3,7 @@ import type { Mock } from "vitest";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { ContactForm, buildMailto } from "./contact-form";
 
-const TARGET = "info@sikhsinthecity.com";
+const TARGET = "info@sikhsinthecity.org";
 
 describe("buildMailto", () => {
   it("composes a mailto: URL with subject and encoded body", () => {
@@ -105,7 +105,7 @@ describe("ContactForm", () => {
 
     expect(hrefSetter).toHaveBeenCalledTimes(1);
     const href = hrefSetter.mock.calls[0][0] as string;
-    expect(href).toMatch(/^mailto:info@sikhsinthecity\.com\?/);
+    expect(href).toMatch(/^mailto:info@sikhsinthecity\.org\?/);
     expect(href).toContain("subject=Register%20Your%20Interest");
     expect(href).toContain("Name%3A%20Jane%20Doe");
     expect(href).toContain("Email%3A%20jane%40example.com");

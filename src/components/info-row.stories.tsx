@@ -50,10 +50,10 @@ export const ContactStack: Story = {
       </InfoRow>
       <InfoRow icon={Mail}>
         <a
-          href="mailto:info@sikhsinthecity.com"
+          href="mailto:info@sikhsinthecity.org"
           className="text-primary hover:underline"
         >
-          info@sikhsinthecity.com
+          info@sikhsinthecity.org
         </a>
       </InfoRow>
       <InfoRow icon={Phone}>+44 20 0000 0000</InfoRow>
