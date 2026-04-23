@@ -34,7 +34,10 @@ describe("ClubhouseAppealSection", () => {
   it("renders primary CTA with correct link", () => {
     render(<ClubhouseAppealSection />);
     const link = screen.getByRole("link", { name: "Donate Now" });
-    expect(link).toHaveAttribute("href", "/donate");
+    expect(link).toHaveAttribute(
+      "href",
+      "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal"
+    );
   });
 
   it("renders secondary CTA with correct link", () => {

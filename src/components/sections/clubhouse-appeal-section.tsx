@@ -32,7 +32,7 @@ export function ClubhouseAppealSection({
   subtitle = "A Project to honour Fauja Singh BEM",
   description = "We're working to build an eco-friendly community clubhouse that supports health, wellbeing, and connection. With your support, we can turn this vision into a lasting space for the local community.",
   primaryCtaText = "Donate Now",
-  primaryCtaHref = "/donate",
+  primaryCtaHref = "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal",
   secondaryCtaText = "Find Out More",
   secondaryCtaHref = "/clubhouse-appeal",
   imagePath = "/images/hero/slide-2.jpg",

@@ -55,7 +55,7 @@ export const WithBackgroundImages: Story = {
         backgroundImage:
           "https://placehold.co/1920x1080/3a3a3a/555555?text=Slide+3",
         primaryCta: "Donate",
-        primaryHref: "/donate",
+        primaryHref: "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal",
       },
     ],
   },
