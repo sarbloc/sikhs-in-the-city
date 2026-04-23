@@ -24,6 +24,14 @@ interface PolaroidImageProps {
    * otherwise slice them off. Ignored for `fit="natural"`.
    */
   objectPosition?: "center" | "top" | "bottom";
+  /**
+   * When set with `fit="cover"`, the frame becomes responsive: it fills the
+   * parent up to `width` pixels and preserves the `width / height` aspect
+   * ratio. Use this for cover-cropped polaroids placed in normal flow where
+   * the viewport may be narrower than `width` (e.g. mobile). Has no effect
+   * for `fit="natural"`.
+   */
+  responsive?: boolean;
   /** Additional className applied to the outer polaroid frame */
   className?: string;
 }
@@ -42,23 +50,40 @@ export function PolaroidImage({
   rotate = -2,
   fit = "natural",
   objectPosition = "center",
+  responsive = false,
   className,
 }: PolaroidImageProps) {
+  const isResponsiveCover = fit === "cover" && responsive;
   return (
     <div
       className={cn(
-        "inline-block bg-white p-2 shadow-[0_0_12px_0_rgba(0,0,0,0.15)]",
+        "bg-white p-2 shadow-[0_0_12px_0_rgba(0,0,0,0.15)]",
+        isResponsiveCover ? "block w-full" : "inline-block",
         className
       )}
-      style={{ transform: `rotate(${rotate}deg)` }}
+      style={{
+        transform: `rotate(${rotate}deg)`,
+        ...(isResponsiveCover && { maxWidth: width }),
+      }}
     >
       {fit === "cover" ? (
-        <div className="relative block" style={{ width, height }}>
+        <div
+          className={cn("relative block", isResponsiveCover && "w-full")}
+          style={
+            isResponsiveCover
+              ? { aspectRatio: `${width} / ${height}` }
+              : { width, height }
+          }
+        >
           <Image
             src={src}
             alt={alt}
             fill
-            sizes={`${width}px`}
+            sizes={
+              isResponsiveCover
+                ? `(max-width: ${width}px) 100vw, ${width}px`
+                : `${width}px`
+            }
             className={cn("object-cover", objectPositionClass[objectPosition])}
           />
         </div>
