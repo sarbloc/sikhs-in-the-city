@@ -169,49 +169,53 @@ function DedicationSection() {
   );
 }
 
-/** Scrapbook-style cluster of 4 polaroids with varied sizes, aspects, rotations. */
+/**
+ * Scrapbook-style cluster of 4 polaroids. Mobile (<md): simple 2-col grid so
+ * the polaroids stay inside the narrow viewport. md+: switches to block layout
+ * with absolute-positioned polaroids that overlap and fill the right column.
+ */
 function DedicationCluster() {
   return (
     <div
       role="group"
       aria-label="Photos of Sikhs In The City community members training and racing"
-      className="mx-auto grid max-w-md grid-cols-2 gap-4 md:gap-6"
+      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 md:relative md:block md:aspect-[4/3] md:max-w-lg md:gap-0"
     >
       <PolaroidImage
         src="/images/our-story/dedication-1.jpg"
         alt="Club members training together on a Sunday morning"
-        width={170}
-        height={230}
+        width={220}
+        height={290}
         fit="cover"
         rotate={-5}
-        className="justify-self-start self-start"
+        className="justify-self-start md:absolute md:left-0 md:top-0 md:z-10"
       />
       <PolaroidImage
         src="/images/our-story/dedication-2.jpg"
         alt="Club members at a marathon event"
-        width={210}
-        height={140}
+        width={260}
+        height={180}
         fit="cover"
-        rotate={3}
-        className="justify-self-end self-center"
+        rotate={4}
+        className="justify-self-end md:absolute md:right-0 md:top-4 md:z-20"
       />
       <PolaroidImage
         src="/images/our-story/dedication-3.png"
         alt="Lifetime members celebrating a race finish"
-        width={160}
-        height={160}
+        width={240}
+        height={240}
         fit="cover"
         rotate={6}
-        className="justify-self-center self-end"
+        className="justify-self-start md:absolute md:left-14 md:bottom-0 md:z-30"
       />
       <PolaroidImage
         src="/images/our-story/dedication-4.jpg"
         alt="Golden Oldies team in action"
-        width={230}
-        height={150}
+        width={280}
+        height={190}
         fit="cover"
-        rotate={-4}
-        className="justify-self-start self-center"
+        rotate={-3}
+        className="justify-self-end md:absolute md:right-0 md:bottom-2 md:z-20"
       />
     </div>
   );
@@ -367,14 +371,14 @@ function EventsInfoSection() {
               Clubhouse Appeal.
             </p>
           </div>
-          <div className="flex justify-center md:justify-end">
+          <div className="flex w-full justify-center md:justify-end">
             <PolaroidImage
               src="/images/our-story/events.jpg"
               alt="Fauja Singh with Sikhs In The City runners after a race"
               width={640}
               height={424}
               rotate={3}
-              className="max-w-lg"
+              className="w-full"
             />
           </div>
         </div>
