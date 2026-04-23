@@ -43,8 +43,8 @@ Nothing below is blocking local development, but each must be resolved before pu
 - ~~**Bank details** (#55): `XXXXXXXX` / `XX-XX-XX` intentionally unrealistic placeholders. Swap in real account + sort code.~~ Done in #66 — real account wired in and support copy finalised.
 - ~~**YouTube video IDs** (#50): three "Words from Fauja Singh" videos use `dQw4w9WgXcQ` (Rickroll) placeholder. Replace with real IDs.~~ Done in #67 — three real Vimeo videos (pre / with-Fauja / post).
 - **Fauja Singh portrait + polaroids** (#50, #53): hero portrait and architectural/community polaroids reuse `/images/hero/slide-*.{png,jpg}`. Swap with real assets.
-- **Trustee photos** (#54): all `/images/trustees/*.jpg` are placeholders. Nine-cell grid including one unnamed middle-row trustee that needs confirmation.
-- **Our Story photos** (#52): `/images/our-story/{beginning,founders,dedication-1..4}.jpg` placeholders.
+- ~~**Trustee photos** (#54): all `/images/trustees/*.jpg` are placeholders. Nine-cell grid including one unnamed middle-row trustee that needs confirmation.~~ Done in #68/#69/#70/#71 — eight real trustees (alphabetical) + Vacancy cell. Unnamed middle-row slot was a placeholder; replaced by Vanessa Brewster to complete the list.
+- ~~**Our Story photos** (#52): `/images/our-story/{beginning,founders,dedication-1..4}.jpg` placeholders.~~ Done in #68/#69/#71 — real Beginning portrait (no-polaroid cut-out), four real dedication thumbnails, Events single polaroid. Founders reuses homepage `/images/our-story.png` group photo.
 - **Events / How To Join / Clubhouse Appeal hero images**: many reuse existing slide assets. Swap with bespoke assets once available.
 - **Fauja Singh results data** (#51): only 2025 has rows. 2022/2021/2019 show empty state until a CSV import is built.
 - **Possible mock typo** (#52): Our Story section 3 body has `"Amrik Singh from Glasgow and Karnail Singh also from Ilford, Amrik Singh"` — transcribed verbatim from the mock; content owner should confirm.
