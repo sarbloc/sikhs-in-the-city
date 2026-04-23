@@ -38,10 +38,10 @@ Merged sequence (all on `main`):
 
 Nothing below is blocking local development, but each must be resolved before public launch. Tracked as PR-body "open items" on the PRs listed.
 
-- **Contact form target email** (#49): `info@sikhsinthecity.com` is a placeholder. Confirm and swap.
-- **Donate Now href** (#50, #53, #55): currently `#donate`. Replace with real donation URL/flow.
-- **Bank details** (#55): `XXXXXXXX` / `XX-XX-XX` intentionally unrealistic placeholders. Swap in real account + sort code.
-- **YouTube video IDs** (#50): three "Words from Fauja Singh" videos use `dQw4w9WgXcQ` (Rickroll) placeholder. Replace with real IDs.
+- ~~**Contact form target email** (#49): `info@sikhsinthecity.com` is a placeholder. Confirm and swap.~~ Done in #64 — `info@sikhsinthecity.org`.
+- ~~**Donate Now href** (#50, #53, #55): currently `#donate`. Replace with real donation URL/flow.~~ Done in #65 — https://www.gofundme.com/f/fauja-singh-clubhouse-appeal.
+- ~~**Bank details** (#55): `XXXXXXXX` / `XX-XX-XX` intentionally unrealistic placeholders. Swap in real account + sort code.~~ Done in #66 — real account wired in and support copy finalised.
+- ~~**YouTube video IDs** (#50): three "Words from Fauja Singh" videos use `dQw4w9WgXcQ` (Rickroll) placeholder. Replace with real IDs.~~ Done in #67 — three real Vimeo videos (pre / with-Fauja / post).
 - **Fauja Singh portrait + polaroids** (#50, #53): hero portrait and architectural/community polaroids reuse `/images/hero/slide-*.{png,jpg}`. Swap with real assets.
 - **Trustee photos** (#54): all `/images/trustees/*.jpg` are placeholders. Nine-cell grid including one unnamed middle-row trustee that needs confirmation.
 - **Our Story photos** (#52): `/images/our-story/{beginning,founders,dedication-1..4}.jpg` placeholders.
