@@ -230,7 +230,7 @@ function FeatureCardsSection() {
   return (
     <section className="bg-background px-4 py-16 md:py-20">
       <div className="container mx-auto">
-        <h2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+        <h2 className="text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
           More Than a Running Club
         </h2>
         <div className="mt-10 grid gap-6 md:mt-12 md:grid-cols-2 md:gap-8">
