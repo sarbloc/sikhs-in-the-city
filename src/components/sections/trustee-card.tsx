@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { UserRound } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface TrusteeCardProps {
@@ -7,71 +6,31 @@ interface TrusteeCardProps {
   name: string;
   /** Optional role label displayed under the name (e.g. "PRESIDENT") */
   role?: string;
-  /** Photo path; falls back to a silhouette when not supplied */
-  photo?: string;
-  /**
-   * Visual variant. Use "vacancy" for the open-role silhouette card that
-   * invites applications.
-   */
-  variant?: "default" | "vacancy";
+  /** Portrait photo path */
+  photo: string;
   /** Additional className applied to the outer card */
   className?: string;
 }
 
-/**
- * TrusteeCard — photo-first card used in the Our Story trustees grid.
- *
- * The `vacancy` variant renders a silhouette placeholder with a
- * "Contact Us To Apply" call to action instead of a name/role.
- */
-export function TrusteeCard({
-  name,
-  role,
-  photo,
-  variant = "default",
-  className,
-}: TrusteeCardProps) {
-  const isVacancy = variant === "vacancy";
-
+export function TrusteeCard({ name, role, photo, className }: TrusteeCardProps) {
   return (
-    <article
-      className={cn(
-        "flex flex-col overflow-hidden rounded-xl bg-white text-left shadow-sm",
-        className,
-      )}
-    >
-      <div className="relative aspect-[4/5] w-full bg-muted">
-        {isVacancy || !photo ? (
-          <div
-            aria-hidden="true"
-            className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground"
-          >
-            <UserRound className="h-20 w-20" strokeWidth={1.25} />
-          </div>
-        ) : (
-          <Image
-            src={photo}
-            alt={`Portrait of ${name}`}
-            fill
-            className="object-cover"
-          />
-        )}
+    <article className={cn("flex flex-col", className)}>
+      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-muted">
+        <Image
+          src={photo}
+          alt={`Portrait of ${name}`}
+          fill
+          className="object-cover"
+        />
       </div>
-
-      <div className="flex flex-col items-start gap-1 px-4 py-4">
-        <p className="text-base font-semibold tracking-tight text-foreground">
+      <div className="mt-3 flex flex-col gap-1">
+        <p className="text-lg font-bold tracking-tight text-foreground">
           {name}
         </p>
-        {isVacancy ? (
-          <p className="text-xs font-semibold tracking-[0.15em] text-orange-600 uppercase">
-            Contact Us To Apply
+        {role && (
+          <p className="text-xs font-semibold tracking-[0.15em] text-yellow-600 uppercase">
+            {role}
           </p>
-        ) : (
-          role && (
-            <p className="text-xs font-semibold tracking-[0.15em] text-orange-600 uppercase">
-              {role}
-            </p>
-          )
         )}
       </div>
     </article>

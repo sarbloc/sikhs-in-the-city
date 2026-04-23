@@ -12,23 +12,23 @@ interface PolaroidImageProps {
   height: number;
   /** Rotation in degrees. Defaults to -2 for a gentle tilt */
   rotate?: number;
+  /**
+   * How the image fills the polaroid frame.
+   * - `natural` (default): image renders at its own aspect, frame sizes to fit.
+   * - `cover`: frame is a fixed `width×height` box and the image is cropped via `object-cover`.
+   */
+  fit?: "natural" | "cover";
   /** Additional className applied to the outer polaroid frame */
   className?: string;
 }
 
-/**
- * PolaroidImage — white-framed tilted photo with a soft drop shadow.
- *
- * Consumers control layout (single, cluster, overlap) by composing
- * multiple `PolaroidImage`s in a parent; this component stays simple
- * and self-contained.
- */
 export function PolaroidImage({
   src,
   alt,
   width,
   height,
   rotate = -2,
+  fit = "natural",
   className,
 }: PolaroidImageProps) {
   return (
@@ -39,13 +39,25 @@ export function PolaroidImage({
       )}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
-      <Image
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className="block h-auto w-full"
-      />
+      {fit === "cover" ? (
+        <div className="relative block" style={{ width, height }}>
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={`${width}px`}
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          width={width}
+          height={height}
+          className="block h-auto w-full"
+        />
+      )}
     </div>
   );
 }
