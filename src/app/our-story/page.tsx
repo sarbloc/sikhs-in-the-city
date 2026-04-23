@@ -59,7 +59,7 @@ function BeginningSection() {
                 aria-hidden="true"
                 width={575}
                 height={534}
-                className="pointer-events-none absolute left-1/2 top-0 w-[140%] max-w-none -translate-x-1/2 -translate-y-[8%] brightness-0 invert opacity-70"
+                className="pointer-events-none absolute left-1/2 top-0 w-[140%] max-w-none -translate-x-1/2 -translate-y-[8%] brightness-0 invert opacity-50"
               />
               <Image
                 src="/images/our-story/beginning.png"
@@ -124,7 +124,8 @@ function FoundersSection() {
               src="/images/our-story.png"
               alt="The founding members of Sikhs In The City"
               width={520}
-              height={525}
+              height={340}
+              fit="cover"
               rotate={3}
             />
           </div>
@@ -167,49 +168,49 @@ function DedicationSection() {
   );
 }
 
-/** Cluster of 4 polaroids arranged in a 2×2 grid with varied rotations. */
+/** Scrapbook-style cluster of 4 polaroids with varied sizes, aspects, rotations. */
 function DedicationCluster() {
   return (
     <div
       role="group"
       aria-label="Photos of Sikhs In The City community members training and racing"
-      className="mx-auto grid max-w-md grid-cols-2 gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8"
+      className="mx-auto grid max-w-md grid-cols-2 gap-4 md:gap-6"
     >
       <PolaroidImage
         src="/images/our-story/dedication-1.jpg"
         alt="Club members training together on a Sunday morning"
-        width={180}
-        height={180}
+        width={170}
+        height={230}
         fit="cover"
-        rotate={-4}
-        className="justify-self-center"
+        rotate={-5}
+        className="justify-self-start self-start"
       />
       <PolaroidImage
         src="/images/our-story/dedication-2.jpg"
         alt="Club members at a marathon event"
-        width={180}
-        height={180}
+        width={210}
+        height={140}
         fit="cover"
         rotate={3}
-        className="justify-self-center"
+        className="justify-self-end self-center"
       />
       <PolaroidImage
         src="/images/our-story/dedication-3.png"
         alt="Lifetime members celebrating a race finish"
-        width={180}
-        height={180}
+        width={160}
+        height={160}
         fit="cover"
-        rotate={4}
-        className="justify-self-center"
+        rotate={6}
+        className="justify-self-center self-end"
       />
       <PolaroidImage
         src="/images/our-story/dedication-4.jpg"
         alt="Golden Oldies team in action"
-        width={180}
-        height={180}
+        width={230}
+        height={150}
         fit="cover"
-        rotate={-3}
-        className="justify-self-center"
+        rotate={-4}
+        className="justify-self-start self-center"
       />
     </div>
   );
@@ -218,7 +219,7 @@ function DedicationCluster() {
 /** Section 5 — two blue FeatureCards side-by-side. */
 function FeatureCardsSection() {
   return (
-    <section className="bg-background px-4 pt-4 pb-16 md:pt-6 md:pb-20">
+    <section className="bg-background px-4 py-16 md:py-20">
       <div className="container mx-auto">
         <div className="grid gap-6 md:grid-cols-2 md:gap-8">
           <FeatureCard
@@ -325,7 +326,7 @@ function TrusteesSection() {
   );
 }
 
-/** Section 8 — 2-col SITC events info block with polaroid cluster right. */
+/** Section 8 — SITC flagship events info block with polaroid right. */
 function EventsInfoSection() {
   return (
     <section className="bg-background px-4 pb-16 md:pb-20">
@@ -333,39 +334,37 @@ function EventsInfoSection() {
         <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
           <div>
             <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              SITC Events To Suit All Abilities &amp; Interests
+              SITC Dawn To Dusk Ultra &amp; Summer Samosa Challenge events
             </h2>
             <p className="mt-5 text-base leading-relaxed text-foreground md:text-lg">
-              Every year we host two flagship community races alongside our
-              weekly training meet-ups. Whether you&apos;re chasing a personal
-              best, your first 10K, or simply a Sunday morning community, our
-              events are designed to welcome runners of every ability.
+              These iconic SITC events are run on a multi-lap course, offering
+              distances from 10K through to Ultra Marathon (50km+).
             </p>
             <dl className="mt-6 space-y-4 text-base leading-relaxed text-foreground md:text-lg">
               <div>
                 <dt className="font-semibold">Distances</dt>
                 <dd className="text-muted-foreground">
-                  Options ranging from 5K and 10K up to full ultra distances of
-                  50K and beyond, on looped courses that let runners pick the
-                  commitment that suits them.
+                  10K, Half Marathon, Full Marathon, Ultra Marathon
                 </dd>
               </div>
               <div>
                 <dt className="font-semibold">Course Format</dt>
                 <dd className="text-muted-foreground">
-                  A flat, multi-lap circuit around Redbridge with on-course
-                  water, nutrition, and lap counting. Friendly marshals at every
-                  turn.
+                  Official 2.014km measured lap with feeding station each lap
                 </dd>
               </div>
               <div>
-                <dt className="font-semibold">Timing</dt>
+                <dt className="font-semibold">When It Happens</dt>
                 <dd className="text-muted-foreground">
-                  Chip-timed results delivered the same day. Live leaderboards
-                  available throughout the event via our Results pages.
+                  First Sunday in December and last Sunday in June
                 </dd>
               </div>
             </dl>
+            <p className="mt-6 text-base leading-relaxed text-foreground md:text-lg">
+              All finishers receive an event T-shirt, bespoke medal, and
+              refreshments. All proceeds help support the Fauja Singh BEM
+              Clubhouse Appeal.
+            </p>
           </div>
           <div className="flex justify-center md:justify-end">
             <PolaroidImage
