@@ -325,7 +325,7 @@ export default function ClubhouseAppealPage() {
               </p>
               <p className="mt-4 text-base leading-relaxed text-foreground/80 md:text-lg">
                 All donations should be made electronically via this website
-                or directly into the Sikhs In the City charity account.
+                or directly into the Sikhs In The City charity account.
               </p>
             </div>
             <dl className="mx-auto mt-10 max-w-xl rounded-2xl border border-border bg-background p-6 shadow-sm md:p-8">
