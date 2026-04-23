@@ -170,16 +170,17 @@ function DedicationSection() {
 }
 
 /**
- * Scrapbook-style cluster of 4 polaroids. Mobile (<md): simple 2-col grid so
- * the polaroids stay inside the narrow viewport. md+: switches to block layout
- * with absolute-positioned polaroids that overlap and fill the right column.
+ * Scrapbook-style cluster of 4 polaroids. Mobile (<md): single-column stack
+ * centered within the container so the bigger polaroid widths can't collide
+ * inside narrow grid cells. md+: relative block with aspect-[4/3] canvas and
+ * absolute-positioned polaroids that overlap and fill the right column.
  */
 function DedicationCluster() {
   return (
     <div
       role="group"
       aria-label="Photos of Sikhs In The City community members training and racing"
-      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 md:relative md:block md:aspect-[4/3] md:max-w-lg md:gap-0"
+      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 md:relative md:block md:aspect-[4/3] md:max-w-lg"
     >
       <PolaroidImage
         src="/images/our-story/dedication-1.jpg"
@@ -188,7 +189,7 @@ function DedicationCluster() {
         height={290}
         fit="cover"
         rotate={-5}
-        className="justify-self-start md:absolute md:left-0 md:top-0 md:z-10"
+        className="md:absolute md:left-0 md:top-0 md:z-10"
       />
       <PolaroidImage
         src="/images/our-story/dedication-2.jpg"
@@ -197,7 +198,7 @@ function DedicationCluster() {
         height={180}
         fit="cover"
         rotate={4}
-        className="justify-self-end md:absolute md:right-0 md:top-4 md:z-20"
+        className="md:absolute md:right-0 md:top-4 md:z-20"
       />
       <PolaroidImage
         src="/images/our-story/dedication-3.png"
@@ -206,7 +207,7 @@ function DedicationCluster() {
         height={240}
         fit="cover"
         rotate={6}
-        className="justify-self-start md:absolute md:left-14 md:bottom-0 md:z-30"
+        className="md:absolute md:left-14 md:bottom-0 md:z-30"
       />
       <PolaroidImage
         src="/images/our-story/dedication-4.jpg"
@@ -215,7 +216,7 @@ function DedicationCluster() {
         height={190}
         fit="cover"
         rotate={-3}
-        className="justify-self-end md:absolute md:right-0 md:bottom-2 md:z-20"
+        className="md:absolute md:right-0 md:bottom-2 md:z-20"
       />
     </div>
   );
