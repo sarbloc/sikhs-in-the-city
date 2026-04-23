@@ -31,7 +31,7 @@ export default function OurStoryPage() {
 /** Section 1 — light bg intro. */
 function IntroSection() {
   return (
-    <section className="bg-background px-4 py-16 md:py-20">
+    <section className="bg-[#FCF8F7] px-4 py-16 md:py-20">
       <div className="container mx-auto">
         <h1 className="text-5xl font-bold tracking-tight text-foreground md:text-6xl">
           About Sikhs In The City
@@ -228,7 +228,7 @@ function DedicationCluster() {
 /** Section 5 — "More Than a Running Club" heading with two blue FeatureCards side-by-side. */
 function FeatureCardsSection() {
   return (
-    <section className="bg-background px-4 py-16 md:py-20">
+    <section className="bg-[#FCF8F7] px-4 py-16 md:py-20">
       <div className="container mx-auto">
         <h2 className="text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
           More Than a Running Club
