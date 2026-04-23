@@ -172,12 +172,11 @@ function DedicationSection() {
 /**
  * Scrapbook-style cluster of 4 polaroids in a 2x2 arrangement. Below xl
  * (1280px): single-column stack centered. xl+: fixed 576x456 canvas where
- * the four boxes anchor at corners so only the ~16px white polaroid padding
- * edges overlap (photos themselves don't cover each other). Widths sum to
- * 576+16 per row, heights sum to 456+16 per column. xl is used rather than
- * md because max-w-xl only binds once the parent grid column is >=576px —
- * at md/lg the right column is <=480px, so absolute-positioned polaroids
- * would overlap heavily.
+ * the four boxes anchor at corners and only the outer ~6px of each white
+ * border overlaps its neighbour (photos are visibly separated by white
+ * space at every seam). Frame widths sum to 576+6 per row and frame heights
+ * sum to 456+6 per column. xl is used rather than md because max-w-xl only
+ * binds once the parent grid column is >=576px.
  */
 function DedicationCluster() {
   return (
@@ -189,7 +188,7 @@ function DedicationCluster() {
       <PolaroidImage
         src="/images/our-story/dedication-1.jpg"
         alt="Club members training together on a Sunday morning"
-        width={240}
+        width={230}
         height={240}
         fit="cover"
         rotate={-4}
@@ -199,7 +198,7 @@ function DedicationCluster() {
         src="/images/our-story/dedication-2.jpg"
         alt="Club members at a marathon event"
         width={320}
-        height={200}
+        height={190}
         fit="cover"
         rotate={3}
         className="xl:absolute xl:right-0 xl:top-0 xl:z-20"
@@ -207,8 +206,8 @@ function DedicationCluster() {
       <PolaroidImage
         src="/images/our-story/dedication-3.png"
         alt="Lifetime members celebrating a race finish"
-        width={240}
-        height={200}
+        width={230}
+        height={190}
         fit="cover"
         rotate={5}
         className="xl:absolute xl:left-0 xl:bottom-0 xl:z-30"
