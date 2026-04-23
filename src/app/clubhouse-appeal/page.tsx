@@ -354,10 +354,10 @@ export default function ClubhouseAppealPage() {
               (Registered Charity No 1179621) issues Gift Aid receipts on
               request — email{" "}
               <a
-                href="mailto:info@sikhsinthecity.com"
+                href="mailto:info@sikhsinthecity.org"
                 className="font-semibold text-primary underline-offset-4 hover:underline"
               >
-                info@sikhsinthecity.com
+                info@sikhsinthecity.org
               </a>{" "}
               for more information.
             </p>
