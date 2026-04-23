@@ -36,7 +36,7 @@ export function TrusteeCard({
   return (
     <article
       className={cn(
-        "flex flex-col overflow-hidden rounded-xl bg-white text-center shadow-sm",
+        "flex flex-col overflow-hidden rounded-xl bg-white text-left shadow-sm",
         className,
       )}
     >
@@ -58,27 +58,20 @@ export function TrusteeCard({
         )}
       </div>
 
-      <div className="flex flex-col items-center gap-1 px-4 py-4">
+      <div className="flex flex-col items-start gap-1 px-4 py-4">
+        <p className="text-base font-semibold tracking-tight text-foreground">
+          {name}
+        </p>
         {isVacancy ? (
-          <>
-            <p className="text-base font-semibold tracking-tight text-foreground">
-              {name}
-            </p>
-            <p className="text-xs font-semibold tracking-[0.15em] text-muted-foreground uppercase">
-              Contact Us To Apply
-            </p>
-          </>
+          <p className="text-xs font-semibold tracking-[0.15em] text-orange-600 uppercase">
+            Contact Us To Apply
+          </p>
         ) : (
-          <>
-            <p className="text-base font-semibold tracking-tight text-foreground">
-              {name}
+          role && (
+            <p className="text-xs font-semibold tracking-[0.15em] text-orange-600 uppercase">
+              {role}
             </p>
-            {role && (
-              <p className="text-xs font-semibold tracking-[0.15em] text-muted-foreground uppercase">
-                {role}
-              </p>
-            )}
-          </>
+          )
         )}
       </div>
     </article>
