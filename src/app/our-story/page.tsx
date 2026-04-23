@@ -128,6 +128,7 @@ function FoundersSection() {
               fit="cover"
               objectPosition="top"
               rotate={3}
+              responsive
             />
           </div>
         </div>
