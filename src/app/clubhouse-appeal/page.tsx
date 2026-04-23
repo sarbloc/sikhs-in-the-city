@@ -8,9 +8,9 @@ import { VideoEmbed } from "@/components/sections/video-embed";
 import { MapEmbed } from "@/components/sections/map-embed";
 import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 
-// TODO(asset): swap Fauja Singh portrait, polaroid photo, YouTube IDs,
-// architectural renders, funding/values photos, and confirm the clubhouse
-// address before launch. Flagged in PR 9a and PR 9b.
+// TODO(asset): swap Fauja Singh portrait, polaroid photo, architectural
+// renders, funding/values photos, and confirm the clubhouse address before
+// launch. Flagged in PR 9a and PR 9b.
 const DONATE_HREF = "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal";
 
 const BANK_DETAILS: { label: string; value: string }[] = [
@@ -34,21 +34,29 @@ const CLUBHOUSE_MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
 
 const RENDER_ROTATIONS = [-3, 2, -2] as const;
 
-const VIDEOS: { videoId: string; title: string; caption: string }[] = [
+const VIDEOS: {
+  videoId: string;
+  hash: string;
+  title: string;
+  caption: string;
+}[] = [
   {
-    videoId: "dQw4w9WgXcQ",
-    title: "Fauja Singh on the clubhouse vision",
-    caption: "Fauja Singh on the clubhouse vision",
+    videoId: "332851874",
+    hash: "c858666df8",
+    title: "Pre Clubhouse Appeal Video",
+    caption: "Pre Clubhouse Appeal Video",
   },
   {
-    videoId: "dQw4w9WgXcQ",
-    title: "Harmander Singh on building a lasting legacy",
-    caption: "Harmander Singh on building a lasting legacy",
+    videoId: "332850326",
+    hash: "228ff61275",
+    title: "Clubhouse Appeal Video with Fauja Singh",
+    caption: "Clubhouse Appeal Video with Fauja Singh",
   },
   {
-    videoId: "dQw4w9WgXcQ",
-    title: "The SITC team on community impact",
-    caption: "The SITC team on community impact",
+    videoId: "332851767",
+    hash: "bffa67fdd5",
+    title: "Post Clubhouse Appeal Video",
+    caption: "Post Clubhouse Appeal Video",
   },
 ];
 
@@ -153,6 +161,7 @@ export default function ClubhouseAppealPage() {
                 <VideoEmbed
                   key={video.title}
                   videoId={video.videoId}
+                  hash={video.hash}
                   title={video.title}
                   caption={video.caption}
                 />

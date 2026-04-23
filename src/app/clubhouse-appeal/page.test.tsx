@@ -32,13 +32,13 @@ describe("ClubhouseAppealPage", () => {
       screen.getByRole("heading", { name: /Words from Fauja Singh and the team/ })
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Fauja Singh on the clubhouse vision")
+      screen.getByText("Pre Clubhouse Appeal Video")
     ).toBeInTheDocument();
     expect(
-      screen.getByText("Harmander Singh on building a lasting legacy")
+      screen.getByText("Clubhouse Appeal Video with Fauja Singh")
     ).toBeInTheDocument();
     expect(
-      screen.getByText("The SITC team on community impact")
+      screen.getByText("Post Clubhouse Appeal Video")
     ).toBeInTheDocument();
   });
 

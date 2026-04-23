@@ -3,14 +3,28 @@ import { describe, it, expect } from "vitest";
 import { VideoEmbed } from "./video-embed";
 
 describe("VideoEmbed", () => {
-  it("renders an iframe pointing at the given YouTube video id", () => {
-    render(<VideoEmbed videoId="dQw4w9WgXcQ" title="Fauja Singh speaks" />);
+  it("renders a Vimeo iframe pointing at the given video id", () => {
+    render(<VideoEmbed videoId="332851874" title="Fauja Singh speaks" />);
     const iframe = screen.getByTitle("Fauja Singh speaks");
     expect(iframe).toHaveAttribute(
       "src",
-      "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ"
+      "https://player.vimeo.com/video/332851874"
     );
     expect(iframe).toHaveAttribute("loading", "lazy");
+  });
+
+  it("appends the privacy hash when the video is unlisted", () => {
+    render(
+      <VideoEmbed
+        videoId="332850326"
+        hash="228ff61275"
+        title="Appeal video"
+      />
+    );
+    expect(screen.getByTitle("Appeal video")).toHaveAttribute(
+      "src",
+      "https://player.vimeo.com/video/332850326?h=228ff61275"
+    );
   });
 
   it("renders the caption when provided", () => {
