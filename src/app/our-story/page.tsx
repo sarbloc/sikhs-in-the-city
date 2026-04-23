@@ -8,13 +8,6 @@ import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { TrusteeCard } from "@/components/sections/trustee-card";
 import { Button } from "@/components/ui/button";
 
-/**
- * Our Story page — rebuild per design refresh.
- *
- * Sections 1–4 landed in PR 8a (intro, beginning, founders, dedication).
- * Sections 5–8 (feature cards, Get In Touch, trustees, SITC events info)
- * are added in PR 8b below.
- */
 export default function OurStoryPage() {
   return (
     <div className="flex min-h-screen flex-col">
