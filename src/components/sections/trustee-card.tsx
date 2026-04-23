@@ -15,7 +15,7 @@ interface TrusteeCardProps {
 export function TrusteeCard({ name, role, photo, className }: TrusteeCardProps) {
   return (
     <article className={cn("flex flex-col", className)}>
-      <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg bg-muted">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-muted">
         <Image
           src={photo}
           alt={`Portrait of ${name}`}
@@ -24,7 +24,7 @@ export function TrusteeCard({ name, role, photo, className }: TrusteeCardProps) 
         />
       </div>
       <div className="mt-3 flex flex-col gap-1">
-        <p className="text-lg font-bold tracking-tight text-foreground">
+        <p className="text-xl font-bold tracking-tight text-foreground">
           {name}
         </p>
         {role && (

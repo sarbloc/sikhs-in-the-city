@@ -86,16 +86,19 @@ describe("OurStoryPage", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("renders the events info section with course details", () => {
+  it("renders the flagship events section with course details", () => {
     render(<OurStoryPage />);
     const heading = screen.getByRole("heading", {
       level: 2,
-      name: /sitc events to suit all abilities/i,
+      name: /sitc dawn to dusk ultra.*summer samosa challenge/i,
     });
     expect(heading).toBeInTheDocument();
     const section = heading.closest("section") as HTMLElement;
     expect(within(section).getByText("Distances")).toBeInTheDocument();
     expect(within(section).getByText("Course Format")).toBeInTheDocument();
-    expect(within(section).getByText("Timing")).toBeInTheDocument();
+    expect(within(section).getByText("When It Happens")).toBeInTheDocument();
+    expect(
+      within(section).getByText(/Fauja Singh BEM Clubhouse Appeal/)
+    ).toBeInTheDocument();
   });
 });
