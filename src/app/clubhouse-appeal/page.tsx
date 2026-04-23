@@ -11,15 +11,12 @@ import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 // TODO(asset): swap Fauja Singh portrait, polaroid photo, YouTube IDs,
 // architectural renders, funding/values photos, and confirm the clubhouse
 // address before launch. Flagged in PR 9a and PR 9b.
-// TODO(data): replace placeholder bank account number and sort code with real
-// values; verify "important donation notes" copy with the charity. Flagged in
-// PR 9c.
 const DONATE_HREF = "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal";
 
 const BANK_DETAILS: { label: string; value: string }[] = [
   { label: "Account Name", value: "Sikhs In The City" },
-  { label: "Account Number", value: "XXXXXXXX" },
-  { label: "Sort Code", value: "XX-XX-XX" },
+  { label: "Account Number", value: "38715668" },
+  { label: "Sort Code", value: "30-90-89" },
 ];
 const FAUJA_PORTRAIT_SRC = "/images/hero/slide-2.jpg";
 const HONOURING_IMAGE_SRC = "/images/hero/slide-3.jpg";
@@ -322,10 +319,13 @@ export default function ClubhouseAppealPage() {
                 Supporting the Clubhouse Appeal
               </h2>
               <p className="mt-6 text-base leading-relaxed text-foreground/80 md:text-lg">
-                If you&apos;d like to support the clubhouse appeal directly,
-                you can donate by bank transfer using the details below. Every
-                contribution — large or small — helps us bring this community
-                home to life.
+                To protect supporters and ensure transparency, no individuals
+                are authorised to collect funds (cash or otherwise) for this
+                project.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-foreground/80 md:text-lg">
+                All donations should be made electronically via this website
+                or directly into the Sikhs In the City charity account.
               </p>
             </div>
             <dl className="mx-auto mt-10 max-w-xl rounded-2xl border border-border bg-background p-6 shadow-sm md:p-8">
@@ -348,20 +348,21 @@ export default function ClubhouseAppealPage() {
                 </div>
               ))}
             </dl>
-            <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-relaxed text-foreground/80 md:text-base">
-              Please use the reference{" "}
-              <span className="font-semibold">CLUBHOUSE</span> when transferring
-              so we can allocate your donation correctly. Sikhs In The City
-              (Registered Charity No 1179621) issues Gift Aid receipts on
-              request — email{" "}
-              <a
-                href="mailto:info@sikhsinthecity.org"
-                className="font-semibold text-primary underline-offset-4 hover:underline"
-              >
-                info@sikhsinthecity.org
-              </a>{" "}
-              for more information.
-            </p>
+            <div className="mx-auto mt-10 max-w-2xl">
+              <h3 className="text-xl font-bold tracking-tight text-foreground md:text-2xl">
+                Important donation notes
+              </h3>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-base leading-relaxed text-foreground/80 md:text-lg">
+                <li>
+                  If donating via GoFundMe, please set the optional platform
+                  tip to £0.00.
+                </li>
+                <li>
+                  UK taxpayers are encouraged to select Gift Aid, allowing us
+                  to claim an additional 25% on donations.
+                </li>
+              </ul>
+            </div>
           </div>
         </section>
 

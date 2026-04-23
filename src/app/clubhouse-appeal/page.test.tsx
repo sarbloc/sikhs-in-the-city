@@ -99,7 +99,7 @@ describe("ClubhouseAppealPage", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the Supporting the Clubhouse Appeal section with bank details", () => {
+  it("renders the Supporting the Clubhouse Appeal section with bank details and donation notes", () => {
     render(<ClubhouseAppealPage />);
     expect(
       screen.getByRole("heading", { name: /Supporting the Clubhouse Appeal/ })
@@ -108,9 +108,13 @@ describe("ClubhouseAppealPage", () => {
     expect(screen.getByText("Account Number")).toBeInTheDocument();
     expect(screen.getByText("Sort Code")).toBeInTheDocument();
     expect(screen.getByText("Sikhs In The City")).toBeInTheDocument();
+    expect(screen.getByText("38715668")).toBeInTheDocument();
+    expect(screen.getByText("30-90-89")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: /info@sikhsinthecity\.org/ })
+      screen.getByRole("heading", { name: /Important donation notes/ })
     ).toBeInTheDocument();
+    expect(screen.getByText(/GoFundMe.*platform tip to £0\.00/)).toBeInTheDocument();
+    expect(screen.getByText(/Gift Aid/)).toBeInTheDocument();
   });
 
   it("renders the Help Build a Lasting Community Legacy CTA band with Donate Now", () => {
