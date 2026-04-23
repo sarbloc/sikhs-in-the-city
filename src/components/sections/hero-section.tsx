@@ -54,7 +54,7 @@ const defaultSlides: HeroSlide[] = [
       "We're working to build an eco-friendly community clubhouse that supports health, wellbeing, and connection. With your support, we can turn this vision into a lasting space for the local community.",
     backgroundImage: "/images/hero/slide-2.jpg",
     primaryCta: "Donate Now",
-    primaryHref: "/donate",
+    primaryHref: "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal",
     secondaryCta: "Find Out More",
     secondaryHref: "/clubhouse-appeal",
   },
