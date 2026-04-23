@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Button } from "@/components/ui/button";
@@ -9,13 +8,13 @@ import { VideoEmbed } from "@/components/sections/video-embed";
 import { MapEmbed } from "@/components/sections/map-embed";
 import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 
-// TODO(asset): swap Fauja Singh portrait, polaroid photo, YouTube IDs, donate
-// link, architectural renders, funding/values photos, and confirm the
-// clubhouse address before launch. Flagged in PR 9a and PR 9b.
+// TODO(asset): swap Fauja Singh portrait, polaroid photo, YouTube IDs,
+// architectural renders, funding/values photos, and confirm the clubhouse
+// address before launch. Flagged in PR 9a and PR 9b.
 // TODO(data): replace placeholder bank account number and sort code with real
 // values; verify "important donation notes" copy with the charity. Flagged in
 // PR 9c.
-const DONATE_HREF = "#donate";
+const DONATE_HREF = "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal";
 
 const BANK_DETAILS: { label: string; value: string }[] = [
   { label: "Account Name", value: "Sikhs In The City" },
@@ -65,7 +64,9 @@ function DonateButton({
 }) {
   return (
     <Button asChild size="lg" variant={variant} className={className}>
-      <Link href={DONATE_HREF}>Donate Now</Link>
+      <a href={DONATE_HREF} target="_blank" rel="noopener noreferrer">
+        Donate Now
+      </a>
     </Button>
   );
 }
