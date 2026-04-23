@@ -57,10 +57,10 @@ function BeginningSection() {
         <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
           <div className="order-2 md:order-1">
             <PolaroidImage
-              src="/images/our-story/beginning.jpg"
+              src="/images/our-story/beginning.png"
               alt="Fauja Singh, founder of Sikhs In The City"
-              width={520}
-              height={640}
+              width={480}
+              height={756}
               rotate={-2}
               className="mx-auto block"
             />
@@ -173,7 +173,7 @@ function DedicationCluster() {
         src="/images/our-story/dedication-1.jpg"
         alt="Club members training together on a Sunday morning"
         width={280}
-        height={210}
+        height={497}
         rotate={-4}
       />
       <PolaroidImage
@@ -184,17 +184,17 @@ function DedicationCluster() {
         rotate={3}
       />
       <PolaroidImage
-        src="/images/our-story/dedication-3.jpg"
+        src="/images/our-story/dedication-3.png"
         alt="Lifetime members celebrating a race finish"
         width={280}
-        height={210}
+        height={280}
         rotate={4}
       />
       <PolaroidImage
         src="/images/our-story/dedication-4.jpg"
         alt="Golden Oldies team in action"
         width={280}
-        height={210}
+        height={157}
         rotate={-3}
       />
     </div>
@@ -249,12 +249,12 @@ const trustees: {
   {
     name: "Ghanaya Singh Talewar",
     role: "Secretary",
-    photo: "/images/trustees/ghanaya-singh-talewar.jpg",
+    photo: "/images/trustees/ghanaya-singh-talewar.png",
   },
   {
     name: "Harmander Singh",
     role: "President",
-    photo: "/images/trustees/harmander-singh.jpg",
+    photo: "/images/trustees/harmander-singh.png",
   },
   {
     name: "Misbah Choudhury",
@@ -265,21 +265,21 @@ const trustees: {
     photo: "/images/trustees/nadhira-uddin.jpg",
   },
   {
-    name: "To Be Confirmed",
-    photo: "/images/trustees/placeholder.jpg",
-  },
-  {
     name: "Rajinder Shinhmar",
-    photo: "/images/trustees/rajinder-shinhmar.jpg",
+    photo: "/images/trustees/rajinder-shinhmar.png",
   },
   {
     name: "Sandy Jobanputra",
     role: "Treasurer",
-    photo: "/images/trustees/sandy-jobanputra.jpg",
+    photo: "/images/trustees/sandy-jobanputra.png",
   },
   {
     name: "Surinder Kaur Atwal",
-    photo: "/images/trustees/surinder-kaur-atwal.jpg",
+    photo: "/images/trustees/surinder-kaur-atwal.png",
+  },
+  {
+    name: "Vanessa Brewster",
+    photo: "/images/trustees/vanessa-brewster.png",
   },
   {
     name: "Vacancy",
@@ -297,7 +297,7 @@ function TrusteesSection() {
             Our Trustees
           </h2>
           <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            The volunteers who steward the club and keep the community running.
+            The current Trustees of the Club in alphabetical order are:
           </p>
         </div>
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-12 md:grid-cols-3 md:gap-8">
@@ -358,48 +358,18 @@ function EventsInfoSection() {
               </div>
             </dl>
           </div>
-          <EventsInfoCluster />
+          <div className="flex justify-center md:justify-end">
+            <PolaroidImage
+              src="/images/our-story/events.jpg"
+              alt="Fauja Singh with Sikhs In The City runners after a race"
+              width={640}
+              height={424}
+              rotate={3}
+              className="max-w-lg"
+            />
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-/** Polaroid cluster of past SITC events — paired with EventsInfoSection. */
-function EventsInfoCluster() {
-  return (
-    <div
-      className="mx-auto grid max-w-xl grid-cols-2 gap-4 md:gap-6"
-      aria-label="Photos from past Sikhs In The City events"
-    >
-      <PolaroidImage
-        src="/images/our-story/events-1.jpg"
-        alt="Runners setting off at the start line of a SITC event"
-        width={280}
-        height={210}
-        rotate={-3}
-      />
-      <PolaroidImage
-        src="/images/our-story/events-2.jpg"
-        alt="Volunteers cheering runners on the course"
-        width={280}
-        height={210}
-        rotate={4}
-      />
-      <PolaroidImage
-        src="/images/our-story/events-3.jpg"
-        alt="A finisher receiving their medal"
-        width={280}
-        height={210}
-        rotate={3}
-      />
-      <PolaroidImage
-        src="/images/our-story/events-4.jpg"
-        alt="Group photo of runners after a SITC race"
-        width={280}
-        height={210}
-        rotate={-4}
-      />
-    </div>
   );
 }

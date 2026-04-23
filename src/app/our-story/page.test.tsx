@@ -36,11 +36,11 @@ describe("OurStoryPage", () => {
     );
   });
 
-  it("renders four polaroid images in the Dedication cluster", () => {
+  it("renders the story imagery: beginning + founders + dedication cluster + events polaroid", () => {
     render(<OurStoryPage />);
-    // At least: 1 beginning + 1 founders + 4 dedication + 4 events = 10 images.
+    // At least: 1 beginning + 1 founders + 4 dedication + 1 events = 7 images.
     const allImages = screen.getAllByRole("img");
-    expect(allImages.length).toBeGreaterThanOrEqual(10);
+    expect(allImages.length).toBeGreaterThanOrEqual(7);
   });
 
   it("renders both feature cards linking to clubhouse appeal and events", () => {
