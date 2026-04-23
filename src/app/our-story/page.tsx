@@ -170,18 +170,21 @@ function DedicationSection() {
 }
 
 /**
- * Scrapbook-style cluster of 4 polaroids in a 2x2 arrangement. Mobile (<md):
- * single-column stack centered. md+: fixed-dimension canvas where the four
- * boxes anchor at corners so only the ~16px white polaroid padding edges
- * overlap (photos themselves don't cover each other). Widths sum to
- * canvas_width + 16 per row; heights sum to canvas_height + 16 per column.
+ * Scrapbook-style cluster of 4 polaroids in a 2x2 arrangement. Below xl
+ * (1280px): single-column stack centered. xl+: fixed 576x456 canvas where
+ * the four boxes anchor at corners so only the ~16px white polaroid padding
+ * edges overlap (photos themselves don't cover each other). Widths sum to
+ * 576+16 per row, heights sum to 456+16 per column. xl is used rather than
+ * md because max-w-xl only binds once the parent grid column is >=576px —
+ * at md/lg the right column is <=480px, so absolute-positioned polaroids
+ * would overlap heavily.
  */
 function DedicationCluster() {
   return (
     <div
       role="group"
       aria-label="Photos of Sikhs In The City community members training and racing"
-      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 md:relative md:block md:h-[460px] md:max-w-xl"
+      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 xl:relative xl:block xl:h-[456px] xl:max-w-xl"
     >
       <PolaroidImage
         src="/images/our-story/dedication-1.jpg"
@@ -190,7 +193,7 @@ function DedicationCluster() {
         height={240}
         fit="cover"
         rotate={-4}
-        className="md:absolute md:left-0 md:top-0 md:z-10"
+        className="xl:absolute xl:left-0 xl:top-0 xl:z-10"
       />
       <PolaroidImage
         src="/images/our-story/dedication-2.jpg"
@@ -199,7 +202,7 @@ function DedicationCluster() {
         height={200}
         fit="cover"
         rotate={3}
-        className="md:absolute md:right-0 md:top-0 md:z-20"
+        className="xl:absolute xl:right-0 xl:top-0 xl:z-20"
       />
       <PolaroidImage
         src="/images/our-story/dedication-3.png"
@@ -208,7 +211,7 @@ function DedicationCluster() {
         height={200}
         fit="cover"
         rotate={5}
-        className="md:absolute md:left-0 md:bottom-0 md:z-30"
+        className="xl:absolute xl:left-0 xl:bottom-0 xl:z-30"
       />
       <PolaroidImage
         src="/images/our-story/dedication-4.jpg"
@@ -217,7 +220,7 @@ function DedicationCluster() {
         height={240}
         fit="cover"
         rotate={-3}
-        className="md:absolute md:right-0 md:bottom-0 md:z-20"
+        className="xl:absolute xl:right-0 xl:bottom-0 xl:z-20"
       />
     </div>
   );
