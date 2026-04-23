@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils";
 
 interface VideoEmbedProps {
-  /** YouTube video ID (the part after `v=` in a YouTube URL) */
+  /** Vimeo video ID (the numeric part of a Vimeo URL) */
   videoId: string;
+  /** Optional Vimeo privacy hash for unlisted videos (the `h=` query param) */
+  hash?: string;
   /** Accessible title for the iframe (required for a11y) */
   title: string;
   /** Optional caption rendered below the video */
@@ -11,27 +13,26 @@ interface VideoEmbedProps {
   className?: string;
 }
 
-/**
- * VideoEmbed — responsive 16:9 YouTube iframe wrapper with optional caption.
- *
- * The iframe uses youtube-nocookie to minimise third-party tracking and
- * always includes a `title` attribute for screen readers.
- */
 export function VideoEmbed({
   videoId,
+  hash,
   title,
   caption,
   className,
 }: VideoEmbedProps) {
+  const src = hash
+    ? `https://player.vimeo.com/video/${videoId}?h=${hash}`
+    : `https://player.vimeo.com/video/${videoId}`;
+
   return (
     <figure className={cn("flex flex-col gap-3", className)}>
       <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black/10 shadow-md">
         <iframe
-          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+          src={src}
           title={title}
           loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
           allowFullScreen
           className="absolute inset-0 h-full w-full border-0"
         />
