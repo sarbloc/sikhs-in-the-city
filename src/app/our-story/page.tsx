@@ -51,16 +51,16 @@ function BeginningSection() {
     <section className="relative overflow-hidden bg-blue-600 px-4 pt-16 text-white md:pt-20">
       <div className="container mx-auto">
         <div className="grid gap-10 md:grid-cols-2 md:items-end md:gap-16">
-          <div className="relative order-2 md:order-1 flex justify-center">
+          <div className="relative order-2 flex justify-center md:order-1">
+            <Image
+              src="/images/our-story/the-beginning-bg.png"
+              alt=""
+              aria-hidden="true"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="pointer-events-none object-cover brightness-0 invert opacity-30"
+            />
             <div className="relative w-full max-w-sm">
-              <Image
-                src="/images/our-story/the-beginning-bg.png"
-                alt=""
-                aria-hidden="true"
-                width={575}
-                height={534}
-                className="pointer-events-none absolute left-1/2 top-0 w-[140%] max-w-none -translate-x-1/2 -translate-y-[8%] brightness-0 invert opacity-50"
-              />
               <Image
                 src="/images/our-story/beginning.png"
                 alt="Fauja Singh, founder of Sikhs In The City"
@@ -225,12 +225,15 @@ function DedicationCluster() {
   );
 }
 
-/** Section 5 — two blue FeatureCards side-by-side. */
+/** Section 5 — "More Than a Running Club" heading with two blue FeatureCards side-by-side. */
 function FeatureCardsSection() {
   return (
     <section className="bg-background px-4 py-16 md:py-20">
       <div className="container mx-auto">
-        <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+        <h2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+          More Than a Running Club
+        </h2>
+        <div className="mt-10 grid gap-6 md:mt-12 md:grid-cols-2 md:gap-8">
           <FeatureCard
             title="Credibility and Community Impact"
             description="With over two decades of representing the UK at international interfaith marathons and supporting causes close to home, Sikhs In The City is a trusted community of runners championing service, dedication, and longevity."
@@ -338,7 +341,7 @@ function TrusteesSection() {
 /** Section 8 — SITC flagship events info block with polaroid right. */
 function EventsInfoSection() {
   return (
-    <section className="bg-background px-4 pb-16 md:pb-20">
+    <section className="bg-[#FCF8F7] px-4 py-16 md:py-20">
       <div className="container mx-auto">
         <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
           <div>

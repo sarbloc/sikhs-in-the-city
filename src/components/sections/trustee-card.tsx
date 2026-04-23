@@ -24,7 +24,7 @@ export function TrusteeCard({ name, role, photo, className }: TrusteeCardProps) 
         />
       </div>
       <div className="mt-3 flex flex-col gap-1">
-        <p className="text-xl font-bold tracking-tight text-foreground">
+        <p className="text-2xl font-bold tracking-tight text-foreground">
           {name}
         </p>
         {role && (
