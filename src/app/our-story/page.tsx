@@ -4,6 +4,7 @@ import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import { PolaroidImage } from "@/components/polaroid-image";
 import { FeatureCard } from "@/components/sections/feature-card";
+import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { TrusteeCard } from "@/components/sections/trustee-card";
 import { Button } from "@/components/ui/button";
 
@@ -27,6 +28,7 @@ export default function OurStoryPage() {
         <GetInTouchSection />
         <TrusteesSection />
         <EventsInfoSection />
+        <JoinCtaSection />
       </main>
       <Footer />
     </div>
@@ -50,22 +52,32 @@ function IntroSection() {
   );
 }
 
-/** Section 2 — blue bg, portrait image left, white text right. */
+/** Section 2 — blue bg, Fauja cut-out bottom-anchored with halftone bg pattern, white text right. */
 function BeginningSection() {
   return (
-    <section className="bg-blue-600 px-4 py-16 text-white md:py-20">
+    <section className="relative overflow-hidden bg-blue-600 px-4 pt-16 text-white md:pt-20">
       <div className="container mx-auto">
-        <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
-          <div className="order-2 md:order-1 flex justify-center">
-            <Image
-              src="/images/our-story/beginning.png"
-              alt="Fauja Singh, founder of Sikhs In The City"
-              width={500}
-              height={787}
-              className="h-auto w-full max-w-sm"
-            />
+        <div className="grid gap-10 md:grid-cols-2 md:items-end md:gap-16">
+          <div className="relative order-2 md:order-1 flex justify-center">
+            <div className="relative w-full max-w-sm">
+              <Image
+                src="/images/our-story/the-beginning-bg.png"
+                alt=""
+                aria-hidden="true"
+                width={575}
+                height={534}
+                className="pointer-events-none absolute left-1/2 top-0 w-[140%] max-w-none -translate-x-1/2 -translate-y-[8%] brightness-0 invert opacity-70"
+              />
+              <Image
+                src="/images/our-story/beginning.png"
+                alt="Fauja Singh, founder of Sikhs In The City"
+                width={500}
+                height={787}
+                className="relative block h-auto w-full"
+              />
+            </div>
           </div>
-          <div className="order-1 md:order-2">
+          <div className="order-1 pb-16 md:order-2 md:pb-20 md:self-center">
             <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
               The Beginning
             </h2>
@@ -166,36 +178,45 @@ function DedicationSection() {
 function DedicationCluster() {
   return (
     <div
-      className="mx-auto grid max-w-xl grid-cols-2 gap-4 md:gap-6"
+      role="group"
       aria-label="Photos of Sikhs In The City community members training and racing"
+      className="mx-auto grid max-w-md grid-cols-2 gap-x-4 gap-y-6 md:gap-x-6 md:gap-y-8"
     >
       <PolaroidImage
         src="/images/our-story/dedication-1.jpg"
         alt="Club members training together on a Sunday morning"
-        width={280}
-        height={497}
+        width={180}
+        height={180}
+        fit="cover"
         rotate={-4}
+        className="justify-self-center"
       />
       <PolaroidImage
         src="/images/our-story/dedication-2.jpg"
         alt="Club members at a marathon event"
-        width={280}
-        height={210}
+        width={180}
+        height={180}
+        fit="cover"
         rotate={3}
+        className="justify-self-center"
       />
       <PolaroidImage
         src="/images/our-story/dedication-3.png"
         alt="Lifetime members celebrating a race finish"
-        width={280}
-        height={280}
+        width={180}
+        height={180}
+        fit="cover"
         rotate={4}
+        className="justify-self-center"
       />
       <PolaroidImage
         src="/images/our-story/dedication-4.jpg"
         alt="Golden Oldies team in action"
-        width={280}
-        height={157}
+        width={180}
+        height={180}
+        fit="cover"
         rotate={-3}
+        className="justify-self-center"
       />
     </div>
   );
@@ -223,7 +244,7 @@ function FeatureCardsSection() {
   );
 }
 
-/** Section 6 — yellow band with centered heading and blue Contact Us CTA. */
+/** Section 6 — yellow band with centered heading, intro copy, and blue Contact Us CTA. */
 function GetInTouchSection() {
   return (
     <section className="bg-secondary px-4 py-14 text-secondary-foreground md:py-16">
@@ -231,6 +252,11 @@ function GetInTouchSection() {
         <h2 className="text-4xl font-bold tracking-tight md:text-5xl">
           Get In Touch
         </h2>
+        <p className="max-w-2xl text-base leading-relaxed md:text-lg">
+          If you have any questions or would like to learn more about becoming
+          a lifetime member of Sikhs In The City, we&rsquo;d love to hear from
+          you.
+        </p>
         <Button asChild size="lg">
           <Link href="/contact">Contact Us</Link>
         </Button>
@@ -239,13 +265,8 @@ function GetInTouchSection() {
   );
 }
 
-/** Trustee data — 9 cells arranged alphabetically across a 3×3 grid. */
-const trustees: {
-  name: string;
-  role?: string;
-  photo?: string;
-  variant?: "default" | "vacancy";
-}[] = [
+/** Trustee data — eight current trustees in alphabetical order. */
+const trustees: { name: string; role?: string; photo: string }[] = [
   {
     name: "Ghanaya Singh Talewar",
     role: "Secretary",
@@ -281,10 +302,6 @@ const trustees: {
     name: "Vanessa Brewster",
     photo: "/images/trustees/vanessa-brewster.png",
   },
-  {
-    name: "Vacancy",
-    variant: "vacancy",
-  },
 ];
 
 /** Section 7 — Our Trustees heading and 3×3 grid of TrusteeCards. */
@@ -300,14 +317,13 @@ function TrusteesSection() {
             The current Trustees of the Club in alphabetical order are:
           </p>
         </div>
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:mt-12 md:grid-cols-3 md:gap-8">
-          {trustees.map((trustee, index) => (
+        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-12 md:grid-cols-3 md:gap-x-8">
+          {trustees.map((trustee) => (
             <TrusteeCard
-              key={`${trustee.name}-${index}`}
+              key={trustee.name}
               name={trustee.name}
               role={trustee.role}
               photo={trustee.photo}
-              variant={trustee.variant}
             />
           ))}
         </div>
