@@ -303,7 +303,7 @@ Guardrails from `CLAUDE.md`: max 6 files changed per PR, ~300 lines diff. Severa
 - Section 5: two `FeatureCard`s side-by-side (blue bg, white text, arrow links to `/clubhouse-appeal` and `/events`).
 - Section 6 (Get In Touch): yellow band, heading + blue "Contact Us" button → `/contact`.
 - Section 7 (Our Trustees): heading, one-line intro, 3×3 grid of `TrusteeCard`s.
-- Section 8 (SITC events info): 2-col layout — text block describing event distances, course format, timing; polaroid cluster of past event photos right.
+- Section 8 (SITC events info): 2-col layout — text block describing distances, course format, and when-it-happens; single landscape polaroid of past event photos right. (Copy finalised in #74 with the charity's flagship-events text.)
 
 ### PR 9a — Clubhouse Appeal (hero → map)
 - Hero: light-blue bg band, heading "Fauja Singh Clubhouse Appeal", intro, blue Donate Now button. Circular portrait of Fauja Singh right. Disclaimer line ("Registered Charity No 1179621 · Community project supported by the London Borough of Redbridge").
