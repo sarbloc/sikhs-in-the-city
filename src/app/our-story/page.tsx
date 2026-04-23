@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
@@ -55,14 +56,13 @@ function BeginningSection() {
     <section className="bg-blue-600 px-4 py-16 text-white md:py-20">
       <div className="container mx-auto">
         <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
-          <div className="order-2 md:order-1">
-            <PolaroidImage
+          <div className="order-2 md:order-1 flex justify-center">
+            <Image
               src="/images/our-story/beginning.png"
               alt="Fauja Singh, founder of Sikhs In The City"
-              width={480}
-              height={756}
-              rotate={-2}
-              className="mx-auto block"
+              width={500}
+              height={787}
+              className="h-auto w-full max-w-sm"
             />
           </div>
           <div className="order-1 md:order-2">
@@ -116,10 +116,10 @@ function FoundersSection() {
           </div>
           <div className="flex justify-center md:justify-end">
             <PolaroidImage
-              src="/images/our-story/founders.jpg"
+              src="/images/our-story.png"
               alt="The founding members of Sikhs In The City"
               width={520}
-              height={380}
+              height={525}
               rotate={3}
             />
           </div>
