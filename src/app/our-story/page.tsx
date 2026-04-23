@@ -170,53 +170,54 @@ function DedicationSection() {
 }
 
 /**
- * Scrapbook-style cluster of 4 polaroids. Mobile (<md): single-column stack
- * centered within the container so the bigger polaroid widths can't collide
- * inside narrow grid cells. md+: relative block with aspect-[4/3] canvas and
- * absolute-positioned polaroids that overlap and fill the right column.
+ * Scrapbook-style cluster of 4 polaroids in a 2x2 arrangement. Mobile (<md):
+ * single-column stack centered. md+: fixed-dimension canvas where the four
+ * boxes anchor at corners so only the ~16px white polaroid padding edges
+ * overlap (photos themselves don't cover each other). Widths sum to
+ * canvas_width + 16 per row; heights sum to canvas_height + 16 per column.
  */
 function DedicationCluster() {
   return (
     <div
       role="group"
       aria-label="Photos of Sikhs In The City community members training and racing"
-      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 md:relative md:block md:aspect-[4/3] md:max-w-lg"
+      className="mx-auto flex w-full max-w-md flex-col items-center gap-6 md:relative md:block md:h-[460px] md:max-w-xl"
     >
       <PolaroidImage
         src="/images/our-story/dedication-1.jpg"
         alt="Club members training together on a Sunday morning"
-        width={220}
-        height={290}
+        width={240}
+        height={240}
         fit="cover"
-        rotate={-5}
+        rotate={-4}
         className="md:absolute md:left-0 md:top-0 md:z-10"
       />
       <PolaroidImage
         src="/images/our-story/dedication-2.jpg"
         alt="Club members at a marathon event"
-        width={260}
-        height={180}
+        width={320}
+        height={200}
         fit="cover"
-        rotate={4}
-        className="md:absolute md:right-0 md:top-4 md:z-20"
+        rotate={3}
+        className="md:absolute md:right-0 md:top-0 md:z-20"
       />
       <PolaroidImage
         src="/images/our-story/dedication-3.png"
         alt="Lifetime members celebrating a race finish"
         width={240}
-        height={240}
+        height={200}
         fit="cover"
-        rotate={6}
-        className="md:absolute md:left-14 md:bottom-0 md:z-30"
+        rotate={5}
+        className="md:absolute md:left-0 md:bottom-0 md:z-30"
       />
       <PolaroidImage
         src="/images/our-story/dedication-4.jpg"
         alt="Golden Oldies team in action"
-        width={280}
-        height={190}
+        width={320}
+        height={240}
         fit="cover"
         rotate={-3}
-        className="md:absolute md:right-0 md:bottom-2 md:z-20"
+        className="md:absolute md:right-0 md:bottom-0 md:z-20"
       />
     </div>
   );
