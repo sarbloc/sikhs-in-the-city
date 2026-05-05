@@ -6,6 +6,7 @@ import { PolaroidImage } from "@/components/polaroid-image";
 import { AmenityCard } from "@/components/amenity-card";
 import { VideoEmbed } from "@/components/sections/video-embed";
 import { MapEmbed } from "@/components/sections/map-embed";
+import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 
 // TODO(asset): swap Fauja Singh portrait, polaroid photo, architectural
@@ -82,9 +83,17 @@ export default function ClubhouseAppealPage() {
       <Header />
       <main className="flex-1">
         {/* Section 1 — Hero */}
-        <section className="bg-blue-100 px-4 py-16 md:py-24">
-          <div className="container mx-auto">
-            <div className="grid items-center gap-10 md:grid-cols-[minmax(0,1fr)_auto]">
+        <section className="relative overflow-hidden bg-blue-100 px-4 py-16 md:py-24">
+          <Image
+            src="/images/our-story/the-beginning-bg.png"
+            alt=""
+            aria-hidden="true"
+            fill
+            sizes="100vw"
+            className="pointer-events-none object-cover opacity-25"
+          />
+          <div className="container relative z-10 mx-auto">
+            <div className="grid items-center gap-10 md:grid-cols-2">
               <div>
                 <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-6xl">
                   Fauja Singh Clubhouse Appeal
@@ -97,13 +106,17 @@ export default function ClubhouseAppealPage() {
                 <DonateButton className="mt-8" />
               </div>
               <div className="flex justify-center md:justify-end">
-                <div className="relative h-56 w-56 overflow-hidden rounded-full border-4 border-white shadow-lg md:h-72 md:w-72">
+                <div
+                  className="relative h-72 w-80 overflow-hidden bg-blue-300 md:h-[28rem] md:w-[32rem]"
+                  style={{ borderRadius: "60% 40% 45% 55% / 50% 55% 45% 50%" }}
+                >
                   <Image
                     src={FAUJA_PORTRAIT_SRC}
                     alt="Fauja Singh BEM"
                     fill
                     className="object-cover"
-                    sizes="(min-width: 768px) 18rem, 14rem"
+                    sizes="(min-width: 768px) 32rem, 20rem"
+                    priority
                   />
                 </div>
               </div>
@@ -389,6 +402,9 @@ export default function ClubhouseAppealPage() {
             <DonateButton variant="secondary" className="mt-8" />
           </div>
         </section>
+
+        {/* Section 11 — Join CTA */}
+        <JoinCtaSection />
       </main>
       <Footer />
     </div>

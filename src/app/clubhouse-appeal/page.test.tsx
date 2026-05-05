@@ -128,4 +128,14 @@ describe("ClubhouseAppealPage", () => {
     // PRs 9a/9b added 3 Donate Now buttons (hero, honouring, funding); 9c adds one more in the CTA band.
     expect(donateLinks.length).toBeGreaterThanOrEqual(4);
   });
+
+  it("renders the Join Sikhs In the City CTA at the foot of the page", () => {
+    render(<ClubhouseAppealPage />);
+    expect(
+      screen.getByRole("heading", { name: /Join Sikhs In the City/ })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Register Your Interest/ })
+    ).toBeInTheDocument();
+  });
 });
