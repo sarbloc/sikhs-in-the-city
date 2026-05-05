@@ -9,9 +9,8 @@ import { MapEmbed } from "@/components/sections/map-embed";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 
-// TODO(asset): swap Fauja Singh portrait, polaroid photo, architectural
-// renders, funding/values photos, and confirm the clubhouse address before
-// launch. Flagged in PR 9a and PR 9b.
+// TODO(asset): swap Fauja Singh portrait and confirm the clubhouse address
+// before launch.
 const DONATE_HREF = "https://www.gofundme.com/f/fauja-singh-clubhouse-appeal";
 
 const BANK_DETAILS: { label: string; value: string }[] = [
@@ -20,14 +19,14 @@ const BANK_DETAILS: { label: string; value: string }[] = [
   { label: "Sort Code", value: "30-90-89" },
 ];
 const FAUJA_PORTRAIT_SRC = "/images/hero/slide-2.jpg";
-const HONOURING_IMAGE_SRC = "/images/hero/slide-3.jpg";
+const HONOURING_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-legacy.jpg";
 const RENDER_IMAGE_SRCS = [
-  "/images/hero/slide-1.png",
-  "/images/hero/slide-2.jpg",
-  "/images/hero/slide-3.jpg",
+  "/images/clubhouse-appeal/clubhouse-vision-1.png",
+  "/images/clubhouse-appeal/clubhouse-vision-2.png",
+  "/images/clubhouse-appeal/clubhouse-vision-3.png",
 ] as const;
-const FUNDING_IMAGE_SRC = "/images/hero/slide-1.png";
-const VALUES_IMAGE_SRC = "/images/hero/slide-2.jpg";
+const FUNDING_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-funding.png";
+const VALUES_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-values.jpg";
 const CLUBHOUSE_ADDRESS = "Beal High School, Woodford Bridge Road, Ilford IG4 5LP";
 const CLUBHOUSE_MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
   CLUBHOUSE_ADDRESS
@@ -131,8 +130,8 @@ export default function ClubhouseAppealPage() {
         {/* Section 2 — Honouring a Legacy */}
         <section className="bg-background px-4 py-16 md:py-24">
           <div className="container mx-auto">
-            <div className="grid items-center gap-10 md:grid-cols-2">
-              <div>
+            <div className="grid items-center gap-10 md:grid-cols-12 md:gap-12">
+              <div className="md:col-span-6">
                 <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
                   Honouring a Legacy. Building for the Future.
                 </h2>
@@ -149,14 +148,16 @@ export default function ClubhouseAppealPage() {
                 </p>
                 <DonateButton className="mt-8" />
               </div>
-              <div className="flex justify-center md:justify-end">
+              <div className="md:col-span-6 flex justify-center md:justify-end">
                 <PolaroidImage
                   src={HONOURING_IMAGE_SRC}
-                  alt="Fauja Singh with the Sikhs In The City community"
-                  width={480}
-                  height={560}
+                  alt="Fauja Singh BEM running with the Sikhs In The City community at a marathon"
+                  width={720}
+                  height={480}
+                  fit="cover"
                   rotate={-3}
-                  className="max-w-sm"
+                  responsive
+                  className="w-full"
                 />
               </div>
             </div>
