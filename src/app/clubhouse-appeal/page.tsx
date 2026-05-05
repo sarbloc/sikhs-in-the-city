@@ -29,7 +29,7 @@ const VALUES_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-values.jpg";
 const CLUBHOUSE_ADDRESS = "Beal High School, Woodford Bridge Road, Ilford IG4 5LP";
 const CLUBHOUSE_MAP_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-map.png";
 
-const RENDER_ROTATIONS = [-3, 2, -2] as const;
+const RENDER_ROTATIONS = [-3, 0, 3] as const;
 
 const VIDEOS: {
   videoId: string;
@@ -79,16 +79,8 @@ export default function ClubhouseAppealPage() {
       <Header />
       <main className="flex-1">
         {/* Section 1 — Hero */}
-        <section className="relative overflow-hidden bg-blue-100 px-4 py-16 md:py-24">
-          <Image
-            src="/images/our-story/the-beginning-bg.png"
-            alt=""
-            aria-hidden="true"
-            fill
-            sizes="100vw"
-            className="pointer-events-none object-cover opacity-25"
-          />
-          <div className="container relative z-10 mx-auto">
+        <section className="bg-blue-100 px-4 py-16 md:py-24">
+          <div className="container mx-auto">
             <div className="grid items-center gap-10 md:grid-cols-2">
               <div>
                 <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-6xl">
@@ -101,7 +93,15 @@ export default function ClubhouseAppealPage() {
                 </p>
                 <DonateButton className="mt-8" />
               </div>
-              <div className="flex justify-center md:justify-end">
+              <div className="relative flex justify-center md:justify-end">
+                <Image
+                  src="/images/our-story/the-beginning-bg.png"
+                  alt=""
+                  aria-hidden="true"
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="pointer-events-none object-contain object-center opacity-30"
+                />
                 <div
                   className="relative h-72 w-80 overflow-hidden bg-blue-300 md:h-[28rem] md:w-[32rem]"
                   style={{ borderRadius: "60% 40% 45% 55% / 50% 55% 45% 50%" }}
@@ -193,13 +193,16 @@ export default function ClubhouseAppealPage() {
         <section className="bg-background px-4 py-16 md:py-24">
           <div className="container mx-auto">
             <div className="grid items-center gap-10 md:grid-cols-2">
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-muted">
-                <Image
+              <div className="flex justify-center md:justify-start">
+                <PolaroidImage
                   src={CLUBHOUSE_MAP_IMAGE_SRC}
                   alt={`Map showing the proposed clubhouse location at ${CLUBHOUSE_ADDRESS}`}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-cover"
+                  width={640}
+                  height={400}
+                  fit="cover"
+                  rotate={-2}
+                  responsive
+                  className="w-full"
                 />
               </div>
               <div>
@@ -243,9 +246,11 @@ export default function ClubhouseAppealPage() {
                     index + 1
                   } of ${RENDER_IMAGE_SRCS.length})`}
                   width={360}
-                  height={420}
+                  height={360}
+                  fit="cover"
                   rotate={RENDER_ROTATIONS[index]}
-                  className="max-w-xs"
+                  responsive
+                  className="w-full max-w-xs"
                 />
               ))}
             </div>
@@ -280,8 +285,8 @@ export default function ClubhouseAppealPage() {
         {/* Section 7 — Funding the Build */}
         <section className="bg-secondary px-4 py-16 md:py-24">
           <div className="container mx-auto">
-            <div className="grid items-center gap-10 md:grid-cols-2">
-              <div>
+            <div className="grid items-center gap-10 md:grid-cols-12 md:gap-12">
+              <div className="md:col-span-6">
                 <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
                   Funding the Build
                 </h2>
@@ -297,14 +302,16 @@ export default function ClubhouseAppealPage() {
                 </p>
                 <DonateButton className="mt-8" />
               </div>
-              <div className="flex justify-center md:justify-end">
+              <div className="md:col-span-6 flex justify-center md:justify-end">
                 <PolaroidImage
                   src={FUNDING_IMAGE_SRC}
-                  alt="Runners training together with the Sikhs In The City community"
-                  width={480}
-                  height={560}
+                  alt="Architectural render of the proposed clubhouse"
+                  width={720}
+                  height={540}
+                  fit="cover"
                   rotate={3}
-                  className="max-w-sm"
+                  responsive
+                  className="w-full"
                 />
               </div>
             </div>
@@ -314,18 +321,20 @@ export default function ClubhouseAppealPage() {
         {/* Section 8 — Carrying Fauja Singh's Values Forward */}
         <section className="bg-background px-4 py-16 md:py-24">
           <div className="container mx-auto">
-            <div className="grid items-center gap-10 md:grid-cols-2">
-              <div className="flex justify-center md:justify-start">
+            <div className="grid items-center gap-10 md:grid-cols-12 md:gap-12">
+              <div className="md:col-span-6 flex justify-center md:justify-start">
                 <PolaroidImage
                   src={VALUES_IMAGE_SRC}
-                  alt="Fauja Singh BEM with members of Sikhs In The City"
-                  width={480}
-                  height={560}
+                  alt="Fauja Singh BEM running alongside fellow runners"
+                  width={720}
+                  height={720}
+                  fit="cover"
                   rotate={-3}
-                  className="max-w-sm"
+                  responsive
+                  className="w-full"
                 />
               </div>
-              <div>
+              <div className="md:col-span-6">
                 <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
                   Carrying Fauja Singh&apos;s Values Forward
                 </h2>
