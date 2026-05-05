@@ -42,13 +42,13 @@ describe("ClubhouseAppealPage", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders the map embed for the clubhouse location", () => {
+  it("renders the static map image for the clubhouse location", () => {
     render(<ClubhouseAppealPage />);
     expect(
       screen.getByRole("heading", { name: /A place with meaning/ })
     ).toBeInTheDocument();
     expect(
-      screen.getByTitle("Proposed clubhouse location")
+      screen.getByRole("img", { name: /Map showing the proposed clubhouse location/ })
     ).toBeInTheDocument();
   });
 

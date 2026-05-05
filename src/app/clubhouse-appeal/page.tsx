@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { PolaroidImage } from "@/components/polaroid-image";
 import { AmenityCard } from "@/components/amenity-card";
 import { VideoEmbed } from "@/components/sections/video-embed";
-import { MapEmbed } from "@/components/sections/map-embed";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { clubhouseAmenities } from "@/data/clubhouse-amenities";
 
@@ -28,9 +27,7 @@ const RENDER_IMAGE_SRCS = [
 const FUNDING_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-funding.png";
 const VALUES_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-values.jpg";
 const CLUBHOUSE_ADDRESS = "Beal High School, Woodford Bridge Road, Ilford IG4 5LP";
-const CLUBHOUSE_MAP_SRC = `https://www.google.com/maps?q=${encodeURIComponent(
-  CLUBHOUSE_ADDRESS
-)}&output=embed`;
+const CLUBHOUSE_MAP_IMAGE_SRC = "/images/clubhouse-appeal/clubhouse-map.png";
 
 const RENDER_ROTATIONS = [-3, 2, -2] as const;
 
@@ -167,9 +164,17 @@ export default function ClubhouseAppealPage() {
         {/* Section 3 — Words from Fauja Singh and the team */}
         <section className="bg-secondary px-4 py-16 md:py-24">
           <div className="container mx-auto">
-            <h2 className="text-center text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-              Words from Fauja Singh and the team
-            </h2>
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
+                Words from Fauja Singh and the team
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-foreground/80 md:text-lg">
+                The following videos were recorded in 2019 and capture Fauja
+                Singh speaking about the clubhouse vision and his hopes for
+                the community. They are shared here to preserve his words and
+                to show the origins of this project.
+              </p>
+            </div>
             <div className="mt-12 grid gap-8 md:grid-cols-3">
               {VIDEOS.map((video) => (
                 <VideoEmbed
@@ -188,10 +193,15 @@ export default function ClubhouseAppealPage() {
         <section className="bg-background px-4 py-16 md:py-24">
           <div className="container mx-auto">
             <div className="grid items-center gap-10 md:grid-cols-2">
-              <MapEmbed
-                src={CLUBHOUSE_MAP_SRC}
-                title="Proposed clubhouse location"
-              />
+              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-muted">
+                <Image
+                  src={CLUBHOUSE_MAP_IMAGE_SRC}
+                  alt={`Map showing the proposed clubhouse location at ${CLUBHOUSE_ADDRESS}`}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
               <div>
                 <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-5xl">
                   A place with meaning
