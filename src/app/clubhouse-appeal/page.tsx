@@ -152,7 +152,7 @@ export default function ClubhouseAppealPage() {
                   width={720}
                   height={480}
                   fit="cover"
-                  rotate={-3}
+                  rotate={3}
                   responsive
                   className="w-full"
                 />
