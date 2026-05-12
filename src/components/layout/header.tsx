@@ -29,6 +29,7 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
+  { href: "/", label: "Home" },
   { href: "/our-story", label: "Our Story" },
   { href: "/how-to-join", label: "How To Join" },
   { href: "/events", label: "Events" },
