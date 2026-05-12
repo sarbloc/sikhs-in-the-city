@@ -14,8 +14,8 @@ export default function EventsPage() {
           description="From first-time runners to ultra-distance athletes, our events are designed to inspire, challenge, and bring people together."
           ctaText="Register Your Interest"
           ctaHref="/contact"
-          backgroundImage="/images/hero/slide-1.png"
-          backgroundImageAlt="Sikhs In The City runners gathered at an event"
+          backgroundImage="/images/events/hero.jpg"
+          backgroundImageAlt="Sikhs In The City runners lined up at the start of an event"
         />
         <EventsSection />
         <JoinCtaSection />
