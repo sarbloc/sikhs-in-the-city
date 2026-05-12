@@ -75,11 +75,22 @@ describe("EventsSection", () => {
     expect(screen.getByText("Dawn 2 Dusk Ultra")).toBeInTheDocument();
   });
 
-  it("default event cards link to /contact", () => {
+  it("default event cards link to the live evententry sign-up pages in a new tab", () => {
     render(<EventsSection />);
     const links = screen.getAllByRole("link", { name: /Sign Up Now/ });
-    expect(links.length).toBeGreaterThanOrEqual(2);
-    links.forEach((link) => expect(link).toHaveAttribute("href", "/contact"));
+    expect(links).toHaveLength(2);
+    expect(links[0]).toHaveAttribute(
+      "href",
+      "https://www.evententry.co.uk/sikhs-in-the-city-summer-samosa-ultra-2026"
+    );
+    expect(links[1]).toHaveAttribute(
+      "href",
+      "https://www.evententry.co.uk/sikhs-in-the-city-dawn-to-dusk-marathon-ultra-2026"
+    );
+    links.forEach((link) => {
+      expect(link).toHaveAttribute("target", "_blank");
+      expect(link).toHaveAttribute("rel", "noopener noreferrer");
+    });
   });
 
   it("renders custom events", () => {
