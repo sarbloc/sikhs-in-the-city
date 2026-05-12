@@ -27,7 +27,7 @@ const defaultEvents: Event[] = [
     date: "28th June 2026",
     imagePath: "/images/events/summer-somosa.png",
     imageAlt: "Runners at the Summer Samosa Ultra event",
-    href: "/contact",
+    href: "https://www.evententry.co.uk/sikhs-in-the-city-summer-samosa-ultra-2026",
   },
   {
     title: "Dawn 2 Dusk Ultra",
@@ -36,7 +36,7 @@ const defaultEvents: Event[] = [
     date: "6th December 2026",
     imagePath: "/images/events/dawn-2-dusk.png",
     imageAlt: "Runners at the Dawn 2 Dusk Ultra event",
-    href: "/contact",
+    href: "https://www.evententry.co.uk/sikhs-in-the-city-dawn-to-dusk-marathon-ultra-2026",
   },
 ];
 
