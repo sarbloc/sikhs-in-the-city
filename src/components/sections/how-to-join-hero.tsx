@@ -21,7 +21,7 @@ interface HowToJoinHeroProps {
 export function HowToJoinHero({
   title = "Start your running journey",
   description = "Whether you're new to running or looking to go further, we'll support you every step of the way, from your first session to your first race and beyond.",
-  backgroundImage = "/images/how-to-join.png",
+  backgroundImage = "/images/how-to-join-hero.jpg",
   ctaText = "Register Your Interest",
   ctaHref = "/contact",
   className,
