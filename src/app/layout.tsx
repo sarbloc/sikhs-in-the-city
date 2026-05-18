@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Asap, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const asap = Asap({
@@ -29,6 +30,7 @@ export default function RootLayout({
         className={`${asap.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
