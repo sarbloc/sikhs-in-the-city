@@ -41,8 +41,8 @@ export function HowToJoinHero({
         className="object-cover"
         priority
       />
-      {/* Yellow tint overlay */}
-      <div className="absolute inset-0 bg-secondary/70" />
+      {/* White tint overlay */}
+      <div className="absolute inset-0 bg-background/70" />
 
       <div className="container relative z-10 mx-auto">
         <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
