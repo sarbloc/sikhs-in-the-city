@@ -1,72 +1,38 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import type { Mock } from "vitest";
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { ContactForm, buildMailto } from "./contact-form";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ContactForm } from "./contact-form";
 
-const TARGET = "info@sikhsinthecity.org";
-
-describe("buildMailto", () => {
-  it("composes a mailto: URL with subject and encoded body", () => {
-    const href = buildMailto({
-      targetEmail: TARGET,
-      name: "Jane Doe",
-      email: "jane@example.com",
-      phone: "07123 456789",
-      message: "Hello there",
-    });
-
-    expect(href.startsWith(`mailto:${TARGET}?`)).toBe(true);
-    expect(href).toContain("subject=Register%20Your%20Interest");
-    // Body is URL-encoded; CRLFs become %0D%0A.
-    expect(href).toContain(
-      "body=Name%3A%20Jane%20Doe%0D%0AEmail%3A%20jane%40example.com%0D%0APhone%3A%2007123%20456789%0D%0A%0D%0AHello%20there"
-    );
+function fillForm() {
+  fireEvent.change(screen.getByLabelText("Name"), {
+    target: { value: "Jane Doe" },
   });
-
-  it("encodes spaces as %20, not +", () => {
-    const href = buildMailto({
-      targetEmail: TARGET,
-      name: "a b",
-      email: "a@b.com",
-      phone: "1",
-      message: "c d",
-    });
-    expect(href).not.toMatch(/\+/);
+  fireEvent.change(screen.getByLabelText("Email"), {
+    target: { value: "jane@example.com" },
   });
-});
+  fireEvent.change(screen.getByLabelText("Phone Number"), {
+    target: { value: "07123456789" },
+  });
+  fireEvent.change(screen.getByLabelText("Message"), {
+    target: { value: "Hello there" },
+  });
+}
 
 describe("ContactForm", () => {
-  let hrefSetter: Mock<(value: string) => void>;
-  let originalLocation: Location;
+  let fetchMock: Mock;
 
   beforeEach(() => {
-    // jsdom's window.location.href assignment triggers navigation which
-    // it doesn't support. Replace with a mock that records writes.
-    originalLocation = window.location;
-    hrefSetter = vi.fn();
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: {
-        ...originalLocation,
-        set href(value: string) {
-          hrefSetter(value);
-        },
-        get href() {
-          return hrefSetter.mock.calls.at(-1)?.[0] ?? "about:blank";
-        },
-      },
-    });
+    fetchMock = vi.fn();
+    vi.stubGlobal("fetch", fetchMock);
   });
 
   afterEach(() => {
-    Object.defineProperty(window, "location", {
-      configurable: true,
-      value: originalLocation,
-    });
+    vi.unstubAllGlobals();
+    vi.restoreAllMocks();
   });
 
   it("renders all labelled fields", () => {
-    render(<ContactForm targetEmail={TARGET} />);
+    render(<ContactForm />);
     expect(screen.getByLabelText("Name")).toBeInTheDocument();
     expect(screen.getByLabelText("Email")).toBeInTheDocument();
     expect(screen.getByLabelText("Phone Number")).toBeInTheDocument();
@@ -74,63 +40,84 @@ describe("ContactForm", () => {
     expect(screen.getByRole("button", { name: "Send" })).toBeInTheDocument();
   });
 
-  it("uses the correct input types for validation", () => {
-    render(<ContactForm targetEmail={TARGET} />);
+  it("uses the correct input types and required attributes", () => {
+    render(<ContactForm />);
     expect(screen.getByLabelText("Email")).toHaveAttribute("type", "email");
     expect(screen.getByLabelText("Phone Number")).toHaveAttribute("type", "tel");
     expect(screen.getByLabelText("Name")).toBeRequired();
-    expect(screen.getByLabelText("Email")).toBeRequired();
-    expect(screen.getByLabelText("Phone Number")).toBeRequired();
     expect(screen.getByLabelText("Message")).toBeRequired();
   });
 
-  it("sets window.location.href to a mailto URL on submit", () => {
-    const { container } = render(<ContactForm targetEmail={TARGET} />);
-
-    fireEvent.change(screen.getByLabelText("Name"), {
-      target: { value: "Jane Doe" },
-    });
-    fireEvent.change(screen.getByLabelText("Email"), {
-      target: { value: "jane@example.com" },
-    });
-    fireEvent.change(screen.getByLabelText("Phone Number"), {
-      target: { value: "07123456789" },
-    });
-    fireEvent.change(screen.getByLabelText("Message"), {
-      target: { value: "Hello there" },
-    });
-
-    const form = container.querySelector("form") as HTMLFormElement;
-    fireEvent.submit(form);
-
-    expect(hrefSetter).toHaveBeenCalledTimes(1);
-    const href = hrefSetter.mock.calls[0][0] as string;
-    expect(href).toMatch(/^mailto:info@sikhsinthecity\.org\?/);
-    expect(href).toContain("subject=Register%20Your%20Interest");
-    expect(href).toContain("Name%3A%20Jane%20Doe");
-    expect(href).toContain("Email%3A%20jane%40example.com");
-    expect(href).toContain("Phone%3A%2007123456789");
-    expect(href).toContain("Hello%20there");
+  it("includes a hidden honeypot field that is off the tab order", () => {
+    const { container } = render(<ContactForm />);
+    const honeypot = container.querySelector('input[name="company"]');
+    expect(honeypot).not.toBeNull();
+    expect(honeypot).toHaveAttribute("tabindex", "-1");
   });
 
-  it("prevents default navigation so submit is handled in JS", () => {
-    const { container } = render(<ContactForm targetEmail={TARGET} />);
+  it("POSTs the form data to /api/contact and shows a success message", async () => {
+    fetchMock.mockResolvedValue({ ok: true, json: async () => ({ ok: true }) });
+    const { container } = render(<ContactForm />);
+    fillForm();
+    fireEvent.submit(container.querySelector("form")!);
 
-    fireEvent.change(screen.getByLabelText("Name"), { target: { value: "A" } });
-    fireEvent.change(screen.getByLabelText("Email"), {
-      target: { value: "a@b.com" },
-    });
-    fireEvent.change(screen.getByLabelText("Phone Number"), {
-      target: { value: "1" },
-    });
-    fireEvent.change(screen.getByLabelText("Message"), {
-      target: { value: "Hi" },
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    const [url, init] = fetchMock.mock.calls[0];
+    expect(url).toBe("/api/contact");
+    expect(init.method).toBe("POST");
+    expect(JSON.parse(init.body as string)).toMatchObject({
+      name: "Jane Doe",
+      email: "jane@example.com",
+      phone: "07123456789",
+      message: "Hello there",
+      company: "",
     });
 
-    const form = container.querySelector("form") as HTMLFormElement;
-    const submitEvent = new Event("submit", { bubbles: true, cancelable: true });
-    const notPrevented = form.dispatchEvent(submitEvent);
-    // Our handler calls preventDefault → dispatchEvent returns false.
-    expect(notPrevented).toBe(false);
+    expect(await screen.findByRole("status")).toBeInTheDocument();
+    // Form is replaced by the confirmation, so the fields are gone.
+    expect(screen.queryByLabelText("Name")).not.toBeInTheDocument();
+  });
+
+  it("shows an error message when the API returns ok:false", async () => {
+    fetchMock.mockResolvedValue({
+      ok: false,
+      json: async () => ({ ok: false, error: "Please check the form." }),
+    });
+    const { container } = render(<ContactForm />);
+    fillForm();
+    fireEvent.submit(container.querySelector("form")!);
+
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Please check the form."
+    );
+    // Form stays mounted so the user can retry.
+    expect(screen.getByLabelText("Name")).toBeInTheDocument();
+  });
+
+  it("shows an error message when the request fails", async () => {
+    fetchMock.mockRejectedValue(new Error("network"));
+    const { container } = render(<ContactForm />);
+    fillForm();
+    fireEvent.submit(container.querySelector("form")!);
+
+    expect(await screen.findByRole("alert")).toBeInTheDocument();
+  });
+
+  it("disables the button while the request is in flight", async () => {
+    let resolveFetch: (value: unknown) => void = () => {};
+    fetchMock.mockReturnValue(
+      new Promise((resolve) => {
+        resolveFetch = resolve;
+      })
+    );
+    const { container } = render(<ContactForm />);
+    fillForm();
+    fireEvent.submit(container.querySelector("form")!);
+
+    const button = await screen.findByRole("button", { name: "Sending…" });
+    expect(button).toBeDisabled();
+
+    resolveFetch({ ok: true, json: async () => ({ ok: true }) });
+    await screen.findByRole("status");
   });
 });

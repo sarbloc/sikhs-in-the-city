@@ -5,8 +5,6 @@ import { InfoRow } from "@/components/info-row";
 import { ContactForm } from "@/components/sections/contact-form";
 import { MapEmbed } from "@/components/sections/map-embed";
 
-const CONTACT_EMAIL = "info@sikhsinthecity.org";
-
 const MEETING_ADDRESS =
   "Junction of Roding Lane South & Woodford Bridge Road opposite the PDSA centre, nearest postcode for SatNav IG4 5PS";
 
@@ -29,10 +27,7 @@ export default function ContactPage() {
                 Use the form below to get in touch, whether you have a general
                 enquiry or are interested in joining the group.
               </p>
-              <ContactForm
-                targetEmail={CONTACT_EMAIL}
-                className="mt-8"
-              />
+              <ContactForm className="mt-8" />
             </div>
           </div>
         </section>

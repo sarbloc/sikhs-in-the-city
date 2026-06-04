@@ -5,47 +5,11 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 interface ContactFormProps {
-  /** Target email address for the mailto: submission */
-  targetEmail: string;
   /** Additional className for the form wrapper */
   className?: string;
 }
 
-const MAILTO_SUBJECT = "Register Your Interest";
-
-/**
- * Build the `mailto:` URL for the contact form submission.
- * Exported for unit tests.
- */
-export function buildMailto({
-  targetEmail,
-  name,
-  email,
-  phone,
-  message,
-}: {
-  targetEmail: string;
-  name: string;
-  email: string;
-  phone: string;
-  message: string;
-}): string {
-  const body =
-    `Name: ${name}\r\n` +
-    `Email: ${email}\r\n` +
-    `Phone: ${phone}\r\n` +
-    `\r\n` +
-    message;
-
-  const params = new URLSearchParams({
-    subject: MAILTO_SUBJECT,
-    body,
-  });
-  // URLSearchParams uses `+` for spaces; mailto bodies should use %20 for
-  // best client compatibility.
-  const query = params.toString().replace(/\+/g, "%20");
-  return `mailto:${targetEmail}?${query}`;
-}
+type Status = "idle" | "submitting" | "success" | "error";
 
 const fieldWrapper = "flex flex-col gap-2";
 const labelClass = "text-sm font-medium text-foreground";
@@ -56,29 +20,73 @@ const inputClass = cn(
 );
 
 /**
- * ContactForm — "Register Your Interest" form that submits via `mailto:`.
- * JS-only: on submit we assemble the mailto URL client-side and set
- * `window.location.href`. With JS disabled the form is inert; there is no
- * non-JS fallback (acknowledged tradeoff — avoids leaking the target
- * email into the rendered HTML via `action`).
+ * ContactForm — "Register Your Interest" form. Submits to the `/api/contact`
+ * route handler, which emails the charity inbox via Resend. Includes a hidden
+ * honeypot field (`company`) for basic spam filtering.
  */
-export function ContactForm({ targetEmail, className }: ContactFormProps) {
+export function ContactForm({ className }: ContactFormProps) {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [company, setCompany] = React.useState(""); // honeypot
+  const [status, setStatus] = React.useState<Status>("idle");
+  const [error, setError] = React.useState("");
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const href = buildMailto({
-      targetEmail,
-      name,
-      email,
-      phone,
-      message,
-    });
-    window.location.href = href;
+    if (status === "submitting") return;
+
+    setStatus("submitting");
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, message, company }),
+      });
+      const data = (await res.json().catch(() => null)) as
+        | { ok?: boolean; error?: string }
+        | null;
+
+      if (!res.ok || !data?.ok) {
+        setStatus("error");
+        setError(data?.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setStatus("success");
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+    } catch {
+      setStatus("error");
+      setError("Couldn't reach the server. Please check your connection and try again.");
+    }
   };
+
+  if (status === "success") {
+    return (
+      <div
+        role="status"
+        className={cn(
+          "rounded-2xl bg-background p-6 shadow-sm ring-1 ring-border md:p-8",
+          className
+        )}
+      >
+        <h2 className="text-xl font-semibold text-foreground">
+          Thanks &mdash; your message is on its way
+        </h2>
+        <p className="mt-2 text-base text-muted-foreground">
+          We&apos;ve received your details and will be in touch soon.
+        </p>
+      </div>
+    );
+  }
+
+  const submitting = status === "submitting";
 
   return (
     <form
@@ -153,9 +161,32 @@ export function ContactForm({ targetEmail, className }: ContactFormProps) {
         />
       </div>
 
+      {/* Honeypot: visually hidden and off the a11y tree. Bots fill it; humans don't. */}
+      <div
+        aria-hidden="true"
+        className="absolute -left-[9999px] -top-[9999px] h-0 w-0 overflow-hidden"
+      >
+        <label htmlFor="contact-company">Company</label>
+        <input
+          id="contact-company"
+          name="company"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={company}
+          onChange={(e) => setCompany(e.target.value)}
+        />
+      </div>
+
+      {status === "error" && (
+        <p role="alert" className="text-sm font-medium text-destructive">
+          {error}
+        </p>
+      )}
+
       <div>
-        <Button type="submit" variant="secondary" size="lg">
-          Send
+        <Button type="submit" variant="secondary" size="lg" disabled={submitting}>
+          {submitting ? "Sending…" : "Send"}
         </Button>
       </div>
     </form>
