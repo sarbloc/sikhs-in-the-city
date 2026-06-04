@@ -63,9 +63,13 @@ export function resetRateLimitStore(): void {
   lastSendByIp.clear();
 }
 
-function clientIp(request: Request): string {
-  const xff = request.headers.get("x-forwarded-for");
-  return xff ? (xff.split(",")[0] ?? "unknown").trim() : "unknown";
+// Vercel sets x-real-ip at the edge to the trusted client address; unlike the
+// first x-forwarded-for hop, a client cannot spoof it. Returns null when no
+// trusted IP is available (e.g. local dev) so callers can fail open rather than
+// bucket every such request under one shared key.
+function clientIp(request: Request): string | null {
+  const realIp = request.headers.get("x-real-ip");
+  return realIp ? realIp.trim() || null : null;
 }
 
 function isRateLimited(ip: string, now: number): boolean {
@@ -146,22 +150,26 @@ export async function POST(request: Request) {
   }
 
   // Gate the actual send. Only valid, non-honeypot, sendable requests reach
-  // here, so validation failures never burn a user's allowance.
+  // here, so validation failures never burn a user's allowance. When no trusted
+  // client IP is available we fail open (skip the limiter) rather than throttle
+  // every anonymous request under a single shared bucket.
   const ip = clientIp(request);
   const now = Date.now();
-  if (isRateLimited(ip, now)) {
-    return Response.json(
-      {
-        ok: false,
-        error:
-          "You've already sent a message recently. Please email info@sikhsinthecity.org directly.",
-      },
-      { status: 429 }
-    );
+  if (ip) {
+    if (isRateLimited(ip, now)) {
+      return Response.json(
+        {
+          ok: false,
+          error:
+            "You've already sent a message recently. Please email info@sikhsinthecity.org directly.",
+        },
+        { status: 429 }
+      );
+    }
+    // Record optimistically so concurrent requests can't both pass; rolled back
+    // below if the send fails, so a transient error doesn't cost the allowance.
+    lastSendByIp.set(ip, now);
   }
-  // Record optimistically so concurrent requests can't both pass; rolled back
-  // below if the send fails, so a transient error doesn't cost the allowance.
-  lastSendByIp.set(ip, now);
 
   const { name, email, phone, message } = input;
   const cleanName = oneLine(name);
@@ -182,7 +190,7 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      lastSendByIp.delete(ip); // send failed — let them retry
+      if (ip) lastSendByIp.delete(ip); // send failed — let them retry
       console.error("[contact] Resend returned an error:", error);
       return Response.json(
         { ok: false, error: "We couldn't send your message. Please try again." },
@@ -190,7 +198,7 @@ export async function POST(request: Request) {
       );
     }
   } catch (err) {
-    lastSendByIp.delete(ip); // send threw — let them retry
+    if (ip) lastSendByIp.delete(ip); // send threw — let them retry
     console.error("[contact] Resend threw while sending:", err);
     return Response.json(
       { ok: false, error: "We couldn't send your message. Please try again." },

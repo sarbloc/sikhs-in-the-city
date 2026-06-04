@@ -15,7 +15,7 @@ function postRequest(body: unknown, raw = false, ip?: string) {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
-  if (ip) headers["x-forwarded-for"] = ip;
+  if (ip) headers["x-real-ip"] = ip;
   return new Request("http://localhost/api/contact", {
     method: "POST",
     headers,
@@ -167,6 +167,14 @@ describe("POST /api/contact", () => {
     const b = await POST(postRequest(valid, false, "198.51.100.2"));
     expect(a.status).toBe(200);
     expect(b.status).toBe(200);
+    expect(mockSend).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not rate-limit when no trusted client IP is available (fail open)", async () => {
+    const first = await POST(postRequest(valid));
+    const second = await POST(postRequest(valid));
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
     expect(mockSend).toHaveBeenCalledTimes(2);
   });
 
