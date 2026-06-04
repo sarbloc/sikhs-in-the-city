@@ -27,6 +27,16 @@ export default function ContactPage() {
                 Use the form below to get in touch, whether you have a general
                 enquiry or are interested in joining the group.
               </p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Prefer email? Write to us directly at{" "}
+                <a
+                  href="mailto:info@sikhsinthecity.org"
+                  className="font-medium text-foreground underline underline-offset-4"
+                >
+                  info@sikhsinthecity.org
+                </a>
+                .
+              </p>
               <ContactForm className="mt-8" />
             </div>
           </div>
