@@ -29,6 +29,7 @@ const valid = {
 describe("POST /api/contact", () => {
   beforeEach(() => {
     vi.stubEnv("RESEND_API_KEY", "test_key");
+    vi.stubEnv("CONTACT_FROM_EMAIL", "noreply@sikhsinthecity.org");
     vi.spyOn(console, "error").mockImplementation(() => {});
     mockSend.mockReset();
     mockSend.mockResolvedValue({ data: { id: "email_1" }, error: null });
@@ -47,6 +48,7 @@ describe("POST /api/contact", () => {
     expect(mockSend).toHaveBeenCalledTimes(1);
     const payload = mockSend.mock.calls[0][0];
     expect(payload.to).toBe("info@sikhsinthecity.org");
+    expect(payload.from).toContain("noreply@sikhsinthecity.org");
     expect(payload.replyTo).toBe("jane@example.com");
     expect(payload.subject).toContain("Jane Doe");
     expect(payload.text).toContain("I'd like to join.");
@@ -87,6 +89,14 @@ describe("POST /api/contact", () => {
 
   it("returns 500 when the API key is missing", async () => {
     vi.stubEnv("RESEND_API_KEY", "");
+    const res = await POST(postRequest(valid));
+    expect(res.status).toBe(500);
+    await expect(res.json()).resolves.toMatchObject({ ok: false });
+    expect(mockSend).not.toHaveBeenCalled();
+  });
+
+  it("returns 500 when the from address is not configured", async () => {
+    vi.stubEnv("CONTACT_FROM_EMAIL", "");
     const res = await POST(postRequest(valid));
     expect(res.status).toBe(500);
     await expect(res.json()).resolves.toMatchObject({ ok: false });

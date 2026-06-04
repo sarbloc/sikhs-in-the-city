@@ -32,10 +32,16 @@ export function ContactForm({ className }: ContactFormProps) {
   const [company, setCompany] = React.useState(""); // honeypot
   const [status, setStatus] = React.useState<Status>("idle");
   const [error, setError] = React.useState("");
+  // Synchronous re-entrancy guard: `status` updates asynchronously, so a rapid
+  // double-submit (double-click / double-Enter) can pass a state check before
+  // the rerender disables the button. A ref flips immediately and prevents the
+  // duplicate POST (and the duplicate email it would generate).
+  const submittingRef = React.useRef(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (status === "submitting") return;
+    if (submittingRef.current) return;
+    submittingRef.current = true;
 
     setStatus("submitting");
     setError("");
@@ -64,6 +70,8 @@ export function ContactForm({ className }: ContactFormProps) {
     } catch {
       setStatus("error");
       setError("Couldn't reach the server. Please check your connection and try again.");
+    } finally {
+      submittingRef.current = false;
     }
   };
 
