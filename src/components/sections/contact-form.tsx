@@ -90,6 +90,16 @@ export function ContactForm({ className }: ContactFormProps) {
         <p className="mt-2 text-base text-muted-foreground">
           We&apos;ve received your details and will be in touch soon.
         </p>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Need to reach us again? Email{" "}
+          <a
+            href="mailto:info@sikhsinthecity.org"
+            className="font-medium text-foreground underline underline-offset-4"
+          >
+            info@sikhsinthecity.org
+          </a>{" "}
+          directly.
+        </p>
       </div>
     );
   }

@@ -9,12 +9,16 @@ vi.mock("resend", () => ({
   },
 }));
 
-import { POST } from "./route";
+import { POST, resetRateLimitStore } from "./route";
 
-function postRequest(body: unknown, raw = false) {
+function postRequest(body: unknown, raw = false, ip?: string) {
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  if (ip) headers["x-forwarded-for"] = ip;
   return new Request("http://localhost/api/contact", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers,
     body: raw ? (body as string) : JSON.stringify(body),
   });
 }
@@ -26,6 +30,9 @@ const valid = {
   message: "I'd like to join.",
 };
 
+// Built from char codes so the test source stays free of literal control chars.
+const CRLF = String.fromCharCode(13, 10);
+
 describe("POST /api/contact", () => {
   beforeEach(() => {
     vi.stubEnv("RESEND_API_KEY", "test_key");
@@ -33,6 +40,7 @@ describe("POST /api/contact", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     mockSend.mockReset();
     mockSend.mockResolvedValue({ data: { id: "email_1" }, error: null });
+    resetRateLimitStore();
   });
 
   afterEach(() => {
@@ -117,5 +125,61 @@ describe("POST /api/contact", () => {
     mockSend.mockRejectedValue(new Error("network down"));
     const res = await POST(postRequest(valid));
     expect(res.status).toBe(502);
+  });
+
+  it("strips CR/LF and control characters from the subject and body", async () => {
+    await POST(
+      postRequest(
+        {
+          ...valid,
+          name: `Jane${CRLF}Bcc: evil@example.com`,
+          message: `line1${CRLF}line2`,
+        },
+        false,
+        "203.0.113.1"
+      )
+    );
+    const payload = mockSend.mock.calls[0][0];
+    const subjectCodes = [...(payload.subject as string)].map((c) =>
+      c.charCodeAt(0)
+    );
+    expect(subjectCodes).not.toContain(13); // CR
+    expect(subjectCodes).not.toContain(10); // LF
+    expect(payload.subject).toContain("Jane");
+    // Body keeps newlines but drops the CR from CRLF.
+    expect([...(payload.text as string)].map((c) => c.charCodeAt(0))).not.toContain(
+      13
+    );
+  });
+
+  it("rate-limits a second send from the same IP", async () => {
+    const first = await POST(postRequest(valid, false, "198.51.100.7"));
+    expect(first.status).toBe(200);
+
+    const second = await POST(postRequest(valid, false, "198.51.100.7"));
+    expect(second.status).toBe(429);
+    await expect(second.json()).resolves.toMatchObject({ ok: false });
+    expect(mockSend).toHaveBeenCalledTimes(1);
+  });
+
+  it("allows sends from different IPs", async () => {
+    const a = await POST(postRequest(valid, false, "198.51.100.1"));
+    const b = await POST(postRequest(valid, false, "198.51.100.2"));
+    expect(a.status).toBe(200);
+    expect(b.status).toBe(200);
+    expect(mockSend).toHaveBeenCalledTimes(2);
+  });
+
+  it("does not consume the allowance when the send fails", async () => {
+    mockSend.mockResolvedValueOnce({
+      data: null,
+      error: { message: "boom", name: "application_error" },
+    });
+    const first = await POST(postRequest(valid, false, "198.51.100.9"));
+    expect(first.status).toBe(502);
+
+    const second = await POST(postRequest(valid, false, "198.51.100.9"));
+    expect(second.status).toBe(200);
+    expect(mockSend).toHaveBeenCalledTimes(2);
   });
 });

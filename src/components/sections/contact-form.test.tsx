@@ -76,6 +76,10 @@ describe("ContactForm", () => {
     expect(await screen.findByRole("status")).toBeInTheDocument();
     // Form is replaced by the confirmation, so the fields are gone.
     expect(screen.queryByLabelText("Name")).not.toBeInTheDocument();
+    // Confirmation offers the direct email as a fallback.
+    expect(
+      screen.getByRole("link", { name: "info@sikhsinthecity.org" })
+    ).toHaveAttribute("href", "mailto:info@sikhsinthecity.org");
   });
 
   it("shows an error message when the API returns ok:false", async () => {
