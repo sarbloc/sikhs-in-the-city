@@ -50,7 +50,7 @@ describe("ContactForm", () => {
 
   it("includes a hidden honeypot field that is off the tab order", () => {
     const { container } = render(<ContactForm />);
-    const honeypot = container.querySelector('input[name="company"]');
+    const honeypot = container.querySelector('input[name="hp_field"]');
     expect(honeypot).not.toBeNull();
     expect(honeypot).toHaveAttribute("tabindex", "-1");
   });
@@ -70,7 +70,7 @@ describe("ContactForm", () => {
       email: "jane@example.com",
       phone: "07123456789",
       message: "Hello there",
-      company: "",
+      hp_field: "",
     });
 
     expect(await screen.findByRole("status")).toBeInTheDocument();

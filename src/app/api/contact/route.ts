@@ -18,7 +18,7 @@ interface ContactInput {
   phone: string;
   message: string;
   /** Honeypot — a hidden field real users never fill. */
-  company: string;
+  honeypot: string;
 }
 
 /** Validate and normalise the untrusted request body. Returns null if invalid. */
@@ -31,14 +31,16 @@ function parseInput(body: unknown): ContactInput | null {
   const email = str(b.email);
   const phone = str(b.phone);
   const message = str(b.message);
-  const company = typeof b.company === "string" ? b.company : "";
+  // Honeypot wire name avoids the `company`/organization autofill token so
+  // password managers don't fill it for real users (which would drop the send).
+  const honeypot = typeof b.hp_field === "string" ? b.hp_field : "";
 
   if (!name || name.length > LIMITS.name) return null;
   if (!email || email.length > LIMITS.email || !EMAIL_RE.test(email)) return null;
   if (!phone || phone.length > LIMITS.phone) return null;
   if (!message || message.length > LIMITS.message) return null;
 
-  return { name, email, phone, message, company };
+  return { name, email, phone, message, honeypot };
 }
 
 export async function POST(request: Request) {
@@ -58,7 +60,7 @@ export async function POST(request: Request) {
   }
 
   // Honeypot tripped: accept silently (so bots get no signal) but send nothing.
-  if (input.company.trim() !== "") {
+  if (input.honeypot.trim() !== "") {
     return Response.json({ ok: true });
   }
 

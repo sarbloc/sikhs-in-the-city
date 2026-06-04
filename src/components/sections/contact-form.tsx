@@ -29,7 +29,7 @@ export function ContactForm({ className }: ContactFormProps) {
   const [email, setEmail] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [company, setCompany] = React.useState(""); // honeypot
+  const [honeypot, setHoneypot] = React.useState(""); // bots fill this; humans don't
   const [status, setStatus] = React.useState<Status>("idle");
   const [error, setError] = React.useState("");
   // Synchronous re-entrancy guard: `status` updates asynchronously, so a rapid
@@ -50,7 +50,7 @@ export function ContactForm({ className }: ContactFormProps) {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, message, company }),
+        body: JSON.stringify({ name, email, phone, message, hp_field: honeypot }),
       });
       const data = (await res.json().catch(() => null)) as
         | { ok?: boolean; error?: string }
@@ -174,15 +174,15 @@ export function ContactForm({ className }: ContactFormProps) {
         aria-hidden="true"
         className="absolute -left-[9999px] -top-[9999px] h-0 w-0 overflow-hidden"
       >
-        <label htmlFor="contact-company">Company</label>
+        <label htmlFor="contact-hp-field">Leave this field empty</label>
         <input
-          id="contact-company"
-          name="company"
+          id="contact-hp-field"
+          name="hp_field"
           type="text"
           tabIndex={-1}
           autoComplete="off"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
         />
       </div>
 
