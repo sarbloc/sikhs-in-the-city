@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Sikhs In The City — a community-led running charity website built as a single-page Next.js 16 static site (exported via `output: "export"`). The site is composed of section components assembled in `src/app/page.tsx`.
+Sikhs In The City — a community-led running charity website built as a multi-page Next.js 16 app deployed on Vercel. Pages are statically prerendered at build; the app runs on Vercel Functions (Fluid Compute), so server-side routes can be added. The home page (`src/app/page.tsx`) is composed of section components; additional routes live under `src/app/` (see Routes below).
 
 ## Commands
 
 ```bash
 npm run dev          # Start dev server
-npm run build        # Production build (static export to out/)
+npm run build        # Production build (.next/, deployed on Vercel)
 npm run lint         # ESLint (flat config, core-web-vitals + typescript)
 npm run typecheck    # tsc --noEmit
 npm run test         # Vitest in watch mode
@@ -22,11 +22,17 @@ npm run storybook    # Storybook dev on port 6006
 ## Architecture
 
 - **Framework**: Next.js 16, React 19, TypeScript, Tailwind CSS v4
-- **Static export**: `next.config.ts` sets `output: "export"` with unoptimized images — no server required
+- **Deployment**: Next.js app on Vercel (Fluid Compute); pages statically prerendered at build. `images.unoptimized` is set (image optimization off)
 - **Path alias**: `@/*` maps to `./src/*`
 - **UI primitives**: Radix UI + shadcn/ui pattern (`src/components/ui/`), styled with `class-variance-authority` and `tailwind-merge` (utility in `src/lib/utils.ts`)
 - **Carousel**: Embla Carousel (`embla-carousel-react` + `embla-carousel-autoplay`)
 - **Fonts**: Geist Sans and Geist Mono via `next/font/google`
+
+### Routes
+
+- `/` — home (hero, our-story, how-to-join, events, clubhouse-appeal, course-records, join-cta sections)
+- `/our-story`, `/how-to-join`, `/events`, `/clubhouse-appeal`, `/contact`
+- `/results/{dawn-to-dusk, fauja-singh-birthday-challenge, summer-samosa}` — per-event result pages
 
 ### Component structure
 
