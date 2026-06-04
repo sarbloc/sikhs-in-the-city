@@ -75,7 +75,7 @@ describe("POST /api/contact", () => {
   });
 
   it("silently accepts but does not send when the honeypot is filled", async () => {
-    const res = await POST(postRequest({ ...valid, company: "Spammer Inc" }));
+    const res = await POST(postRequest({ ...valid, hp_field: "Spammer Inc" }));
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({ ok: true });
     expect(mockSend).not.toHaveBeenCalled();
