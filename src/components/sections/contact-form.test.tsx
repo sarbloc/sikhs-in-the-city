@@ -103,6 +103,17 @@ describe("ContactForm", () => {
     expect(await screen.findByRole("alert")).toBeInTheDocument();
   });
 
+  it("ignores a second submit while the first is in flight", async () => {
+    fetchMock.mockReturnValue(new Promise(() => {}));
+    const { container } = render(<ContactForm />);
+    fillForm();
+    const form = container.querySelector("form")!;
+    fireEvent.submit(form);
+    fireEvent.submit(form);
+
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+  });
+
   it("disables the button while the request is in flight", async () => {
     let resolveFetch: (value: unknown) => void = () => {};
     fetchMock.mockReturnValue(

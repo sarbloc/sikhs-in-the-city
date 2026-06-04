@@ -6,7 +6,6 @@
 import { Resend } from "resend";
 
 const TO_EMAIL = "info@sikhsinthecity.org";
-const FROM_EMAIL = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
 
 // Field length caps: bound the payload and reject obvious garbage.
 const LIMITS = { name: 100, email: 200, phone: 50, message: 5000 } as const;
@@ -63,9 +62,16 @@ export async function POST(request: Request) {
     return Response.json({ ok: true });
   }
 
+  // Both must be set in production. CONTACT_FROM_EMAIL must be an address on a
+  // domain verified in Resend — there is no safe default. onboarding@resend.dev
+  // only delivers to the Resend account owner, so it would 502 on real
+  // submissions to the charity inbox; a missing sender is a misconfiguration.
   const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.error("[contact] RESEND_API_KEY is not set; cannot send email");
+  const fromEmail = process.env.CONTACT_FROM_EMAIL;
+  if (!apiKey || !fromEmail) {
+    console.error(
+      "[contact] Email is not configured (RESEND_API_KEY / CONTACT_FROM_EMAIL); cannot send"
+    );
     return Response.json(
       { ok: false, error: "Email is temporarily unavailable. Please try again later." },
       { status: 500 }
@@ -79,7 +85,7 @@ export async function POST(request: Request) {
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from: `Sikhs In The City <${FROM_EMAIL}>`,
+      from: `Sikhs In The City <${fromEmail}>`,
       to: TO_EMAIL,
       replyTo: email,
       subject: `Register Your Interest — ${name}`,
