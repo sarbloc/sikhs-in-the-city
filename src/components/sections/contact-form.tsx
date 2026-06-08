@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { CircleCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -84,22 +85,31 @@ export function ContactForm({ className }: ContactFormProps) {
           className
         )}
       >
-        <h2 className="text-xl font-semibold text-foreground">
-          Thanks &mdash; your message is on its way
-        </h2>
-        <p className="mt-2 text-base text-muted-foreground">
-          We&apos;ve received your details and will be in touch soon.
-        </p>
-        <p className="mt-4 text-sm text-muted-foreground">
-          Need to reach us again? Email{" "}
-          <a
-            href="mailto:info@sikhsinthecity.org"
-            className="font-medium text-foreground underline underline-offset-4"
-          >
-            info@sikhsinthecity.org
-          </a>{" "}
-          directly.
-        </p>
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-6">
+          <CircleCheck
+            aria-hidden="true"
+            strokeWidth={1.5}
+            className="h-12 w-12 shrink-0 text-green-600"
+          />
+          <div>
+            <h2 className="text-xl font-semibold text-foreground">
+              Thanks &mdash; your message is on its way
+            </h2>
+            <p className="mt-2 text-base text-muted-foreground">
+              We&apos;ve received your details and will be in touch soon.
+            </p>
+            <p className="mt-4 text-sm text-muted-foreground">
+              Need to reach us again? Email{" "}
+              <a
+                href="mailto:info@sikhsinthecity.org"
+                className="font-medium text-foreground underline underline-offset-4"
+              >
+                info@sikhsinthecity.org
+              </a>{" "}
+              directly.
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
