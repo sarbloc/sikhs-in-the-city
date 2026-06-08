@@ -58,6 +58,7 @@ describe("POST /api/contact", () => {
     expect(payload.to).toBe("info@sikhsinthecity.org");
     expect(payload.from).toContain("noreply@sikhsinthecity.org");
     expect(payload.replyTo).toBe("jane@example.com");
+    expect(payload.subject).toContain("SITC Website Enquiry");
     expect(payload.subject).toContain("Jane Doe");
     expect(payload.text).toContain("I'd like to join.");
     expect(payload.text).toContain("jane@example.com");

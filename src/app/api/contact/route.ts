@@ -185,7 +185,7 @@ export async function POST(request: Request) {
       from: `Sikhs In The City <${fromEmail}>`,
       to: TO_EMAIL,
       replyTo: email,
-      subject: `Register Your Interest — ${cleanName}`,
+      subject: `SITC Website Enquiry - ${cleanName}`,
       text,
     });
 
