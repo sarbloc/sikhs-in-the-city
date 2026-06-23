@@ -10,11 +10,13 @@
 import { timingSafeEqual } from "node:crypto";
 import { revalidateTag } from "next/cache";
 import { EVENTS_TAG } from "@/lib/contentful/events";
+import { HERO_TAG } from "@/lib/contentful/hero";
 
 // Contentful content-type id -> cache tag(s) used by the read layer.
-// Extend as more types are wired (hero, results, news).
+// Extend as more types are wired (results, news).
 const CONTENT_TYPE_TAGS: Record<string, string> = {
   event: EVENTS_TAG,
+  heroSlide: HERO_TAG,
 };
 
 const ALL_TAGS = Array.from(new Set(Object.values(CONTENT_TYPE_TAGS)));
