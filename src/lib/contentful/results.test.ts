@@ -11,14 +11,22 @@ const collection = {
       {
         title: "Dawn To Dusk",
         slug: "dawn-to-dusk",
-        urlTemplate: "https://x.test/g.html?f=d2d{yy}.clax",
-        years: ["2024", "2025", "2023"],
+        linkedFrom: {
+          resultsYearCollection: {
+            items: [
+              { year: 2024, url: "https://x/d2d24" },
+              { year: 2025, url: "https://x/d2d25" },
+              { year: 2023, url: "https://x/d2d23" },
+            ],
+          },
+        },
       },
       {
         title: "Summer Samosa",
         slug: "summer-samosa",
-        urlTemplate: "https://x.test/g.html?f=SummerSamosa{yy}.clax",
-        years: ["2025"],
+        linkedFrom: {
+          resultsYearCollection: { items: [{ year: 2025, url: "https://x/ss25" }] },
+        },
       },
     ],
   },
@@ -30,13 +38,13 @@ beforeEach(() => {
 });
 
 describe("getResultsEvent", () => {
-  it("finds the event by slug, sorts years newest-first, and builds URLs", async () => {
+  it("finds the event by slug, sorts years newest-first, and forwards the tag", async () => {
     const event = await getResultsEvent("dawn-to-dusk");
     expect(event.title).toBe("Dawn To Dusk");
     expect(event.yearLinks).toEqual([
-      { year: 2025, url: "https://x.test/g.html?f=d2d25.clax" },
-      { year: 2024, url: "https://x.test/g.html?f=d2d24.clax" },
-      { year: 2023, url: "https://x.test/g.html?f=d2d23.clax" },
+      { year: 2025, url: "https://x/d2d25" },
+      { year: 2024, url: "https://x/d2d24" },
+      { year: 2023, url: "https://x/d2d23" },
     ]);
     expect(mockQuery).toHaveBeenCalledWith(expect.any(String), { tags: [RESULTS_TAG] });
   });
@@ -45,12 +53,18 @@ describe("getResultsEvent", () => {
     await expect(getResultsEvent("does-not-exist")).rejects.toThrow(/No published resultsEvent/);
   });
 
-  it("throws when the matched event has no valid years", async () => {
+  it("throws when the matched event has no published results years", async () => {
     mockQuery.mockResolvedValue({
       resultsEventCollection: {
-        items: [{ title: "Empty", slug: "empty", urlTemplate: "x{yy}", years: [] }],
+        items: [
+          {
+            title: "Empty",
+            slug: "empty",
+            linkedFrom: { resultsYearCollection: { items: [] } },
+          },
+        ],
       },
     });
-    await expect(getResultsEvent("empty")).rejects.toThrow(/no valid years/);
+    await expect(getResultsEvent("empty")).rejects.toThrow(/no published results years/);
   });
 });

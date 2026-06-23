@@ -11,7 +11,7 @@ export interface ResultsEvent {
   yearLinks: ResultsYearLink[];
 }
 
-/** Cache tag for results events (revalidated by the publish webhook). */
+/** Cache tag for results (events + years), revalidated by the publish webhook. */
 export const RESULTS_TAG = "results";
 
 interface ResultsResponse {
@@ -19,48 +19,49 @@ interface ResultsResponse {
     items: Array<{
       title: string;
       slug: string;
-      urlTemplate: string;
-      years: string[] | null;
+      linkedFrom: {
+        resultsYearCollection: {
+          items: Array<{ year: number | null; url: string | null }>;
+        };
+      } | null;
     }>;
   };
 }
 
-// The collection is tiny (one entry per external-results event), so we fetch it
-// all under one cache tag and pick the slug in code — no GraphQL variables.
+// The collection is tiny, so fetch all events with their linked years under one
+// cache tag and pick the slug in code — no GraphQL variables. Each year carries
+// its own explicit URL (resultsYear.url).
 const RESULTS_QUERY = `
   query ResultsEvents {
     resultsEventCollection {
       items {
         title
         slug
-        urlTemplate
-        years
+        linkedFrom {
+          resultsYearCollection(limit: 100) {
+            items {
+              year
+              url
+            }
+          }
+        }
       }
     }
   }
 `;
 
-/** Build a per-year results URL from the template ({yy} -> 2-digit year). */
-function buildUrl(template: string, year: number): string {
-  return template.replaceAll("{yy}", String(year).slice(-2));
-}
-
-/** Fetch a single external-results event by slug, with per-year links built. */
+/** Fetch a single external-results event by slug, with its per-year links. */
 export async function getResultsEvent(slug: string): Promise<ResultsEvent> {
   const data = await contentfulQuery<ResultsResponse>(RESULTS_QUERY, { tags: [RESULTS_TAG] });
   const item = data.resultsEventCollection.items.find((i) => i.slug === slug);
   if (!item) {
     throw new Error(`No published resultsEvent for slug "${slug}"`);
   }
-  const yearLinks = (item.years ?? [])
-    .map((y) => Number(y))
-    .filter((y) => Number.isFinite(y))
-    .sort((a, b) => b - a) // newest first
-    .map((year) => ({ year, url: buildUrl(item.urlTemplate, year) }));
-  // A results event with no valid years can't render a useful page, so fail
-  // loudly (consistent with the hero) rather than building a broken dropdown.
+  const yearLinks = (item.linkedFrom?.resultsYearCollection.items ?? [])
+    .filter((y): y is ResultsYearLink => typeof y.year === "number" && Boolean(y.url))
+    .sort((a, b) => b.year - a.year); // newest first
   if (yearLinks.length === 0) {
-    throw new Error(`resultsEvent "${slug}" has no valid years`);
+    throw new Error(`resultsEvent "${slug}" has no published results years`);
   }
   return { title: item.title, yearLinks };
 }

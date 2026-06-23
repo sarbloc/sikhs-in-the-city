@@ -56,6 +56,15 @@ describe("POST /api/revalidate/contentful", () => {
     expect(mockRevalidateTag).toHaveBeenCalledWith("results", { expire: 0 });
   });
 
+  it("revalidates the results tag for a resultsYear publish", async () => {
+    const res = await POST(
+      webhook({ sys: { contentType: { sys: { id: "resultsYear" } } } }, SECRET)
+    );
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toEqual({ revalidated: true, tags: ["results"] });
+    expect(mockRevalidateTag).toHaveBeenCalledWith("results", { expire: 0 });
+  });
+
   it("rejects a missing secret with 401 and revalidates nothing", async () => {
     const res = await POST(webhook(eventPayload));
     expect(res.status).toBe(401);
