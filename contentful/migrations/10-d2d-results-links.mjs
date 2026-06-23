@@ -33,10 +33,10 @@ const strip = (u) => u.replace(/^https:\/\/web\.archive\.org\/web\/\d+\//, "");
 async function setUrl(entryId, url) {
   const entry = await api(`/entries/${entryId}`);
   const { version, publishedVersion } = entry.sys;
-  // Skip entries with unpublished draft edits, so this URL fix never also
-  // publishes someone's unrelated in-progress changes.
-  if (publishedVersion != null && version > publishedVersion + 1) {
-    console.warn(`skip ${entryId}: has unpublished draft changes`);
+  // Only touch entries that are currently published with no pending draft, so
+  // the URL fix never publishes draft-only or otherwise in-progress content.
+  if (publishedVersion == null || version !== publishedVersion + 1) {
+    console.warn(`skip ${entryId}: not cleanly published`);
     return;
   }
   entry.fields.url = { [L]: url };
