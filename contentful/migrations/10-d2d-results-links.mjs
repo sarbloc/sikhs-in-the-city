@@ -32,20 +32,25 @@ const strip = (u) => u.replace(/^https:\/\/web\.archive\.org\/web\/\d+\//, "");
 
 async function setUrl(entryId, url) {
   const entry = await api(`/entries/${entryId}`);
+  const { version, publishedVersion } = entry.sys;
+  // Skip entries with unpublished draft edits, so this URL fix never also
+  // publishes someone's unrelated in-progress changes.
+  if (publishedVersion != null && version > publishedVersion + 1) {
+    console.warn(`skip ${entryId}: has unpublished draft changes`);
+    return;
+  }
   entry.fields.url = { [L]: url };
   const saved = await api(`/entries/${entryId}`, {
     method: "PUT",
     body: { fields: entry.fields },
-    version: entry.sys.version,
+    version,
   });
   await api(`/entries/${entryId}/published`, { method: "PUT", version: saved.sys.version });
+  console.log(`updated ${entryId} -> ${url}`);
 }
 
 for (const [year, archived] of Object.entries(ARCHIVED)) {
-  const url = strip(archived);
-  const id = `results-year-${SLUG}-${year}`;
-  await setUrl(id, url);
-  console.log(`${year}: ${url}`);
+  await setUrl(`results-year-${SLUG}-${year}`, strip(archived));
 }
 
-console.log(`updated ${Object.keys(ARCHIVED).length} Dawn To Dusk year links.`);
+console.log(`done (${Object.keys(ARCHIVED).length} Dawn To Dusk years).`);
