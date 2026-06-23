@@ -155,7 +155,7 @@ export function Header({ className }: HeaderProps) {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-75 sm:w-100 p-2">
-            <SheetTitle className="text-left">Navigation</SheetTitle>
+            <SheetTitle className="sr-only">Navigation</SheetTitle>
             <SheetDescription className="sr-only">
               Main navigation menu
             </SheetDescription>
