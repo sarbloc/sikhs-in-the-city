@@ -11,13 +11,21 @@ import { getEvents } from "@/lib/contentful/events";
 import { isContentfulConfigured } from "@/lib/contentful/client";
 
 export default async function Home() {
-  // Configured -> fetch live events and let any failure THROW, so ISR keeps
-  // serving the last good homepage rather than caching the built-in defaults
-  // over real data (and a failed prod build leaves the prior deploy live).
-  // Not configured (local dev / preview without env) -> use EventsSection's
-  // defaults so the build and dev server still work. The tagged fetch sets the
-  // route's 1h ISR window; the publish webhook refreshes it on demand.
-  const events = isContentfulConfigured() ? await getEvents() : undefined;
+  // Events come from Contentful; behaviour depends on environment state:
+  //  - Configured: fetch live events and let failures THROW, so ISR keeps
+  //    serving the last good homepage (and a failed prod build leaves the prior
+  //    deploy live) rather than caching the built-in defaults over real data.
+  //  - Unconfigured in production: throw, so a missing/typoed env var fails the
+  //    deploy visibly instead of silently shipping stale default cards.
+  //  - Unconfigured in dev/preview: use EventsSection's defaults so local builds
+  //    and preview deploys without secrets still work.
+  const configured = isContentfulConfigured();
+  if (!configured && process.env.VERCEL_ENV === "production") {
+    throw new Error(
+      "Contentful is not configured in production: set CONTENTFUL_SPACE_ID and CONTENTFUL_DELIVERY_TOKEN"
+    );
+  }
+  const events = configured ? await getEvents() : undefined;
 
   return (
     <div className="flex min-h-screen flex-col">
