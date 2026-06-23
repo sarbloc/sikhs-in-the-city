@@ -12,7 +12,9 @@ export default async function DawnToDuskResultsPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <ExternalResultsView eventId={slug} title={title} yearLinks={yearLinks} />
+        {/* key forces a fresh mount per event, so the year selection never
+            leaks across client-side navigation between results pages. */}
+        <ExternalResultsView key={slug} title={title} yearLinks={yearLinks} />
         <JoinCtaSection />
       </main>
       <Footer />
