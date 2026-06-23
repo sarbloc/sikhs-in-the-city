@@ -33,4 +33,25 @@ describe("ExternalResultsView", () => {
       "https://justiming.co.uk/x?f=d2d13.clax"
     );
   });
+
+  it("falls back to the newest year when reused with a different event's links", async () => {
+    const user = userEvent.setup();
+    const a = [
+      { year: 2025, url: "a25" },
+      { year: 2013, url: "a13" },
+    ];
+    const b = [
+      { year: 2024, url: "b24" },
+      { year: 2022, url: "b22" },
+    ];
+    const { rerender } = render(<ExternalResultsView title="A" yearLinks={a} />);
+    await user.selectOptions(screen.getByRole("combobox"), "2013");
+
+    // Simulate client-side navigation reusing this instance with the other
+    // event's links — the stale 2013 selection must not leak through.
+    rerender(<ExternalResultsView title="B" yearLinks={b} />);
+
+    expect(screen.getByRole("combobox")).toHaveValue("2024");
+    expect(screen.getByRole("link", { name: /View Live Results/ })).toHaveAttribute("href", "b24");
+  });
 });
