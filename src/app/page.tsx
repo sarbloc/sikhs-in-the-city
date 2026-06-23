@@ -7,8 +7,19 @@ import { EventsSection } from "@/components/sections/events-section";
 import { ClubhouseAppealSection } from "@/components/sections/clubhouse-appeal-section";
 import { CourseRecordsSection } from "@/components/sections/course-records-section";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
+import { getEvents, type EventItem } from "@/lib/contentful/events";
 
-export default function Home() {
+export default async function Home() {
+  let events: EventItem[] | undefined;
+  try {
+    events = await getEvents();
+  } catch (err) {
+    // Contentful unreachable/misconfigured: degrade to EventsSection's built-in
+    // defaults rather than failing the whole homepage render.
+    console.error("[home] Failed to load events from Contentful; using defaults", err);
+    events = undefined;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -16,7 +27,7 @@ export default function Home() {
         <HeroSection />
         <OurStorySection />
         <HowToJoinSection />
-        <EventsSection />
+        <EventsSection events={events} />
         <ClubhouseAppealSection />
         <CourseRecordsSection />
         <JoinCtaSection />
