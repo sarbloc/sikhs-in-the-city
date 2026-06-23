@@ -1,5 +1,8 @@
-// Seed one Results Year entry per (event, year), migrating the existing
-// external links to explicit per-year URLs. Idempotent: deterministic ids.
+// Migrate each live resultsEvent into one Results Year entry per (event, year),
+// deriving the explicit URL from that event's current years + urlTemplate. Reads
+// the live entries (the source of truth) rather than a hard-coded snapshot, so
+// it stays correct even if the years/template were edited in Contentful.
+// Idempotent: deterministic ids.
 //
 //   set -a; . ./.env; set +a
 //   node contentful/migrations/08-seed-results-years.mjs
@@ -25,32 +28,27 @@ async function upsertEntry(id, contentType, fields) {
 const entryLink = (eid) => ({ sys: { type: "Link", linkType: "Entry", id: eid } });
 const yy = (year) => String(year).slice(-2);
 
-const EVENTS = [
-  {
-    eventId: "results-dawn-to-dusk",
-    title: "Dawn To Dusk",
-    slug: "dawn-to-dusk",
-    years: [2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013],
-    url: (y) => `https://justiming.co.uk/liveresults/roadrunning/g-live.html?f=d2d${yy(y)}.clax`,
-  },
-  {
-    eventId: "results-summer-samosa",
-    title: "Summer Samosa",
-    slug: "summer-samosa",
-    years: [2025, 2024, 2023, 2022],
-    url: (y) => `https://justiming.co.uk/liveresults/roadrunning/g-live.html?f=SummerSamosa${yy(y)}.clax`,
-  },
-];
+const { items: events } = await api(`/entries?content_type=resultsEvent&limit=1000`);
 
-for (const ev of EVENTS) {
-  for (const year of ev.years) {
-    await upsertEntry(`results-year-${ev.slug}-${year}`, "resultsYear", {
-      title: `${ev.title} ${year}`,
-      event: entryLink(ev.eventId),
+for (const ev of events) {
+  const slug = ev.fields.slug?.[L];
+  const title = ev.fields.title?.[L];
+  const template = ev.fields.urlTemplate?.[L];
+  const years = ev.fields.years?.[L] ?? [];
+  if (!slug || !template) {
+    console.warn(`skip ${ev.sys.id}: missing slug or urlTemplate`);
+    continue;
+  }
+  for (const raw of years) {
+    const year = Number(raw);
+    if (!Number.isFinite(year)) continue;
+    await upsertEntry(`results-year-${slug}-${year}`, "resultsYear", {
+      title: `${title} ${year}`,
+      event: entryLink(ev.sys.id),
       year,
-      url: ev.url(year),
+      url: template.replaceAll("{yy}", yy(year)),
     });
   }
 }
 
-console.log("seed complete.");
+console.log("migration complete.");
