@@ -11,6 +11,16 @@ const TOKEN = process.env.CONTENTFUL_DELIVERY_TOKEN;
 // mechanism (the publish webhook revalidates by tag the moment content changes).
 const DEFAULT_REVALIDATE_SECONDS = 3600;
 
+/**
+ * Whether Contentful credentials are present. Lets callers degrade to static
+ * defaults in unconfigured environments (local dev / preview without env)
+ * rather than failing, while still letting a *configured* fetch throw on a real
+ * outage so ISR keeps serving the last good render.
+ */
+export function isContentfulConfigured(): boolean {
+  return Boolean(SPACE && TOKEN);
+}
+
 export interface ContentfulQueryOptions {
   /** Cache tags for on-publish revalidation via revalidateTag. */
   tags?: string[];
