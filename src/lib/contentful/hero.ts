@@ -53,7 +53,7 @@ function assetUrl(url: string | undefined): string | undefined {
 /** Fetch the homepage hero slides from Contentful, ordered for display. */
 export async function getHeroSlides(): Promise<HeroSlideItem[]> {
   const data = await contentfulQuery<HeroResponse>(HERO_QUERY, { tags: [HERO_TAG] });
-  return data.heroSlideCollection.items.map((item) => ({
+  const slides = data.heroSlideCollection.items.map((item) => ({
     heading: item.heading,
     subheading: item.subheading,
     backgroundImage: assetUrl(item.backgroundImage?.url),
@@ -62,4 +62,12 @@ export async function getHeroSlides(): Promise<HeroSlideItem[]> {
     secondaryCta: item.secondaryCta ?? undefined,
     secondaryHref: item.secondaryHref ?? undefined,
   }));
+  // The homepage hero is always required, so an empty collection is an error
+  // state (unseeded env, or every slide unpublished) — not a valid one. Fail
+  // loudly rather than render an empty hero; ISR keeps serving the last good
+  // homepage and a failed build leaves the prior deploy live.
+  if (slides.length === 0) {
+    throw new Error("Contentful returned no published hero slides");
+  }
+  return slides;
 }
