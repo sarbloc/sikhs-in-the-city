@@ -44,4 +44,13 @@ describe("getResultsEvent", () => {
   it("throws when no event matches the slug", async () => {
     await expect(getResultsEvent("does-not-exist")).rejects.toThrow(/No published resultsEvent/);
   });
+
+  it("throws when the matched event has no valid years", async () => {
+    mockQuery.mockResolvedValue({
+      resultsEventCollection: {
+        items: [{ title: "Empty", slug: "empty", urlTemplate: "x{yy}", years: [] }],
+      },
+    });
+    await expect(getResultsEvent("empty")).rejects.toThrow(/no valid years/);
+  });
 });
