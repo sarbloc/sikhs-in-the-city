@@ -43,6 +43,11 @@ describe("getHeroSlides", () => {
     expect(mockQuery).toHaveBeenCalledWith(expect.any(String), { tags: [HERO_TAG] });
   });
 
+  it("throws when Contentful returns no published hero slides", async () => {
+    mockQuery.mockResolvedValue({ heroSlideCollection: { items: [] } });
+    await expect(getHeroSlides()).rejects.toThrow(/no published hero slides/);
+  });
+
   it("coerces missing optional fields (image / CTAs) to undefined", async () => {
     mockQuery.mockResolvedValue({
       heroSlideCollection: {
