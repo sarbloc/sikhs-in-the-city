@@ -7,25 +7,15 @@ import { EventsSection } from "@/components/sections/events-section";
 import { ClubhouseAppealSection } from "@/components/sections/clubhouse-appeal-section";
 import { CourseRecordsSection } from "@/components/sections/course-records-section";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
-import { getEvents, type EventItem } from "@/lib/contentful/events";
-
-// Keep `/` on ISR even if getEvents() throws before its tagged fetch runs
-// (e.g. Contentful env not yet configured at build time). Without this, a
-// failed build would prerender a plain static page with no revalidation,
-// freezing the homepage on the fallback cards until the next deploy; with it,
-// the route self-heals within the window once Contentful is reachable.
-export const revalidate = 3600;
+import { getEvents } from "@/lib/contentful/events";
 
 export default async function Home() {
-  let events: EventItem[] | undefined;
-  try {
-    events = await getEvents();
-  } catch (err) {
-    // Contentful unreachable/misconfigured: degrade to EventsSection's built-in
-    // defaults rather than failing the whole homepage render.
-    console.error("[home] Failed to load events from Contentful; using defaults", err);
-    events = undefined;
-  }
+  // Let a Contentful failure throw rather than catching it: during ISR
+  // regeneration Next keeps serving the last good homepage, and a failed build
+  // leaves the previous deployment live — both better than caching the
+  // hard-coded defaults over real event data. The tagged fetch sets the route's
+  // 1h revalidate; the publish webhook refreshes it on demand.
+  const events = await getEvents();
 
   return (
     <div className="flex min-h-screen flex-col">
