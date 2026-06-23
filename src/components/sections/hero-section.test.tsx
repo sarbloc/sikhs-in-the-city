@@ -46,6 +46,21 @@ describe("HeroSection", () => {
     );
   });
 
+  it("omits a CTA whose href is missing, so there is no dead link", () => {
+    const slides = [
+      {
+        heading: "T",
+        subheading: "s",
+        primaryCta: "No Link",
+        secondaryCta: "Go",
+        secondaryHref: "/go",
+      },
+    ];
+    render(<HeroSection slides={slides} />);
+    expect(screen.queryByRole("link", { name: "No Link" })).toBeNull();
+    expect(screen.getByRole("link", { name: "Go" })).toHaveAttribute("href", "/go");
+  });
+
   it("renders background image when provided", () => {
     const slides = [
       {

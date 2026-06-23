@@ -106,7 +106,9 @@ export function HeroSection({
               <div
                 className={cn(
                   "relative flex min-h-[80vh] items-center overflow-hidden",
-                  !slide.backgroundImage && "bg-muted"
+                  // Dark fallback so the white heading/copy stay legible when a
+                  // slide has no background image.
+                  !slide.backgroundImage && "bg-neutral-900"
                 )}
               >
                 {/* Background Image */}
@@ -137,23 +139,19 @@ export function HeroSection({
                     {slide.subheading}
                   </p>
                   <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                    {slide.primaryCta && (
+                    {slide.primaryCta && slide.primaryHref && (
                       <Button asChild size="lg" className="min-w-45">
-                        <Link href={slide.primaryHref || "#"}>
-                          {slide.primaryCta}
-                        </Link>
+                        <Link href={slide.primaryHref}>{slide.primaryCta}</Link>
                       </Button>
                     )}
-                    {slide.secondaryCta && (
+                    {slide.secondaryCta && slide.secondaryHref && (
                       <Button
                         asChild
                         variant="outline-light"
                         size="lg"
                         className="min-w-45"
                       >
-                        <Link href={slide.secondaryHref || "#"}>
-                          {slide.secondaryCta}
-                        </Link>
+                        <Link href={slide.secondaryHref}>{slide.secondaryCta}</Link>
                       </Button>
                     )}
                   </div>
