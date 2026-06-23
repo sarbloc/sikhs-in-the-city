@@ -27,11 +27,11 @@ export function EventCard({
   date,
   imagePath,
   imageAlt = "",
-  href = "#",
+  href,
   linkText = "Sign Up Now",
   className,
 }: EventCardProps) {
-  const isExternal = /^https?:\/\//.test(href);
+  const isExternal = href ? /^https?:\/\//.test(href) : false;
   return (
     <div className={cn("relative overflow-hidden rounded-lg", className)}>
       {/* Background image */}
@@ -53,17 +53,19 @@ export function EventCard({
           <p className="mt-3 text-sm leading-relaxed text-white/80">
             {description}
           </p>
-          <CtaLink
-            href={href}
-            variant="inverse"
-            className="mt-3"
-            {...(isExternal && {
-              target: "_blank",
-              rel: "noopener noreferrer",
-            })}
-          >
-            {linkText}
-          </CtaLink>
+          {href && (
+            <CtaLink
+              href={href}
+              variant="inverse"
+              className="mt-3"
+              {...(isExternal && {
+                target: "_blank",
+                rel: "noopener noreferrer",
+              })}
+            >
+              {linkText}
+            </CtaLink>
+          )}
         </div>
       </div>
     </div>
