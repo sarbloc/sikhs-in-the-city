@@ -18,13 +18,17 @@ interface ExternalResultsViewProps {
 export function ExternalResultsView({ title, yearLinks }: ExternalResultsViewProps) {
   const years = yearLinks.map((l) => l.year);
   const [selectedYear, setSelectedYear] = useState<number>(years[0]);
-  const selected = yearLinks.find((l) => l.year === selectedYear) ?? yearLinks[0];
+  // Guard against stale state leaking in if React reuses this instance across
+  // the two external-results routes: fall back to the newest year when the
+  // current selection isn't valid for this event.
+  const activeYear = years.includes(selectedYear) ? selectedYear : years[0];
+  const selected = yearLinks.find((l) => l.year === activeYear) ?? yearLinks[0];
 
   return (
     <EventResultsLayout
       title={title}
       years={years}
-      selectedYear={selectedYear}
+      selectedYear={activeYear}
       onYearChange={setSelectedYear}
     >
       {selected && <ExternalResultsButton href={selected.url} />}
