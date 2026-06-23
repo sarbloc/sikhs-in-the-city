@@ -8,24 +8,14 @@ import { ClubhouseAppealSection } from "@/components/sections/clubhouse-appeal-s
 import { CourseRecordsSection } from "@/components/sections/course-records-section";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { getEvents } from "@/lib/contentful/events";
-import { isContentfulConfigured } from "@/lib/contentful/client";
 
 export default async function Home() {
-  // Events come from Contentful; behaviour depends on environment state:
-  //  - Configured: fetch live events and let failures THROW, so ISR keeps
-  //    serving the last good homepage (and a failed prod build leaves the prior
-  //    deploy live) rather than caching the built-in defaults over real data.
-  //  - Unconfigured in production: throw, so a missing/typoed env var fails the
-  //    deploy visibly instead of silently shipping stale default cards.
-  //  - Unconfigured in dev/preview: use EventsSection's defaults so local builds
-  //    and preview deploys without secrets still work.
-  const configured = isContentfulConfigured();
-  if (!configured && process.env.VERCEL_ENV === "production") {
-    throw new Error(
-      "Contentful is not configured in production: set CONTENTFUL_SPACE_ID and CONTENTFUL_DELIVERY_TOKEN"
-    );
-  }
-  const events = configured ? await getEvents() : undefined;
+  // Contentful is the source of truth for events. Let getEvents() throw on a
+  // missing config or a fetch failure rather than masking it with the built-in
+  // defaults: a failed build leaves the prior deploy live and ISR keeps serving
+  // the last good homepage, so a misconfiguration surfaces loudly instead of
+  // silently shipping stale default cards.
+  const events = await getEvents();
 
   return (
     <div className="flex min-h-screen flex-col">
