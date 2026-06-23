@@ -3,7 +3,13 @@
 //
 // Reads the PUBLISHED resultsEvent entries via the Delivery API (CDA) — not the
 // CMA, which would return unpublished drafts — so the seeded resultsYear data
-// matches what is actually live on the site. Idempotent: deterministic ids.
+// matches what is actually live on the site.
+//
+// One-time forward migration: re-running re-derives and republishes the current
+// years (deterministic ids), but does NOT delete resultsYear entries for years
+// later removed from the source. Acceptable because this script is retired once
+// resultsEvent's urlTemplate/years are dropped (cleanup PR), after which
+// resultsYear is the source of truth and edited directly.
 //
 //   set -a; . ./.env; set +a
 //   node contentful/migrations/08-seed-results-years.mjs
