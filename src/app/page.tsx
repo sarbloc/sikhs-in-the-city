@@ -9,6 +9,13 @@ import { CourseRecordsSection } from "@/components/sections/course-records-secti
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { getEvents, type EventItem } from "@/lib/contentful/events";
 
+// Keep `/` on ISR even if getEvents() throws before its tagged fetch runs
+// (e.g. Contentful env not yet configured at build time). Without this, a
+// failed build would prerender a plain static page with no revalidation,
+// freezing the homepage on the fallback cards until the next deploy; with it,
+// the route self-heals within the window once Contentful is reachable.
+export const revalidate = 3600;
+
 export default async function Home() {
   let events: EventItem[] | undefined;
   try {
