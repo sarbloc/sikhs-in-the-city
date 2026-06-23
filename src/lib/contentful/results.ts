@@ -57,5 +57,10 @@ export async function getResultsEvent(slug: string): Promise<ResultsEvent> {
     .filter((y) => Number.isFinite(y))
     .sort((a, b) => b - a) // newest first
     .map((year) => ({ year, url: buildUrl(item.urlTemplate, year) }));
+  // A results event with no valid years can't render a useful page, so fail
+  // loudly (consistent with the hero) rather than building a broken dropdown.
+  if (yearLinks.length === 0) {
+    throw new Error(`resultsEvent "${slug}" has no valid years`);
+  }
   return { title: item.title, yearLinks };
 }
