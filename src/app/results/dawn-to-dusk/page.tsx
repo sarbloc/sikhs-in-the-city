@@ -5,13 +5,14 @@ import { JoinCtaSection } from "@/components/sections/join-cta-section";
 import { getResultsEvent } from "@/lib/contentful/results";
 
 export default async function DawnToDuskResultsPage() {
-  const { title, yearLinks } = await getResultsEvent("dawn-to-dusk");
+  const slug = "dawn-to-dusk";
+  const { title, yearLinks } = await getResultsEvent(slug);
 
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <ExternalResultsView title={title} yearLinks={yearLinks} />
+        <ExternalResultsView eventId={slug} title={title} yearLinks={yearLinks} />
         <JoinCtaSection />
       </main>
       <Footer />
