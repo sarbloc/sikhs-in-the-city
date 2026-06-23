@@ -6,24 +6,20 @@ import { ExternalResultsButton } from "./external-results-button";
 import type { ResultsYearLink } from "@/lib/contentful/results";
 
 interface ExternalResultsViewProps {
-  /**
-   * Stable event identity (slug). Used to reset the year selection when the
-   * component is reused for a different event during client-side navigation —
-   * keyed on identity, not the year list, so two events that happen to share
-   * the same years still reset.
-   */
-  eventId: string;
   title: string;
   yearLinks: ResultsYearLink[];
 }
 
-export function ExternalResultsView({ eventId, title, yearLinks }: ExternalResultsViewProps) {
+/**
+ * Client view for an external-results event: owns the selected-year state and
+ * renders the year dropdown plus a button linking to that year's external
+ * results. Each results page mounts this with a per-event `key`, so navigating
+ * between results pages remounts it fresh (newest year) rather than leaking the
+ * previous page's selection.
+ */
+export function ExternalResultsView({ title, yearLinks }: ExternalResultsViewProps) {
   const years = yearLinks.map((l) => l.year);
-  const [picked, setPicked] = useState<{ eventId: string; year: number }>({
-    eventId,
-    year: years[0],
-  });
-  const selectedYear = picked.eventId === eventId ? picked.year : years[0];
+  const [selectedYear, setSelectedYear] = useState<number>(years[0]);
   const selected = yearLinks.find((l) => l.year === selectedYear) ?? yearLinks[0];
 
   return (
@@ -31,7 +27,7 @@ export function ExternalResultsView({ eventId, title, yearLinks }: ExternalResul
       title={title}
       years={years}
       selectedYear={selectedYear}
-      onYearChange={(year) => setPicked({ eventId, year })}
+      onYearChange={setSelectedYear}
     >
       {selected && <ExternalResultsButton href={selected.url} />}
     </EventResultsLayout>
