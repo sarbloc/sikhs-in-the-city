@@ -27,7 +27,7 @@ describe("Fauja Singh Birthday Challenge results page", () => {
     expect(screen.getByText("Angela Cowell")).toBeInTheDocument();
   });
 
-  it("shows an empty-state message when a year with no data is selected", async () => {
+  it("renders the selected year's results when switching to 2022", async () => {
     const user = userEvent.setup();
     render(<FaujaSinghResultsPage />);
 
@@ -35,9 +35,7 @@ describe("Fauja Singh Birthday Challenge results page", () => {
     await user.selectOptions(select, "2022");
 
     expect(select).toHaveValue("2022");
-    expect(
-      screen.getByText("Results for 2022 not yet available.")
-    ).toBeInTheDocument();
-    expect(screen.queryByText("Angela Cowell")).not.toBeInTheDocument();
+    expect(screen.getByText("Tanveer Ahmed")).toBeInTheDocument(); // first 2022 finisher
+    expect(screen.queryByText("Angela Cowell")).not.toBeInTheDocument(); // 2025 row gone
   });
 });
