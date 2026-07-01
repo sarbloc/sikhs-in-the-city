@@ -16,6 +16,8 @@ export interface ContentfulQueryOptions {
   tags?: string[];
   /** Override the backstop cache lifetime, in seconds. */
   revalidate?: number;
+  /** GraphQL query variables. */
+  variables?: Record<string, unknown>;
 }
 
 interface GraphQLResponse<T> {
@@ -42,7 +44,7 @@ export async function contentfulQuery<T>(
         "Content-Type": "application/json",
         Authorization: `Bearer ${TOKEN}`,
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query, variables: options.variables }),
       next: {
         revalidate: options.revalidate ?? DEFAULT_REVALIDATE_SECONDS,
         tags: options.tags ?? [],
