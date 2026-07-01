@@ -7,6 +7,7 @@ import { EventsSection } from "@/components/sections/events-section";
 import { ClubhouseAppealSection } from "@/components/sections/clubhouse-appeal-section";
 import { CourseRecordsSection } from "@/components/sections/course-records-section";
 import { JoinCtaSection } from "@/components/sections/join-cta-section";
+import { NewsSection } from "@/components/sections/news-section";
 import { getEvents } from "@/lib/contentful/events";
 import { getHeroSlides } from "@/lib/contentful/hero";
 
@@ -22,6 +23,7 @@ export default async function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection slides={heroSlides} />
+        <NewsSection />
         <OurStorySection />
         <HowToJoinSection />
         <EventsSection events={events} />
