@@ -33,7 +33,7 @@ const options: Options = {
     ),
     [BLOCKS.HR]: () => <hr className="border-border" />,
     [INLINES.HYPERLINK]: (node, children) => {
-      const uri = String((node.data as { uri?: string }).uri ?? "#");
+      const uri = String((node.data as { uri?: string }).uri ?? "");
       const className = "font-medium text-primary underline underline-offset-4";
       if (uri.startsWith("/")) {
         return (
@@ -42,18 +42,24 @@ const options: Options = {
           </Link>
         );
       }
-      // Only open genuine external http(s) links in a new tab — leave mailto:,
-      // tel: and #fragment links to their default behaviour.
-      const external = /^https?:\/\//i.test(uri);
-      return (
-        <a
-          href={uri}
-          className={className}
-          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        >
-          {children}
-        </a>
-      );
+      // Allow-list safe schemes only. mailto:/tel:/#fragment keep default
+      // behaviour; real http(s) links open in a new tab.
+      if (/^(#|mailto:|tel:)/i.test(uri)) {
+        return (
+          <a href={uri} className={className}>
+            {children}
+          </a>
+        );
+      }
+      if (/^https?:\/\//i.test(uri)) {
+        return (
+          <a href={uri} target="_blank" rel="noopener noreferrer" className={className}>
+            {children}
+          </a>
+        );
+      }
+      // Unknown / unsafe scheme (javascript:, data:, ...): render as plain text.
+      return <span>{children}</span>;
     },
   },
 };
