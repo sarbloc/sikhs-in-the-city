@@ -12,6 +12,10 @@ export async function generateStaticParams() {
   return items.map((i) => ({ slug: i.slug }));
 }
 
+// Articles published after a deploy aren't in the prebuilt set — render them
+// on-demand (then cache + revalidate via the news tag) instead of 404ing.
+export const dynamicParams = true;
+
 export default async function NewsArticlePage({
   params,
 }: {
