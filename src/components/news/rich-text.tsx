@@ -35,12 +35,22 @@ const options: Options = {
     [INLINES.HYPERLINK]: (node, children) => {
       const uri = String((node.data as { uri?: string }).uri ?? "#");
       const className = "font-medium text-primary underline underline-offset-4";
-      return uri.startsWith("/") ? (
-        <Link href={uri} className={className}>
-          {children}
-        </Link>
-      ) : (
-        <a href={uri} target="_blank" rel="noopener noreferrer" className={className}>
+      if (uri.startsWith("/")) {
+        return (
+          <Link href={uri} className={className}>
+            {children}
+          </Link>
+        );
+      }
+      // Only open genuine external http(s) links in a new tab — leave mailto:,
+      // tel: and #fragment links to their default behaviour.
+      const external = /^https?:\/\//i.test(uri);
+      return (
+        <a
+          href={uri}
+          className={className}
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >
           {children}
         </a>
       );
