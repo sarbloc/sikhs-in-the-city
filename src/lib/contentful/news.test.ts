@@ -11,6 +11,7 @@ beforeEach(() => {
 
 const list = {
   newsItemCollection: {
+    total: 2,
     items: [
       {
         slug: "a",
@@ -32,7 +33,10 @@ describe("getNewsItems", () => {
       { slug: "a", title: "A", date: "2026-06-01", excerpt: "ex a", thumbnail: "https://x/a.jpg" },
       { slug: "b", title: "B", date: "2026-05-01", excerpt: "ex b", thumbnail: undefined },
     ]);
-    expect(mockQuery).toHaveBeenCalledWith(expect.any(String), { tags: [NEWS_TAG] });
+    expect(mockQuery).toHaveBeenCalledWith(expect.any(String), {
+      tags: [NEWS_TAG],
+      variables: { limit: 100, skip: 0 },
+    });
   });
 
   it("applies the limit", async () => {

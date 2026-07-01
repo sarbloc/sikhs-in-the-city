@@ -30,6 +30,7 @@ function assetUrl(url: string | null | undefined): string | undefined {
 
 interface ListResponse {
   newsItemCollection: {
+    total: number;
     items: Array<{
       slug: string;
       title: string;
@@ -40,12 +41,11 @@ interface ListResponse {
   };
 }
 
-// One query (fetch all, newest first) serves both the homepage (sliced) and the
-// full listing — deduped and cached under the news tag. Bodies are not fetched
-// here (cards don't need them).
+// Bodies are not fetched here (cards don't need them); cached under the news tag.
 const LIST_QUERY = `
-  query NewsList {
-    newsItemCollection(order: [date_DESC]) {
+  query NewsList($limit: Int!, $skip: Int!) {
+    newsItemCollection(order: [date_DESC], limit: $limit, skip: $skip) {
+      total
       items {
         slug
         title
@@ -57,17 +57,35 @@ const LIST_QUERY = `
   }
 `;
 
-/** Published news items, newest first. Pass a limit for the homepage teaser. */
+/**
+ * Published news items, newest first. Pass a limit for the homepage teaser.
+ * Pages through the collection (Contentful caps each request at 100) so the
+ * full archive is returned even past 100 posts.
+ */
 export async function getNewsItems(limit?: number): Promise<NewsListItemData[]> {
-  const data = await contentfulQuery<ListResponse>(LIST_QUERY, { tags: [NEWS_TAG] });
-  const items = data.newsItemCollection.items.map((i) => ({
-    slug: i.slug,
-    title: i.title,
-    date: i.date,
-    excerpt: i.excerpt,
-    thumbnail: assetUrl(i.thumbnail?.url),
-  }));
-  return typeof limit === "number" ? items.slice(0, limit) : items;
+  const PAGE = 100;
+  const all: NewsListItemData[] = [];
+  for (let skip = 0; ; skip += PAGE) {
+    const data = await contentfulQuery<ListResponse>(LIST_QUERY, {
+      tags: [NEWS_TAG],
+      variables: { limit: PAGE, skip },
+    });
+    for (const i of data.newsItemCollection.items) {
+      all.push({
+        slug: i.slug,
+        title: i.title,
+        date: i.date,
+        excerpt: i.excerpt,
+        thumbnail: assetUrl(i.thumbnail?.url),
+      });
+    }
+    const done =
+      data.newsItemCollection.items.length < PAGE ||
+      all.length >= data.newsItemCollection.total ||
+      (typeof limit === "number" && all.length >= limit);
+    if (done) break;
+  }
+  return typeof limit === "number" ? all.slice(0, limit) : all;
 }
 
 interface ArticleResponse {
