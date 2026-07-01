@@ -44,7 +44,7 @@ interface ListResponse {
 // Bodies are not fetched here (cards don't need them); cached under the news tag.
 const LIST_QUERY = `
   query NewsList($limit: Int!, $skip: Int!) {
-    newsItemCollection(order: [date_DESC], limit: $limit, skip: $skip) {
+    newsItemCollection(order: [date_DESC, slug_ASC], limit: $limit, skip: $skip) {
       total
       items {
         slug

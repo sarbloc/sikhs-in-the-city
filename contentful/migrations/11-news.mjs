@@ -37,7 +37,33 @@ const newsItemType = {
       required: true,
       validations: [{ size: { max: 300 } }],
     },
-    { id: "body", name: "Body", type: "RichText", required: true },
+    {
+      id: "body",
+      name: "Body",
+      type: "RichText",
+      required: true,
+      // Constrain to the node set the article renderer supports, so editors
+      // can't insert content (embedded entries/assets, tables) that would render
+      // broken. Extend the renderer first if you widen this.
+      validations: [
+        {
+          enabledMarks: ["bold", "italic", "underline"],
+          message: "Only bold, italic and underline are allowed.",
+        },
+        {
+          enabledNodeTypes: [
+            "heading-2",
+            "heading-3",
+            "ordered-list",
+            "unordered-list",
+            "hr",
+            "blockquote",
+            "hyperlink",
+          ],
+          message: "Allowed: headings, lists, quotes, horizontal rules and links.",
+        },
+      ],
+    },
   ],
 };
 
