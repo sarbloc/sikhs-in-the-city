@@ -14,7 +14,8 @@ export async function NewsSection({ className }: { className?: string }) {
   const latest = await getNewsItems(4);
   if (latest.length === 0) return null;
 
-  const columns = [latest.slice(0, 2), latest.slice(2, 4)];
+  const columns = [latest.slice(0, 2), latest.slice(2, 4)].filter((c) => c.length > 0);
+  const twoCol = columns.length > 1;
 
   return (
     <section className={cn("py-12 md:py-16", className)}>
@@ -32,13 +33,13 @@ export async function NewsSection({ className }: { className?: string }) {
           </Link>
         </div>
 
-        <div className="mt-8 grid border-t md:grid-cols-2 md:divide-x">
+        <div className={cn("mt-8 grid border-t", twoCol && "md:grid-cols-2 md:divide-x")}>
           {columns.map((col, ci) => (
             <div
               key={ci}
               className={cn(
                 "flex flex-col divide-y",
-                ci === 1 ? "max-md:border-t md:pl-10" : "md:pr-10"
+                twoCol && (ci === 1 ? "max-md:border-t md:pl-10" : "md:pr-10")
               )}
             >
               {col.map((item) => (
