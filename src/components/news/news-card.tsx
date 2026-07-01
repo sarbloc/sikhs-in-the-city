@@ -4,10 +4,13 @@ import { cn } from "@/lib/utils";
 import type { NewsListItemData } from "@/lib/contentful/news";
 
 export function formatNewsDate(iso: string): string {
+  // Contentful stores date-only values as UTC midnight; format in UTC so the
+  // calendar date never shifts a day in a non-UTC runtime.
   return new Date(iso).toLocaleDateString("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: "UTC",
   });
 }
 
