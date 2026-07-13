@@ -43,6 +43,11 @@ export function parseCsv(text: string): string[][] {
       field += ch;
     }
   }
+  if (inQuotes) {
+    // EOF inside a quoted field — the file is malformed; surface it so callers
+    // can show an error state instead of silently rendering partial data.
+    throw new Error("Malformed CSV: unterminated quoted field");
+  }
   if (field !== "" || row.length > 0) endRow();
   return rows;
 }

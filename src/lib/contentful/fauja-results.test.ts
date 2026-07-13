@@ -13,9 +13,13 @@ describe("csvToRows", () => {
     expect(rows).toEqual([{ name: "Jane", laps: 21, distance: "42.29", time: "5:12:33" }]);
   });
 
-  it("skips rows without a name or numeric laps", () => {
-    const rows = csvToRows("Name,Laps,Distance,Time\n,21,x,y\nJo,DNS,x,y\nOk,3,d,t");
+  it("skips rows without a name or numeric laps (incl. blank laps)", () => {
+    const rows = csvToRows("Name,Laps,Distance,Time\n,21,x,y\nJo,DNS,x,y\nBlank,,x,y\nOk,3,d,t");
     expect(rows).toEqual([{ name: "Ok", laps: 3, distance: "d", time: "t" }]);
+  });
+
+  it("propagates a malformed-CSV parse error (caught upstream as error:true)", () => {
+    expect(() => csvToRows('Name,Laps,Distance,Time\n"unclosed,3,d,t')).toThrow(/unterminated/);
   });
 
   it("strips a UTF-8 BOM before matching the header (Excel exports)", () => {
