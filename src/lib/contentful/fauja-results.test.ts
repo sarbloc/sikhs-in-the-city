@@ -18,6 +18,11 @@ describe("csvToRows", () => {
     expect(rows).toEqual([{ name: "Ok", laps: 3, distance: "d", time: "t" }]);
   });
 
+  it("strips a UTF-8 BOM before matching the header (Excel exports)", () => {
+    const rows = csvToRows("﻿Name,Laps,Distance,Time\nJo,3,d,t");
+    expect(rows).toEqual([{ name: "Jo", laps: 3, distance: "d", time: "t" }]);
+  });
+
   it("returns null when a required column is missing", () => {
     expect(csvToRows("Name,Laps,Time\nJo,3,t")).toBeNull();
     expect(csvToRows("")).toBeNull();
