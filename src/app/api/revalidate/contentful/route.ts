@@ -14,6 +14,7 @@ import { HERO_TAG } from "@/lib/contentful/hero";
 import { RESULTS_TAG } from "@/lib/contentful/results";
 import { NEWS_TAG } from "@/lib/contentful/news";
 import { COURSE_RECORDS_TAG } from "@/lib/contentful/course-records";
+import { FAUJA_RESULTS_TAG } from "@/lib/contentful/fauja-results";
 
 // Contentful content-type id -> cache tag(s) used by the read layer.
 const CONTENT_TYPE_TAGS: Record<string, string> = {
@@ -24,6 +25,7 @@ const CONTENT_TYPE_TAGS: Record<string, string> = {
   newsItem: NEWS_TAG,
   recordCategory: COURSE_RECORDS_TAG,
   courseRecord: COURSE_RECORDS_TAG,
+  faujaResultsYear: FAUJA_RESULTS_TAG,
 };
 
 const ALL_TAGS = Array.from(new Set(Object.values(CONTENT_TYPE_TAGS)));

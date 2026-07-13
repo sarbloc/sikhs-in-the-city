@@ -87,6 +87,18 @@ describe("POST /api/revalidate/contentful", () => {
     }
   });
 
+  it("revalidates the fauja-results tag for a faujaResultsYear publish", async () => {
+    const res = await POST(
+      webhook({ sys: { contentType: { sys: { id: "faujaResultsYear" } } } }, SECRET)
+    );
+    expect(res.status).toBe(200);
+    await expect(res.json()).resolves.toEqual({
+      revalidated: true,
+      tags: ["fauja-results"],
+    });
+    expect(mockRevalidateTag).toHaveBeenCalledWith("fauja-results", { expire: 0 });
+  });
+
   it("rejects a missing secret with 401 and revalidates nothing", async () => {
     const res = await POST(webhook(eventPayload));
     expect(res.status).toBe(401);
@@ -104,13 +116,14 @@ describe("POST /api/revalidate/contentful", () => {
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({
       revalidated: true,
-      tags: ["events", "hero", "results", "news", "course-records"],
+      tags: ["events", "hero", "results", "news", "course-records", "fauja-results"],
     });
     expect(mockRevalidateTag).toHaveBeenCalledWith("events", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("hero", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("results", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("news", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("course-records", { expire: 0 });
+    expect(mockRevalidateTag).toHaveBeenCalledWith("fauja-results", { expire: 0 });
   });
 
   it("revalidates all known tags when the body is not valid JSON", async () => {
@@ -121,6 +134,7 @@ describe("POST /api/revalidate/contentful", () => {
     expect(mockRevalidateTag).toHaveBeenCalledWith("results", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("news", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("course-records", { expire: 0 });
+    expect(mockRevalidateTag).toHaveBeenCalledWith("fauja-results", { expire: 0 });
   });
 
   it("returns 500 and revalidates nothing when the secret is not configured", async () => {
