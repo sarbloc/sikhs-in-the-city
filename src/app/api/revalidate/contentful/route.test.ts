@@ -74,6 +74,19 @@ describe("POST /api/revalidate/contentful", () => {
     expect(mockRevalidateTag).toHaveBeenCalledWith("news", { expire: 0 });
   });
 
+  it("revalidates the course-records tag for recordCategory and courseRecord publishes", async () => {
+    for (const id of ["recordCategory", "courseRecord"]) {
+      mockRevalidateTag.mockReset();
+      const res = await POST(webhook({ sys: { contentType: { sys: { id } } } }, SECRET));
+      expect(res.status).toBe(200);
+      await expect(res.json()).resolves.toEqual({
+        revalidated: true,
+        tags: ["course-records"],
+      });
+      expect(mockRevalidateTag).toHaveBeenCalledWith("course-records", { expire: 0 });
+    }
+  });
+
   it("rejects a missing secret with 401 and revalidates nothing", async () => {
     const res = await POST(webhook(eventPayload));
     expect(res.status).toBe(401);
@@ -91,12 +104,13 @@ describe("POST /api/revalidate/contentful", () => {
     expect(res.status).toBe(200);
     await expect(res.json()).resolves.toEqual({
       revalidated: true,
-      tags: ["events", "hero", "results", "news"],
+      tags: ["events", "hero", "results", "news", "course-records"],
     });
     expect(mockRevalidateTag).toHaveBeenCalledWith("events", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("hero", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("results", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("news", { expire: 0 });
+    expect(mockRevalidateTag).toHaveBeenCalledWith("course-records", { expire: 0 });
   });
 
   it("revalidates all known tags when the body is not valid JSON", async () => {
@@ -106,6 +120,7 @@ describe("POST /api/revalidate/contentful", () => {
     expect(mockRevalidateTag).toHaveBeenCalledWith("hero", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("results", { expire: 0 });
     expect(mockRevalidateTag).toHaveBeenCalledWith("news", { expire: 0 });
+    expect(mockRevalidateTag).toHaveBeenCalledWith("course-records", { expire: 0 });
   });
 
   it("returns 500 and revalidates nothing when the secret is not configured", async () => {
