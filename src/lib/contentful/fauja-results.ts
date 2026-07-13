@@ -41,7 +41,15 @@ const YEARS_QUERY = `
   }
 `;
 
-const REQUIRED = ["name", "laps", "distance", "time"] as const;
+// Exact header aliases (lowercased). Prefix matching is deliberately avoided:
+// it would bind e.g. "Timestamp" to "time" and silently render wrong columns.
+const HEADER_ALIASES: Record<"name" | "laps" | "distance" | "time", string[]> = {
+  name: ["name"],
+  laps: ["laps"],
+  distance: ["distance", "distance (km)", "distance km", "distance (miles)"],
+  time: ["time", "gun time"], // the charity's old tables used "Gun Time"
+};
+const REQUIRED = Object.keys(HEADER_ALIASES) as Array<keyof typeof HEADER_ALIASES>;
 
 /**
  * Parse CSV text into result rows. Header row maps columns by name
@@ -56,8 +64,7 @@ export function csvToRows(text: string): FaujaResultRow[] | null {
   const header = table[0].map((h) => h.trim().toLowerCase());
   const idx: Record<string, number> = {};
   for (const key of REQUIRED) {
-    // "distance (km)" etc. still match their column.
-    const i = header.findIndex((h) => h === key || h.startsWith(key));
+    const i = header.findIndex((h) => HEADER_ALIASES[key].includes(h));
     if (i === -1) return null;
     idx[key] = i;
   }
