@@ -27,6 +27,10 @@ const faujaResultsYearType = {
       type: "Link",
       linkType: "Asset",
       required: true,
+      // Only text-like assets: blocks attaching an image/PDF by mistake.
+      // ("spreadsheet" included because Excel-exported CSVs often carry a
+      // spreadsheet MIME type rather than text/csv.)
+      validations: [{ linkMimetypeGroup: ["plaintext", "spreadsheet"] }],
     },
   ],
 };
