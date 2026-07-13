@@ -16,7 +16,7 @@ async function loadRows() {
   const src = await readFile(DATA, "utf8");
   const byYear = {};
   let year = null;
-  for (const line of src.split("\n")) {
+  for (const line of src.split(/\r?\n/)) {
     const y = line.match(/^  (\d{4}): \[$/);
     if (y) {
       year = Number(y[1]);
