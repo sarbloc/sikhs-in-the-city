@@ -46,7 +46,7 @@ const RECORDS_QUERY = `
         name
         requirement
         linkedFrom {
-          courseRecordCollection(limit: 20) {
+          courseRecordCollection(limit: 100) {
             items {
               name
               laps
