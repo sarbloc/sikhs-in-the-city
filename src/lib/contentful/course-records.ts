@@ -86,5 +86,11 @@ export async function getCourseRecords(): Promise<CategoryRecord[]> {
   if (categories.length === 0) {
     throw new Error("Contentful returned no published record categories");
   }
+  // Likewise a category with no published holders would render an empty card
+  // and ISR would cache it — fail loud so the last good page keeps serving.
+  const empty = categories.find((c) => c.holders.length === 0);
+  if (empty) {
+    throw new Error(`Record category "${empty.category}" has no published course records`);
+  }
   return categories;
 }
