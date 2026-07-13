@@ -70,4 +70,19 @@ describe("getCourseRecords", () => {
     mockQuery.mockResolvedValue({ recordCategoryCollection: { items: [] } });
     await expect(getCourseRecords()).rejects.toThrow(/no published record categories/);
   });
+
+  it("throws when a category has no published holders", async () => {
+    mockQuery.mockResolvedValue({
+      recordCategoryCollection: {
+        items: [
+          {
+            name: "Ultra",
+            requirement: "r",
+            linkedFrom: { courseRecordCollection: { items: [] } },
+          },
+        ],
+      },
+    });
+    await expect(getCourseRecords()).rejects.toThrow(/"Ultra" has no published course records/);
+  });
 });
