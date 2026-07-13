@@ -13,6 +13,13 @@ describe("csvToRows", () => {
     expect(rows).toEqual([{ name: "Jane", laps: 21, distance: "42.29", time: "5:12:33" }]);
   });
 
+  it("accepts the 'Gun Time' alias and does NOT bind 'Timestamp' to time", () => {
+    const ok = csvToRows("Name,Laps,Distance,Gun Time\nJo,3,d,1:00:00");
+    expect(ok?.[0].time).toBe("1:00:00");
+    // Timestamp must not satisfy the time column (no prefix matching).
+    expect(csvToRows("Timestamp,Name,Laps,Distance\nx,Jo,3,d")).toBeNull();
+  });
+
   it("skips rows without a name or numeric laps (incl. blank laps)", () => {
     const rows = csvToRows("Name,Laps,Distance,Time\n,21,x,y\nJo,DNS,x,y\nBlank,,x,y\nOk,3,d,t");
     expect(rows).toEqual([{ name: "Ok", laps: 3, distance: "d", time: "t" }]);
