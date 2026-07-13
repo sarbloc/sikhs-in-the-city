@@ -64,8 +64,11 @@ export function csvToRows(text: string): FaujaResultRow[] | null {
   const rows: FaujaResultRow[] = [];
   for (const raw of table.slice(1)) {
     const name = raw[idx.name]?.trim();
-    const laps = Number(raw[idx.laps]?.trim());
-    if (!name || !Number.isFinite(laps)) continue;
+    const lapsRaw = raw[idx.laps]?.trim();
+    const laps = Number(lapsRaw);
+    // lapsRaw must be non-empty: Number("") is 0, which would turn DNS/blank
+    // rows into phantom 0-lap finishers.
+    if (!name || !lapsRaw || !Number.isFinite(laps)) continue;
     rows.push({
       name,
       laps,

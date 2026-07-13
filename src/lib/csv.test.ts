@@ -28,6 +28,10 @@ describe("parseCsv", () => {
     ]);
   });
 
+  it("throws on an unterminated quoted field", () => {
+    expect(() => parseCsv('"unclosed,3')).toThrow(/unterminated/);
+  });
+
   it("returns [] for empty input", () => {
     expect(parseCsv("")).toEqual([]);
     expect(parseCsv("\r\n")).toEqual([]);
