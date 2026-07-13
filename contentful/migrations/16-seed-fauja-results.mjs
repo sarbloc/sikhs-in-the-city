@@ -64,16 +64,27 @@ async function upsertCsvAsset(id, title, csvText) {
       },
     },
   };
+  // On re-runs the asset already has a URL from the previous upload; wait for
+  // the URL to CHANGE (each processed upload gets a new hashed URL), not merely
+  // exist, so we never publish a stale file.
+  let prevUrl;
+  try {
+    prevUrl = (await api(`/assets/${id}`))?.fields?.file?.[L]?.url;
+  } catch {
+    prevUrl = undefined; // new asset
+  }
   const version = await getVersion(`/assets/${id}`);
   const asset = await api(`/assets/${id}`, { method: "PUT", body, version });
   await api(`/assets/${id}/files/${L}/process`, { method: "PUT", version: asset.sys.version });
   let processed;
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 30; i++) {
     await sleep(1000);
     processed = await api(`/assets/${id}`);
-    if (processed?.fields?.file?.[L]?.url) break;
+    const url = processed?.fields?.file?.[L]?.url;
+    if (url && url !== prevUrl) break;
   }
-  if (!processed?.fields?.file?.[L]?.url) throw new Error(`asset ${id} did not process`);
+  const finalUrl = processed?.fields?.file?.[L]?.url;
+  if (!finalUrl || finalUrl === prevUrl) throw new Error(`asset ${id} did not finish processing`);
   await api(`/assets/${id}/published`, { method: "PUT", version: processed.sys.version });
 }
 
