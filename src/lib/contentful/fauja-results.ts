@@ -97,6 +97,13 @@ export async function getFaujaResults(): Promise<FaujaYearResults[]> {
     tags: [FAUJA_RESULTS_TAG],
   });
 
+  // No published years at all -> the page has no dropdown to render; that's an
+  // unseeded/broken state, so fail loud (consistent with the other results
+  // pages). Per-year CSV problems stay editor-friendly (error flags) below.
+  if (data.faujaResultsYearCollection.items.length === 0) {
+    throw new Error("Contentful returned no published Fauja results years");
+  }
+
   return Promise.all(
     data.faujaResultsYearCollection.items.map(async ({ year, csvFile }) => {
       if (!csvFile?.url) return { year, rows: [], error: true };

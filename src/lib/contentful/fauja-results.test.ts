@@ -87,6 +87,11 @@ describe("getFaujaResults", () => {
     });
   });
 
+  it("throws when Contentful returns no published years at all", async () => {
+    mockQuery.mockResolvedValue({ faujaResultsYearCollection: { items: [] } });
+    await expect(getFaujaResults()).rejects.toThrow(/no published Fauja results years/);
+  });
+
   it("flags a failed CSV fetch as an error without throwing", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 404, text: async () => "" });
