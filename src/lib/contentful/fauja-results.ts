@@ -49,7 +49,9 @@ const REQUIRED = ["name", "laps", "distance", "time"] as const;
  * Rows missing a name or a numeric laps value are skipped.
  */
 export function csvToRows(text: string): FaujaResultRow[] | null {
-  const table = parseCsv(text);
+  // Excel-exported UTF-8 CSVs are commonly BOM-prefixed; strip it so the
+  // first header cell still matches.
+  const table = parseCsv(text.replace(/^﻿/, ""));
   if (table.length < 1) return null;
   const header = table[0].map((h) => h.trim().toLowerCase());
   const idx: Record<string, number> = {};
