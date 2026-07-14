@@ -150,8 +150,12 @@ export function Header({ className }: HeaderProps) {
         {/* Mobile Menu */}
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild className="md:hidden">
-            <Button variant="ghost" size="icon" aria-label="Open menu">
-              <Menu className="h-6 w-6" />
+            <Button variant="ghost" aria-label="Open menu" className="gap-2 px-2">
+              <span className="text-sm font-semibold uppercase tracking-wide">
+                Menu
+              </span>
+              {/* size-* class opts out of the Button's default size-4 svg rule */}
+              <Menu className="size-7" strokeWidth={2.5} />
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-75 sm:w-100 p-2">
