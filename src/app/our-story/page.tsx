@@ -272,42 +272,12 @@ function GetInTouchSection() {
   );
 }
 
-/** Trustee data — eight current trustees in alphabetical order. */
+/** Trustee data — President only. */
 const trustees: { name: string; role?: string; photo: string }[] = [
-  {
-    name: "Ghanaya Singh Talewar",
-    role: "Secretary",
-    photo: "/images/trustees/ghanaya-singh-talewar.png",
-  },
   {
     name: "Harmander Singh",
     role: "President",
     photo: "/images/trustees/harmander-singh.png",
-  },
-  {
-    name: "Misbah Choudhury",
-    photo: "/images/trustees/misbah-choudhury.jpg",
-  },
-  {
-    name: "Nadhira Uddin",
-    photo: "/images/trustees/nadhira-uddin.jpg",
-  },
-  {
-    name: "Rajinder Shinhmar",
-    photo: "/images/trustees/rajinder-shinhmar.png",
-  },
-  {
-    name: "Sandy Jobanputra",
-    role: "Treasurer",
-    photo: "/images/trustees/sandy-jobanputra.png",
-  },
-  {
-    name: "Surinder Kaur Atwal",
-    photo: "/images/trustees/surinder-kaur-atwal.png",
-  },
-  {
-    name: "Vanessa Brewster",
-    photo: "/images/trustees/vanessa-brewster.png",
   },
 ];
 
