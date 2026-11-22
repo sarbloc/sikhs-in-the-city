@@ -281,20 +281,15 @@ const trustees: { name: string; role?: string; photo: string }[] = [
   },
 ];
 
-/** Section 7 — Our Trustees heading and 3×3 grid of TrusteeCards. */
+/** Section 7 — Our President heading with a single centred TrusteeCard. */
 function TrusteesSection() {
   return (
     <section className="bg-background px-4 py-16 md:py-20">
       <div className="container mx-auto">
-        <div className="flex flex-col items-center gap-3 text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
-            Our Trustees
-          </h2>
-          <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            The current Trustees of the Club in alphabetical order are:
-          </p>
-        </div>
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 md:mt-12 md:grid-cols-3 md:gap-x-8">
+        <h2 className="text-center text-4xl font-bold tracking-tight text-foreground md:text-5xl">
+          Our President
+        </h2>
+        <div className="mx-auto mt-10 w-full max-w-sm md:mt-12">
           {trustees.map((trustee) => (
             <TrusteeCard
               key={trustee.name}

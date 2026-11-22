@@ -31,7 +31,7 @@ describe("OurStoryPage", () => {
         "The Founders",
         "Dedication",
         "Get In Touch",
-        "Our Trustees",
+        "Our President",
       ])
     );
   });
@@ -73,7 +73,7 @@ describe("OurStoryPage", () => {
     render(<OurStoryPage />);
     const trusteesHeading = screen.getByRole("heading", {
       level: 2,
-      name: /our trustees/i,
+      name: /our president/i,
     });
     const trusteesSection = trusteesHeading.closest("section");
     expect(trusteesSection).not.toBeNull();
