@@ -69,7 +69,7 @@ describe("OurStoryPage", () => {
     expect(contactLink).toHaveAttribute("href", "/contact");
   });
 
-  it("renders the eight current trustee cards alphabetically", () => {
+  it("renders only the President trustee card", () => {
     render(<OurStoryPage />);
     const trusteesHeading = screen.getByRole("heading", {
       level: 2,
@@ -80,7 +80,10 @@ describe("OurStoryPage", () => {
     const articles = within(trusteesSection as HTMLElement).getAllByRole(
       "article"
     );
-    expect(articles).toHaveLength(8);
+    expect(articles).toHaveLength(1);
+    expect(
+      within(trusteesSection as HTMLElement).getByText("Harmander Singh")
+    ).toBeInTheDocument();
     expect(
       within(trusteesSection as HTMLElement).queryByText(/contact us to apply/i)
     ).not.toBeInTheDocument();
